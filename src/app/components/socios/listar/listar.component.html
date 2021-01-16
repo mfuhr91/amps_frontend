@@ -1,0 +1,47 @@
+
+<div class="container-fluid">
+
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col">
+                    <h3 class="my-2">Socios</h3>
+                </div>
+                <div class="col">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-1" [routerLink]="['crear']">Nuevo</button>
+                </div>
+            </div>
+    
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-striped table-bordered table-sm text-center">
+                <thead class="table-dark ">
+                    <tr>
+                        <th>ID</th>
+                        <th>documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>correo</th>
+                        <th>opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let socio of socios" class="align-middle">
+                        <th>{{ socio.id }}</th>
+                        <td>{{ socio.numDoc }}</td>
+                        <td>{{ socio.nombre }}</td>
+                        <td>{{ socio.apellido }}</td>
+                        <td>{{ socio.correo }}</td>
+                        <td>
+                            <button class="btn btn-outline-warning" [routerLink]="['editar/' + socio.id]">Editar</button>
+                            <button class="btn btn-outline-danger mx-2" [routerLink]="['borrar/' + socio.id]">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        
+    </div>
+</div>
