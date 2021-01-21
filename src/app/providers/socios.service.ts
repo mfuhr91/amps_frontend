@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { Socio } from '../interfaces/socio.interface';
+import { Socio } from '../interfaces/socios/socio.interface';
 import { Observable } from 'rxjs';
 import { WebcamImage } from 'ngx-webcam';
 import { map, tap } from 'rxjs/operators';
-import { TipoDocumento } from '../interfaces/tipo-documento.interface';
-import { EstadoCivil } from '../interfaces/estado-civil.interface';
-import { Categoria } from '../interfaces/categoria.interface';
+import { TipoDocumento } from '../interfaces/socios/tipo-documento.interface';
+import { EstadoCivil } from '../interfaces/socios/estado-civil.interface';
+import { Tipo } from '../interfaces/socios/tipo.interface';
+import { environment } from "../../environments/environment";
 
 
 @Injectable({
@@ -15,15 +16,7 @@ import { Categoria } from '../interfaces/categoria.interface';
 })
 export class SociosService {
 
-  socio!: Socio;
-
-  formData: FormData = new FormData();
-
-  foto!: WebcamImage;
-
-  socios: Socio[] = [];
-
-  private url = 'http://localhost:8080/socios';
+  private url = `${environment.url}/socios`;
 
   constructor( private http: HttpClient ) { }
 
@@ -39,10 +32,13 @@ export class SociosService {
   }
 
   crearSocio( socio: Socio ) {
-    return this.http.post<Socio[]>(`${this.url}/crear`, socio);
+    return this.http.post<Socio>(`${this.url}/crear`, socio);
   }
   editarSocio( socio: Socio ) {
-    return this.http.put<Socio[]>(`${this.url}/editar`, socio);
+    return this.http.put<Socio>(`${this.url}/editar`, socio);
+  }
+  eliminarSocio( id: number){
+    return this.http.delete(`${this.url}/eliminar/${id}`);
   }
 
   getTiposDocumentos(){
@@ -51,23 +47,9 @@ export class SociosService {
   getEstadosCiviles(){
     return this.http.get<EstadoCivil[]>(`${this.url}/estados_civiles`);
   }
-  getCategorias(){
-    return this.http.get<Categoria[]>(`${this.url}/categorias`);
+
+  getTipos(): Observable<Tipo[]>{
+    return this.http.get<Tipo[]>(`${this.url}/tipos`);
   }
-
-
-  subirImagen( img: File){
-    
-      this.formData.append('foto', img)
-      
-      return this.http.post(`${this.url}/subir_foto`, this.formData); 
-
-  }
-
-  getFoto() {
-    return this.foto;
-  }
-
-
   
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Socio } from 'src/app/interfaces/socio.interface';
+import { Socio } from 'src/app/interfaces/socios/socio.interface';
 import { SociosService } from 'src/app/providers/socios.service';
 
 @Component({

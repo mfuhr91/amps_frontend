@@ -1,0 +1,58 @@
+
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col">
+                    <h3 class="my-2">Socios</h3>
+                </div>
+                <div class="col">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-1" [routerLink]="['crear']">Nuevo</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card-body">
+            
+            <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+            <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                <thead class="table-dark thead">
+                    <tr>
+                        <th>DOCUMENTO</th>
+                        <th>SOCIO</th>
+                        <th>CORREO</th>
+                        <th>LEGAJO</th>
+                        <th>DIRECCION</th>
+                        <th>TELEFONO</th>
+                        <th>OPCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <!-- <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div> -->
+                    
+
+
+                        <tr *cdkVirtualFor="let socio of socios" class="align-middle animate__animated animate__fadeIn">
+
+                            <th class="py-0">{{ socio.numDoc }}</th>
+                            <td class="py-0">{{ socio.apellido }}, {{ socio.nombre }}</td>
+                            <td class="py-0">{{ socio.correo }}</td>
+                            <td class="py-0">{{ socio.legajo }}</td>
+                            <td class="py-0">{{ socio.direccion }}</td>
+                            <td class="py-0">{{ socio.telefono }}</td>
+                            
+                            <td class="py-1">
+                                <button class="btn btn-outline-warning" [routerLink]="['editar/' + socio.id]"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" (click)="borrarSocio(socio)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+
+
+        </div>
+        
+    </div>
+</div>

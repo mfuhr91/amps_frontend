@@ -2,13 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Rol } from '../interfaces/rol.interface';
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
 
-  private url = 'http://localhost:8080/usuarios';
+  private url = `${environment.url}/usuarios`;
+
+  
 
   constructor( private http: HttpClient ) { }
 

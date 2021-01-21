@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ComerciosComponent } from './components/comercios/comercios.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { ConveniosComponent } from './components/convenios/convenios.component';
+import { FormConveniosComponent } from './components/convenios/form-convenios/form-convenios.component';
+import { ListarConveniosComponent } from './components/convenios/listar-convenios/listar-convenios.component';
+import { DescuentosComponent } from './components/descuentos/descuentos.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { FormComponent } from './components/socios/form/form.component';
-import { ListarComponent } from './components/socios/listar/listar.component';
+import { FormSociosComponent } from './components/socios/form-socios/form-socios.component';
+import { ListarSociosComponent } from './components/socios/listar-socios/listar-socios.component';
 import { SociosComponent } from './components/socios/socios.component';
 
 const routes: Routes = [
-  {
-    path: 'crear', 
-    component: FormComponent,
-  },
   {
     path: 'inicio', 
     component: InicioComponent
@@ -20,24 +20,44 @@ const routes: Routes = [
     component: SociosComponent,
     children: [
       {
-        path: '', component: ListarComponent
+        path: '', component: ListarSociosComponent
       },
       {
         path: 'crear', 
-        component: FormComponent,
+        component: FormSociosComponent,
       },
       {
         path: 'editar/:id', 
-        component: FormComponent,
+        component: FormSociosComponent,
       },
     ]
   },
   
   {
-    path: 'comercios', component: ComerciosComponent
+    path: 'convenios', 
+    component: ConveniosComponent,
+    children: [
+      {
+        path: '', component: ListarConveniosComponent
+      },
+      {
+        path: 'crear', 
+        component: FormConveniosComponent,
+      },
+      {
+        path: 'editar/:id', 
+        component: FormConveniosComponent,
+      },
+    ]
   },
   {
-    path: '**', pathMatch: 'full', redirectTo: 'crear'
+    path: 'categorias', component: CategoriasComponent
+  },
+  {
+    path: 'descuentos', component: DescuentosComponent
+  },
+  {
+    path: '**', pathMatch: 'full', redirectTo: 'inicio'
   },
 ];
 

@@ -13,6 +13,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     ComponentsModule,
     HttpClientModule,
+    
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
