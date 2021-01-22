@@ -19,15 +19,19 @@ export class ListarSociosComponent implements OnInit {
   ngOnInit(): void {
     
   
-   
+    this.getSocios();
 
-    this.sociosService.getSocios().subscribe( res => {this.socios = res; console.log(res);
-    });
+    
           
 
   }
 
-  borrarSocio(socio: Socio){
+  getSocios(){
+    this.sociosService.getSocios().subscribe( res => {this.socios = res; console.log(res);
+    });
+  }
+
+  borrarSocio(socio: Socio, idx: number){
     console.log(socio.id);
     
     Swal.fire({
@@ -37,26 +41,29 @@ export class ListarSociosComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Eliminar',
       buttonsStyling: false,
+      focusCancel: true,
+      reverseButtons: true,
       customClass: {
-        confirmButton: 'btn btn-outline-primary me-1',
-        cancelButton: 'btn btn-outline-danger ms-1',
+        cancelButton: 'btn btn-outline-danger me-1',
+        confirmButton: 'btn btn-outline-primary ms-1',
       },
     }).then((result) => {
-      this.sociosService.eliminarSocio(socio.id).subscribe( res => {
+      
+      if (result.isConfirmed) {
+        this.sociosService.eliminarSocio(socio.id).subscribe( res => {
         
-        console.log(res)
-        if (result.isConfirmed) {
           Swal.fire({
             title: `El socio ${socio.apellido}, ${socio.nombre} se ha eliminado!`,
+            icon: 'success',
             confirmButtonText: 'OK',
             buttonsStyling: false,
             customClass: {
               confirmButton: 'btn btn-outline-primary me-1',
             }
           })
-        }
-      
-      });
+          this.getSocios();
+        });
+      }
     })
   }
 }

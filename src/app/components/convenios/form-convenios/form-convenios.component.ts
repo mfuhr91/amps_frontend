@@ -1,6 +1,6 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Categoria } from 'src/app/interfaces/convenios/categoria.interface';
 import { Convenio } from 'src/app/interfaces/convenios/convenio.interface';
@@ -12,6 +12,7 @@ import { ConveniosService } from 'src/app/providers/convenios.service';
 import { FotosService } from 'src/app/providers/fotos.service';
 import { LocalidadesService } from 'src/app/providers/localidades.service';
 import { UsuariosService } from 'src/app/providers/usuarios.service';
+import { ValidadoresService } from 'src/app/providers/validadores.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,6 +21,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-convenios.component.scss']
 })
 export class FormConveniosComponent implements OnInit, OnDestroy {
+
+  contrasena: string = '';
   
   subiendo: boolean = false;
 
@@ -53,21 +56,22 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
                 private categoriasService: CategoriasService,
                 private usuariosService: UsuariosService,
                 private fotosService: FotosService,
-                private localidadesService: LocalidadesService ) {
+                private localidadesService: LocalidadesService,
+                private validadoresService: ValidadoresService ) {
     
    }
 
   ngOnDestroy(): void {
-    if(!this.guardado ) {
-      this.borrarImagen(this.foto.publicId);
-    }    
+    if(!this.guardado) {
+      this.borrarImagen(this.foto);
+    }   
   }
 
   @HostListener('window:beforeunload')
   onReload() { //windows:beforeunload => antes de recargar
 
     if(!this.guardado) {
-      this.borrarImagen(this.foto.publicId);
+      this.borrarImagen(this.foto);
     }
   }
 
@@ -123,7 +127,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
         /* this.socio.extranjero = res.extranjero; */
         
         if(this.convenio.foto.id != 0) {
-          this.foto = this.convenio.foto;
+          this.foto = this.fotoAnterior = this.convenio.foto;
         }
         
         this.form.setValue(this.convenio);
@@ -190,9 +194,11 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
   subirImagen(file: File){
     this.subiendo = true;
-    this.fotoAnterior = this.convenio.foto;
+   
 
-    console.log(this.fotoAnterior);
+    if(!this.guardado){
+      this.borrarImagen(this.foto);
+    }
     
     const tipo = 'comercio';
 
@@ -206,19 +212,25 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
       this.subiendo = false;
       
-      
-      
     });
   }
 
-  borrarImagen(publicId: string) {
+  borrarImagen(img: Foto) {
     if(this.foto){
-      this.fotosService.borrarImagen(this.foto.publicId).subscribe();
+      this.fotosService.borrarImagen(img.publicId).subscribe();
     }
   }
 
-  crearUsuario(correo: string) {
+  crearUsuarioPass(comercio: string, contacto: string, telefono: string, correo: string) {
     this.form.controls['usuario'].patchValue({ nombreUsuario: correo });
+
+    if(comercio != '' && contacto != '' && telefono != ''){
+    
+      
+      this.contrasena = comercio.charAt(0).toLowerCase().concat(contacto.charAt(0).toLowerCase()).concat(telefono);
+
+      this.form.controls['usuario'].patchValue({contraseña: this.contrasena});
+    }
   }
 
   asignarFechaAltaUsuario(fecha: string) {
@@ -228,18 +240,57 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     this.form.controls['usuario'].patchValue({ fechaBaja: fecha });
   }
 
+
+
+  // VALIDACIONES
+
+  get cuitNoValido() {
+    return this.form.get('cuit')?.invalid && this.form.get('cuit')?.touched;
+
+  }
+  get nombreNoValido() {
+    return this.form.get('nombre')?.invalid && this.form.get('nombre')?.touched;
+
+  }
+  get correoNoValido() { 
+    return this.form.get('correo')?.invalid && this.form.get('correo')?.touched;
+
+  }
+  get telefonoNoValido() {
+    return this.form.get('telefono')?.invalid && this.form.get('telefono')?.touched;
+
+  }
+  get direccionNoValido() {
+    return this.form.get('direccion')?.invalid && this.form.get('direccion')?.touched;
+
+  }
+  get localidadNoValido() {
+    return this.form.get('localidad.id')?.invalid && this.form.get('localidad.id')?.touched && this.form.get('localidad.id')?.errors?.distintoCero;
+  }
+  get categoriaNoValido() {
+    return this.form.get('categoria.id')?.invalid && this.form.get('categoria.id')?.touched && this.form.get('categoria.id')?.errors?.distintoCero;
+  }
+  get fechaAltaNoValido() {
+    return this.form.get('fechaAlta')?.invalid && this.form.get('fechaAlta')?.touched;
+
+  }
+  get contactoNoValido() {
+    return this.form.get('contacto')?.invalid && this.form.get('contacto')?.touched;
+
+  }
+
   crearForm() {
     this.form = this.fb.group({
       id: [''],
-      nombre: [''],
-      correo: [''],
-      fechaAlta: [this.today],
+      nombre: ['', [Validators.required]],
+      correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')],],
+      fechaAlta: [this.today , [Validators.required]],
       fechaBaja: [''],
-      direccion: [''],
+      direccion: ['', [Validators.required]],
       baja: ['false'],
-      telefono: [''],
-      cuit: [''],
-      contacto: [''],
+      telefono: ['', [Validators.required]],
+      cuit: ['', [Validators.required]],
+      contacto: ['', [Validators.required]],
       usuario: this.fb.group({
         id: [],
         nombreUsuario: [''],
@@ -257,12 +308,12 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
         url: [''],
       }),
       localidad: this.fb.group({
-        id: [0],
+        id: [0, this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
         cp: [],
       }),
       categoria: this.fb.group({
-        id: [0],
+        id: [0, this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
       }),
       
@@ -270,19 +321,37 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-    console.log(this.form.value);
-    /* if(this.fotoAnterior.publicId != ''){
-      this.borrarImagen(this.fotoAnterior.publicId);
-    } */
-    this.guardado = true;
 
+    console.log(this.form.value);
+    
     if (this.editar) {
       this.conveniosService.editarConvenio(this.form.value).subscribe();
     } else {
       this.conveniosService.crearConvenio(this.form.value).subscribe();
     }
+    
+    this.guardando = true;
+    
+    if(this.foto && this.fotoAnterior && this.foto.publicId != this.fotoAnterior.publicId ){
+      this.borrarImagen(this.fotoAnterior);
 
-    /* this.location.back(); */
+      this.fotoAnterior = this.foto;
+    }
+    
+    this.guardado = true;
+
+
+    Swal.fire({
+      title: `Comercio ${this.form.controls['comercio'].value} guardado con éxito!`,
+      icon: 'success',
+      confirmButtonText: 'OK',
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'btn btn-outline-primary',
+      },
+    })
+
+    this.location.back();
   }
 
   volver() {

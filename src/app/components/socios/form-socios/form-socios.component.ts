@@ -27,6 +27,7 @@ import { Foto } from 'src/app/interfaces/foto.interface';
 import { first, throwIfEmpty } from 'rxjs/operators';
 import { FotosService } from 'src/app/providers/fotos.service';
 import { VariablesService } from 'src/app/providers/variables.service';
+import { ValidadoresService } from 'src/app/providers/validadores.service';
 
 
 @Component({
@@ -35,6 +36,8 @@ import { VariablesService } from 'src/app/providers/variables.service';
   styleUrls: ['./form-socios.component.scss'],
 })
 export class FormSociosComponent implements OnInit, OnDestroy {
+
+  contrasena: string = '';
 
   socio!: Socio;
 
@@ -45,7 +48,10 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   rol!: Rol;
 
   subiendo: boolean = false;
+
   guardado: boolean = true;
+
+  guardando: boolean = false;
 
   tiposDocumentos: TipoDocumento[] = [];
   tipos: Tipo[] = [];
@@ -60,9 +66,8 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   activarCamara: boolean = false;
   
   foto!: Foto;
-  
-  /*  webcamImage!: WebcamImage; */
-  /* imagen!: WebcamImage; */
+
+  fotoAnterior!: Foto; 
 
   form!: FormGroup;
 
@@ -75,13 +80,14 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     private usuariosService: UsuariosService,
     private variablesService: VariablesService,
     private fotosService: FotosService,
+    private validadoresService: ValidadoresService,
     ) {
       this.crearForm();
     }
 
   ngOnDestroy(): void {
     if(!this.guardado) {
-      this.borrarImagen();
+      this.borrarImagen(this.foto);
     }    
   }
 
@@ -89,14 +95,15 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   onReload() { //windows:beforeunload => antes de recargar
 
     if(!this.guardado) {
-      this.borrarImagen();
+      this.borrarImagen(this.foto);
     }
   }
     
     
   ngOnInit(): void {
 
-  
+    this.form.controls['usuario'].patchValue({ fechaAlta: this.today });
+
     this.sociosService.getTiposDocumentos().subscribe((res) => {
       this.tiposDocumentos = res;
       this.tiposDocumentos.unshift({
@@ -109,7 +116,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       this.form.controls['cuotaSocial'].patchValue({id: res.id, valor: res.valor});
     });
     
-    this.usuariosService.getRol(2).subscribe(res => this.rol = res);
+    this.usuariosService.getRol(3).subscribe(res => this.rol = res);
     
     this.localidadesService.getLocalidades().subscribe((res) => {
       this.localidades = res;
@@ -125,7 +132,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       
       this.tipos.unshift({
         id: 0,
-        nombre: 'Seleccione el tipo',
+        nombre: 'Seleccione la clase',
       });
     });
     this.sociosService.getEstadosCiviles().subscribe((res) => {
@@ -165,7 +172,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         /* this.socio.extranjero = res.extranjero; */
         
         if(this.socio.foto.id != 0) {
-          this.foto = this.socio.foto;
+          this.foto = this.fotoAnterior = this.socio.foto;
         }
         
         this.form.setValue(this.socio);
@@ -213,8 +220,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     this.activarCamara = false;
   }
   handleImage(webcamImage: WebcamImage): void {
-    
-    /* this.webcamImage = webcamImage; */
     
     let file = this.webcamImageToFile(
       webcamImage.imageAsDataUrl,
@@ -282,9 +287,10 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
     const tipo = "socio";
     
-
-    this.borrarImagen();
-
+    if(!this.guardado){
+      this.borrarImagen(this.foto);
+    }
+  
     this.fotosService.subirImagen(file, tipo).subscribe((res: any) => {
       console.log(res);
       
@@ -297,15 +303,24 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     });
   }
 
-  borrarImagen() {
+  borrarImagen(img: Foto) {
     if(this.foto){
-      this.fotosService.borrarImagen(this.foto.publicId).subscribe();
+      this.fotosService.borrarImagen(img.publicId).subscribe();
     }
   }
 
-  crearUsuario(correo: string) {
+  crearUsuarioPass(nombre: string, apellido: string, documento: string, correo: string) {
     this.form.controls['usuario'].patchValue({ nombreUsuario: correo });
+    if(nombre != '' && apellido != '' && documento != ''){
+    
+      
+      this.contrasena = nombre.charAt(0).toLowerCase().concat(apellido.charAt(0).toLowerCase()).concat(documento);
+
+      this.form.controls['usuario'].patchValue({contraseña: this.contrasena});
+    }
   }
+
+  
 
   asignarFechaAltaUsuario(fecha: string) {
     this.form.controls['usuario'].patchValue({ fechaAlta: fecha });
@@ -315,44 +330,129 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-    console.log(this.form.value);
 
     
+
+    console.log(this.form.value);
+
+    if( this.form.invalid ) {
+
+      return Object.values( this.form.controls ).forEach( control => {
+        
+        if( control instanceof FormGroup ) {
+          Object.values( control.controls ).forEach( control => control.markAllAsTouched);
+        }
+        control.markAllAsTouched();
+        console.log( this.form );
+        
+      });
+      
+    }
+    
+    this.guardando = true;
 
     if (this.editar) {
       this.sociosService.editarSocio(this.form.value).subscribe();
     } else {
       this.sociosService.crearSocio(this.form.value).subscribe();
     }
+    if(this.foto && this.fotoAnterior && this.foto.publicId != this.fotoAnterior.publicId ){
+      this.borrarImagen(this.fotoAnterior);
+
+      this.fotoAnterior = this.foto;
+    }
 
     this.guardado = true;
 
-    /* this.location.back(); */
+    Swal.fire({
+      title: `Socio ${this.form.controls['apellido'].value}, ${this.form.controls['nombre'].value} guardado con éxito!`,
+      icon: 'success',
+      confirmButtonText: 'OK',
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'btn btn-outline-primary',
+      },
+    })
+
+    this.location.back();
   }
 
   volver() {
     this.location.back();
   }
 
+
+  // VALIDACIONES
+
+  get nombreNoValido() {
+    return this.form.get('nombre')?.invalid && this.form.get('nombre')?.touched;
+  }
+  get apellidoNoValido() {
+    return this.form.get('apellido')?.invalid && this.form.get('apellido')?.touched;
+  }
+  get tipoDocumentoNoValido() {
+    return this.form.get('tipoDocumento.id')?.invalid && this.form.get('tipoDocumento.id')?.touched && this.form.get('tipoDocumento.id')?.errors?.distintoCero;
+  }
+  get docNoValido() {
+    return this.form.get('numDoc')?.invalid && this.form.get('numDoc')?.touched;
+  }
+  get correoNoValido() {
+    return this.form.get('correo')?.invalid && this.form.get('correo')?.touched;
+  }
+  get telefonoNoValido() {
+    return this.form.get('telefono')?.invalid && this.form.get('telefono')?.touched;
+  }
+  get cuilNoValido() {
+    return this.form.get('cuil')?.invalid && this.form.get('cuil')?.touched;
+  }
+  get direccionNoValido() {
+    return this.form.get('direccion')?.invalid && this.form.get('direccion')?.touched;
+  }
+  get fechaAltaNoValido() {
+    return this.form.get('fechaAlta')?.invalid && this.form.get('fechaAlta')?.touched;
+  }
+  get fechaIngresoLaboralNoValido() {
+    return this.form.get('fechaIngresoLaboral')?.invalid && this.form.get('fechaIngresoLaboral')?.touched;
+  }
+  get fechaNacimientoNoValido() {
+    return this.form.get('fechaNacimiento')?.invalid && this.form.get('fechaNacimiento')?.touched;
+  }
+  get estadoCivilNoValido() {
+    return this.form.get('estadoCivil.id')?.invalid && this.form.get('estadoCivil.id')?.touched && this.form.get('estadoCivil.id')?.errors?.distintoCero;
+  }
+  get localidadNoValido() {
+    return this.form.get('localidad.id')?.invalid && this.form.get('localidad.id')?.touched && this.form.get('localidad.id')?.errors?.distintoCero;
+  }
+  get legajoNoValido() {
+    return this.form.get('legajo')?.invalid && this.form.get('legajo')?.touched;
+  }
+  get tipoNoValido() {
+    return this.form.get('tipo.id')?.invalid && this.form.get('tipo.id')?.touched && this.form.get('tipo.id')?.errors?.distintoCero;
+  }
+  get numCuentaNoValido() {
+    return this.form.get('numCuenta')?.invalid && this.form.get('numCuenta')?.touched;
+  }
+  
+
   crearForm() {
     this.form = this.fb.group({
       id: [''],
-      numDoc: [''],
-      nombre: [''],
-      apellido: [''],
-      correo: [''],
-      fechaAlta: [this.today],
+      numDoc: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')],],
+      fechaAlta: [this.today, [Validators.required]],
       fechaBaja: [''],
-      direccion: [''],
+      direccion: ['', [Validators.required]],
       baja: ['false'],
       extranjero: [false],
-      fechaIngresoLaboral: [''],
-      fechaNacimiento: [''],
-      legajo: [''],
+      fechaIngresoLaboral: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      legajo: ['', [Validators.required]],
       motivoBaja: [''],
-      numCuenta: [''],
-      telefono: [''],
-      cuil: [''],
+      numCuenta: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      cuil: ['', [Validators.required]],
       foto: this.fb.group({
         id: [''],
         publicId: [''],
@@ -370,25 +470,25 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         fechaAlta: [''],
         fechaBaja: [''],
         rol: this.fb.group({
-          id: [2],
+          id: [3],
           authority: [''],
         }),
       }),
       localidad: this.fb.group({
-        id: [0],
+        id: [0, this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
         cp: [],
       }),
       tipoDocumento: this.fb.group({
-        id: [0],
+        id: [0 , this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
       }),
       tipo: this.fb.group({
-        id: [0],
+        id: [0 , this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
       }),
       estadoCivil: this.fb.group({
-        id: [0],
+        id: [0 , this.validadoresService.distintoCero(/^[0]+/)],
         nombre: [''],
       }),
     });

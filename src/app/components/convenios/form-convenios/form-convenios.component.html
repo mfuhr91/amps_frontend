@@ -8,7 +8,7 @@
                 </div>
                 <div class="col" *ngIf="editar">
                     <h2>Editar convenio</h2>
-                  </div>
+                </div>
                 <div class="col">
                     <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
                 </div>
@@ -48,32 +48,13 @@
 
                     </div>
                     <div class="col-11 col-sm-5 col-md-4 ms-3 mt-4">
-
-                        <!--  <div class="form-group row my-3 ">
-                <label class="col-4 col-form-label">ID</label>
-                <div class="col">
-  
-                  <input class="form-control" type="text" placeholder="ID" formControlName="id" readonly>
-                  <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> 
-                </div>
-              </div> -->
-                        <!-- <div class="form-group row my-3">
-                <label class="col-4 col-form-label">Tipo de Documento</label>
-                <div class="col mt-2">
-  
-                  <input class="form-control" type="text" placeholder="Tipo de Documento" formControlName="tipoDoc">
-                  <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small>
-                </div>
-              </div> -->
                         <div class="form-group row my-3">
                             <label class="col-4 col-form-label">Cuit</label>
                             <div class="col">
 
-                                <input class="form-control" type="text" placeholder="Cuit" formControlName="cuit">
-                                <!-- [class.is-invalid]="nombreNoValido" -->
-                                <!--  <small *ngIf="nombreNoValido" class="text-danger"> Ingrese 5 letras</small> -->
+                                <input class="form-control" type="text" placeholder="Cuit" formControlName="cuit"
+                                    [class.is-invalid]="cuitNoValido">
+                                <small *ngIf="cuitNoValido" class="text-danger"> Debe ingresar un cuit</small>
                             </div>
                         </div>
 
@@ -81,9 +62,9 @@
                             <label class="col-4 col-form-label">Comercio</label>
                             <div class="col">
 
-                                <input class="form-control" type="text" placeholder="Comercio" formControlName="nombre">
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                <input class="form-control" #comercio type="text" placeholder="Comercio"
+                                    formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                                <small *ngIf="nombreNoValido" class="text-danger"> Debe ingresar un nombre </small>
                             </div>
                         </div>
 
@@ -92,9 +73,18 @@
                             <label class="col-4 col-form-label">Contacto</label>
                             <div class="col">
 
-                                <input class="form-control" type="text" placeholder="Contacto" formControlName="contacto">
-                                <!-- [class.is-invalid]=" apellidoNoValido">
-                                <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                <input class="form-control" #contacto type="text" placeholder="Contacto"
+                                    formControlName="contacto" [class.is-invalid]=" contactoNoValido">
+                                <small *ngIf="contactoNoValido" class="text-danger"> Debe ingresar un contacto</small>
+                            </div>
+                        </div>
+                        <div class="form-group row my-3">
+                            <label class="col-4 col-form-label">Teléfono</label>
+                            <div class="col">
+
+                                <input class="form-control" #telefono type="number" placeholder="Teléfono"
+                                    formControlName="telefono" [class.is-invalid]="telefonoNoValido">
+                                <small *ngIf="telefonoNoValido" class="text-danger"> Debe ingresar un teléfono </small>
                             </div>
                         </div>
                         <div class="form-group row my-3">
@@ -102,19 +92,11 @@
                             <div class="col">
 
                                 <input class="form-control" type="text" placeholder="Correo" formControlName="correo"
-                                    #correo (keyup)="crearUsuario(correo.value)">
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
-                            </div>
-                        </div>
-                        <div class="form-group row my-3">
-                            <label class="col-4 col-form-label">Teléfono</label>
-                            <div class="col">
-    
-                                <input class="form-control" type="number" placeholder="Teléfono"
-                                    formControlName="telefono">
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                    #correo
+                                    (keyup)="crearUsuarioPass(comercio.value, contacto.value, telefono.value, correo.value)"
+                                    [class.is-invalid]="correoNoValido">
+                                <small *ngIf="correoNoValido" class="text-danger"> Debe ingresar un correo
+                                    válido</small>
                             </div>
                         </div>
                     </div>
@@ -128,66 +110,20 @@
 
                                     <input class="form-control" type="text" placeholder="Usuario"
                                         formControlName="nombreUsuario" readonly>
-                                    <!-- [class.is-invalid]="apellidoNoValido">
-                                          <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+
                                 </div>
                             </div>
-                            <div class="form-group row pb-2 pe-0">
-                                <label class="col-4 col-form-label">Contraseña</label>
-                                <div class="col pe-0">
-                
-                                  <input class="form-control" type="password" placeholder="Contraseña" formControlName="contraseña">
-                                  <!-- [class.is-invalid]="apellidoNoValido">
-                                            <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
-                                </div>
-                              </div>
-                              <div class="form-group row pb-1 pe-0">
-                                <label class="col-4 col-form-label">Repita contraseña</label>
-                                <div class="col pe-0 pt-2">
-                
-                                  <input class="form-control" type="password" placeholder="Contraseña">
-                                  <!-- [class.is-invalid]="apellidoNoValido">
-                                            <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
-                                </div>
-                              </div>
-                            <div class="form-group row pe-0" *ngIf="rol" formGroupName="rol">
-                                <label class="col-4 col-form-label">Rol</label>
-                                <div class="col pe-0 pb-0">
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" formControlName="id">
-                                            <option [value]="rol.id">{{ rol.authority }}</option>
-                                        </select>
-                                    </div>
-                                    <!--  <input class="form-control" type="text" placeholder="Rol" formControlName="authority"> -->
-                                    <!-- [class.is-invalid]="apellidoNoValido">
-                                    <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
-                                </div>
-                            </div>
+
                         </div>
-
-
-
-                    </div>
-
-
-
-
-                </div>
-
-                <div class="row mx-3">
-                    <div class="col-md-6">
-                        <div class="form-group row my-3">
+                        <div class="form-group row mb-3">
                             <label class="col-4 col-form-label">Fecha de Alta</label>
                             <div class="col">
 
                                 <input #fechaAlta class="form-control" type="date" placeholder="Fecha de Alta"
-                                    formControlName="fechaAlta" (change)="asignarFechaAltaUsuario(fechaAlta.value)">
-
-                                <!--
-  
-                    [class.is-invalid]="apellidoNoValido">
-                           <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small>
-                  -->
+                                    formControlName="fechaAlta" (change)="asignarFechaAltaUsuario(fechaAlta.value)"
+                                    [class.is-invalid]="fechaAltaNoValido">
+                                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha
+                                </small>
                             </div>
                         </div>
 
@@ -196,60 +132,57 @@
                             <div class="col">
 
                                 <input class="form-control" type="text" placeholder="Dirección"
-                                    formControlName="direccion">
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                    formControlName="direccion" [class.is-invalid]="direccionNoValido">
+                                <small *ngIf="direccionNoValido" class="text-danger"> Debe ingresar una dirección
+                                </small>
                             </div>
                         </div>
                         <div class="form-group row my-3" formGroupName="localidad">
                             <label class="col-4 col-form-label">Localidad</label>
                             <div class="col">
                                 <div class="input-group">
-                                    <select class="form-select" formControlName="id">
+                                    <select class="form-select" formControlName="id"
+                                        [class.is-invalid]="localidadNoValido">
                                         <option *ngFor="let localidad of localidades" [value]="localidad.id">{{
                                             localidad.nombre }}</option>
                                     </select>
                                 </div>
-
-                                <!--  <input class="form-control" type="text" placeholder="Localidad" formControlName="localidad"> -->
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                <small *ngIf="localidadNoValido" class="text-danger"> Debe seleccionar una localidad
+                                </small>
                             </div>
                         </div>
-                        
-
 
 
 
                     </div>
+                </div>
 
-
-
-                    <div class="col">
-
+                <div class="row mx-3">
+                    <div class="col-4">
 
                         <div class="form-group row my-3" formGroupName="categoria">
                             <label class="col-4 col-form-label">Categoria</label>
                             <div class="col">
                                 <div class="input-group">
-                                    <select class="form-select" formControlName="id">
+                                    <select class="form-select" formControlName="id"
+                                        [class.is-invalid]="categoriaNoValido">
                                         <option *ngFor="let categoria of categorias" [value]="categoria.id">{{
                                             categoria.nombre }}</option>
                                     </select>
                                 </div>
-
-                                <!--  <input class="form-control" type="text" placeholder="Localidad" formControlName="localidad"> -->
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                         <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
+                                <small *ngIf="categoriaNoValido" class="text-danger"> Debe seleccionar una categoria
+                                </small>
                             </div>
                         </div>
 
+                    </div>
 
 
 
+                    <div class="col-4 pt-3">
                         <div class="form-group row">
-                            <label class="col-4 col-form-label">Dado de baja</label>
-                            <div class="col-1 mt-2">
+                            <label class="col-5 col-form-label">Dado de baja</label>
+                            <div class="col-2 mt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" #bajaTrue (change)="cambioValor(bajaTrue.value)"
                                         type="radio" formControlName="baja" value="true">
@@ -259,7 +192,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-1 mt-2">
+                            <div class="col-3 mt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" #bajaFalse (change)="cambioValor(bajaFalse.value)"
                                         type="radio" formControlName="baja" value="false">
@@ -267,33 +200,27 @@
                                         No
                                     </label>
                                 </div>
-                                <!--  <input class="form-control" type="text" placeholder="Extranjero" > -->
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                             <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
 
                             </div>
                         </div>
+
+                    </div>
+                    <div class="col-4">
+
                         <div class="form-group row my-3">
                             <label class="col-4 col-form-label">Fecha de Baja</label>
                             <div class="col">
 
                                 <input #fechaBaja class="form-control" type="date" placeholder="Fecha de Baja"
                                     formControlName="fechaBaja" (change)="asignarFechaBajaUsuario(fechaBaja.value)">
-                                <!-- [class.is-invalid]="apellidoNoValido">
-                           <small *ngIf="apellidoNoValido" class="text-danger"> Ingrese 3 letras</small> -->
                             </div>
                         </div>
-
-
-
                     </div>
 
+                </div>
 
-
-
-
-
-
+                <div class="alert alert-success" *ngIf="contrasena" role="alert">
+                    La contraseña del comercio será: <span class="badge bg-success">{{ contrasena }}</span>
                 </div>
                 <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
 

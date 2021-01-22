@@ -57,10 +57,7 @@ import { FormUsuariosComponent } from './usuarios/form-usuarios/form-usuarios.co
   ],
   exports: [
     NavbarComponent,
-    InicioComponent, 
-    SociosComponent,  
-    ListarSociosComponent, 
-    FormSociosComponent
+    InicioComponent 
   ]
 })
 export class ComponentsModule { }
