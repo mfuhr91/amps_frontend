@@ -2,12 +2,12 @@
 const express = require('express');
 const path = require('path');
 
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
 // use cors
-/* const whitelist = ['http://localhost:4200','https://amps-front-test.herokuapp.com']; // list of allow domain
+const whitelist = ['https://amps-backend-test.herokuapp.com']; // list of allow domain
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -25,7 +25,7 @@ const corsOptions = {
 }
 
 // end 
-app.use(cors(corsOptions)); */
+app.use(cors(corsOptions));
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/amps'));
