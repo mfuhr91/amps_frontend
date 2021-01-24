@@ -1,1 +1,113 @@
-<p>form-descuentos works!</p>
+<div class="container mt-2 animate__animated animate__fadeIn">
+
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col" *ngIf="!editar">
+                    <h2>Nuevo descuento</h2>
+                </div>
+                <div class="col" *ngIf="editar">
+                    <h2>Editar descuento</h2>
+                </div>
+                <div class="col">
+                    <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+
+            <form autocomplete="off" [formGroup]="form" (ngSubmit)="guardar()">
+
+                <div class="row">
+                    <div class="col-11 col-sm-5 col-md-3 m-3">
+
+                    </div>
+                    <div class="col-11 col-sm-5 col-md-4 ms-3 mt-4">
+                        <div class="form-group row my-3">
+                            <label class="col-4 col-form-label">Descripción</label>
+                            <div class="col">
+
+                                <input class="form-control" type="text" placeholder="Descripción"
+                                    formControlName="descripcion" [class.is-invalid]="descNoValido">
+                                <small *ngIf="descNoValido" class="text-danger"> Debe ingresar una descripción</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row my-3">
+                            <label class="col-4 col-form-label">Número de cuotas</label>
+                            <div class="col">
+
+                                <input class="form-control" #comercio type="number" placeholder="Número de cuotas"
+                                    formControlName="numCuotas" [class.is-invalid]="cuotasNoValido">
+                                <small *ngIf="cuotasNoValido" class="text-danger"> Debe ingresar la cantidad de cuotas
+                                </small>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row my-3">
+                            <label class="col-4 col-form-label">Monto total</label>
+                            <div class="col">
+
+                                <input class="form-control" #contacto type="number" placeholder="Monto total"
+                                    formControlName="valorTotal" [class.is-invalid]="valorTotalNoValido">
+                                <small *ngIf="valorTotalNoValido" class="text-danger"> Debe ingresar un monto
+                                    total</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 ms-4 mt-4">
+
+                        <div class="form-group row" formGroupName="socio">
+                            <div class="form-group row my-3 pe-0">
+                                <label class="col-4 col-form-label">Socio</label>
+                                <div class="col pe-0">
+
+                                    <input class="form-control" type="number"
+                                        placeholder="Click para seleccionar el socio" formControlName="id" readonly
+                                        [class.is-invalid]="socioNoValido">
+                                    <small *ngIf="socioNoValido" class="text-danger"> Debe seleccionar un socio
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row" formGroupName="covenio">
+                            <div class="form-group row my-3 pe-0">
+                                <label class="col-4 col-form-label">Comercio</label>
+                                <div class="col pe-0">
+
+                                    <input class="form-control" type="text"
+                                        placeholder="Click para seleccionar el comercio" formControlName="id" readonly
+                                        [class.is-invalid]="convenioNoValido">
+                                    <small *ngIf="convenioNoValido" class="text-danger"> Debe seleccionar un comercio    
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-4 col-form-label">Fecha</label>
+                            <div class="col">
+
+                                <input class="form-control" type="date" placeholder="Fecha" formControlName="fechaAlta"
+                                    [class.is-invalid]="fechaAltaNoValido">
+                                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
+
+            </form>
+
+
+
+
+        </div>
+    </div>
+</div>

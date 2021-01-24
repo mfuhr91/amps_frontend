@@ -22,6 +22,7 @@ import { FormDescuentosComponent } from './descuentos/form-descuentos/form-descu
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ListarUsuariosComponent } from './usuarios/listar-usuarios/listar-usuarios.component';
 import { FormUsuariosComponent } from './usuarios/form-usuarios/form-usuarios.component';
+import { ListarDescuentosComponent } from './descuentos/listar-descuentos/listar-descuentos.component';
 
 
 
@@ -44,7 +45,8 @@ import { FormUsuariosComponent } from './usuarios/form-usuarios/form-usuarios.co
     FormDescuentosComponent,
     UsuariosComponent,
     ListarUsuariosComponent,
-    FormUsuariosComponent
+    FormUsuariosComponent,
+    ListarDescuentosComponent
     
   ],
   imports: [

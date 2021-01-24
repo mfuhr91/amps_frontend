@@ -1,0 +1,59 @@
+
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col">
+                    <h3 class="my-2">Socios</h3>
+                </div>
+                <div class="col">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-1" [routerLink]="['crear']">Nuevo</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card-body">
+            
+            <cdk-virtual-scroll-viewport *ngIf="descuentos" itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+            <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                <thead class="table-dark thead">
+                    <tr>
+                        <th>DESCRIPCION</th>
+                        <th>CUOTAS</th>
+                        <th>TOTAL</th>
+                        <th>SOCIO</th>
+                        <th>COMERCIO</th>
+                        <th>FECHA</th>
+                        <th>OPCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        
+                    
+
+
+                        <tr *cdkVirtualFor="let desc of descuentos" class="align-middle animate__animated animate__fadeIn">
+
+                            <th class="py-0">{{ desc.descripcion }}</th>
+                            <td class="py-0">{{ desc.numCuotas }}</td>
+                            <td class="py-0">{{ desc.valorTotal }}</td>
+                            <td class="py-0">{{ desc.socio }}</td>
+                            <td class="py-0">{{ desc.convenio }}</td>
+                            <td class="py-0">{{ desc.fechaAlta }}</td>
+                            
+                            
+                            <td class="py-1">
+                                <button class="btn btn-outline-warning" [routerLink]="['editar/' + desc.id]"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" (click)="borrarDescuento(desc)"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+
+
+        </div>
+        
+    </div>
+</div>

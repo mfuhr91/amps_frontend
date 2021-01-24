@@ -17,13 +17,7 @@ export class ListarSociosComponent implements OnInit {
   constructor( private sociosService: SociosService ) { }
   
   ngOnInit(): void {
-    
-  
     this.getSocios();
-
-    
-          
-
   }
 
   getSocios(){
@@ -31,7 +25,7 @@ export class ListarSociosComponent implements OnInit {
     });
   }
 
-  borrarSocio(socio: Socio, idx: number){
+  borrarSocio(socio: Socio){
     console.log(socio.id);
     
     Swal.fire({
