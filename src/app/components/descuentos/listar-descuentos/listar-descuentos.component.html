@@ -3,28 +3,34 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col">
-                    <h3 class="my-2">Socios</h3>
+                <div class="col-7"></div>
+                <div class="buscador col-3 input-group mb-3 me-0">
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button  (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button" id="buscador">Buscar</button>
                 </div>
-                <div class="col">
-                    <button class="btn btn-outline-primary float-end mx-4 mt-1" [routerLink]="['crear']">Nuevo</button>
+                
+                <div class="col-2">
+                    <button class="btn btn-outline-primary float-end me-4 mt-2" [routerLink]="['crear']">Nuevo</button>
+                    <button class="btn btn-outline-danger float-end me-4 mt-2" [routerLink]="['liquidar']">Liquidar</button>
                 </div>
             </div>
             
         </div>
         <div class="card-body">
             
-            <cdk-virtual-scroll-viewport *ngIf="descuentos" itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+            <cdk-virtual-scroll-viewport  itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
             <table class="table table-hover table-striped table-bordered text-center table-responsive">
                 <thead class="table-dark thead">
                     <tr>
-                        <th>DESCRIPCION</th>
-                        <th>CUOTAS</th>
-                        <th>TOTAL</th>
-                        <th>SOCIO</th>
-                        <th>COMERCIO</th>
-                        <th>FECHA</th>
-                        <th>OPCIONES</th>
+                        <th class="py-1">DESCRIPCION</th>
+                        <th class="py-1">CUOTAS</th>
+                        <th class="py-1">VALOR CUOTA</th>
+                        <th class="py-1">TOTAL</th>
+                        <th class="py-1">SOCIO</th>
+                        <th class="py-1">COMERCIO</th>
+                        <th class="py-1">FECHA DE COMPRA</th>
+                        <th class="py-1">ULTIMA CUOTA</th>
+                        <th class="py-1">OPCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,10 +43,12 @@
 
                             <th class="py-0">{{ desc.descripcion }}</th>
                             <td class="py-0">{{ desc.numCuotas }}</td>
-                            <td class="py-0">{{ desc.valorTotal }}</td>
-                            <td class="py-0">{{ desc.socio }}</td>
-                            <td class="py-0">{{ desc.convenio }}</td>
-                            <td class="py-0">{{ desc.fechaAlta }}</td>
+                            <td class="py-0">${{ desc.valorCuota | number:'1.0-2' }}</td> <!-- TODO: cuota mensual con comision -->
+                            <td class="py-0">${{ desc.valorTotal | number:'1.0-2' }}</td>
+                            <td class="py-0">{{ desc.socio.apellido }}, {{ desc.socio.nombre }}</td>
+                            <td class="py-0">{{ desc.convenio.nombre }}</td>
+                            <td class="py-0">{{ desc.fechaAlta | date:'HH:mm dd/MM/yyyy':'UTC-3' }}</td>
+                            <td class="py-0">{{ desc.ultimaCuota | date:'MM/yyyy':'UTC-3' }}</td>
                             
                             
                             <td class="py-1">

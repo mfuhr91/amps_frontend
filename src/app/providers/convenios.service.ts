@@ -33,4 +33,12 @@ private url = `${environment.url}/convenios`;
   eliminarConvenio( id: number){
     return this.http.delete(`${this.url}/eliminar/${id}`);
   }
+
+  buscarConvenios(param: string): Observable<Convenio[]> {
+    return this.http.get<Convenio[]>(`${this.url}/buscar/${param}`)
+  }
+
+  contarConvenios(){
+    return this.http.get<number>(`${this.url}/contar`);
+  }
 }

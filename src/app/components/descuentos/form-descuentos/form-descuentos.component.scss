@@ -1,0 +1,41 @@
+.row {
+    --bs-gutter-x: 0px !important;
+}
+
+#convenio, #socio {
+    background-color: rgb(232, 119, 34,0.4);
+    border-radius: 10px;
+
+    
+}
+#socio {
+    background-color: rgba(5, 122, 255, 0.5);
+   
+}
+#inputs {
+    background-color: lightgray;
+    border-radius: 10px;
+
+}
+h5 span {
+    cursor: pointer;
+    padding: 10px;
+}
+td .btn {
+    height: 30px !important;
+    line-height: 0.5px;
+    width: 40px;
+}
+
+.cuotas .btn {
+    width: 45px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.buscador {
+    width: 25%;
+    float: right !important;
+    top: 10px;
+    left: 55%;
+}

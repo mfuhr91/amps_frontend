@@ -10,6 +10,7 @@ export interface Convenio {
     nombre: string,
     contacto: string,
     correo: string,
+    direccion: string,
     telefono: number,
     cuit: number,
     baja: string,

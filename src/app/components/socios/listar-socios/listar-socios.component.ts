@@ -25,6 +25,15 @@ export class ListarSociosComponent implements OnInit {
     });
   }
 
+  buscar(param: string){
+    
+    if(param.length > 0){
+      this.sociosService.buscarSocios(param).subscribe(res => this.socios = res);
+    }else {
+     this.getSocios(); 
+    }
+  }
+
   borrarSocio(socio: Socio){
     console.log(socio.id);
     

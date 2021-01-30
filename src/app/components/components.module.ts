@@ -24,6 +24,10 @@ import { ListarUsuariosComponent } from './usuarios/listar-usuarios/listar-usuar
 import { FormUsuariosComponent } from './usuarios/form-usuarios/form-usuarios.component';
 import { ListarDescuentosComponent } from './descuentos/listar-descuentos/listar-descuentos.component';
 
+import { ExportarDescuentosComponent } from './descuentos/exportar-descuentos/exportar-descuentos.component';
+import { VariablesComponent } from './variables/variables.component';
+import { ListarVariablesComponent } from './variables/listar-variables/listar-variables.component';
+
 
 
 
@@ -46,7 +50,13 @@ import { ListarDescuentosComponent } from './descuentos/listar-descuentos/listar
     UsuariosComponent,
     ListarUsuariosComponent,
     FormUsuariosComponent,
-    ListarDescuentosComponent
+    ListarDescuentosComponent,
+    
+    ExportarDescuentosComponent,
+    
+    VariablesComponent,
+    
+    ListarVariablesComponent
     
   ],
   imports: [

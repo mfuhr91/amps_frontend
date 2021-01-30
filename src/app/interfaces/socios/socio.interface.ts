@@ -5,7 +5,7 @@ import { Foto } from "../foto.interface";
 import { Localidad } from "../localidad.interface";
 import { TipoDocumento } from "./tipo-documento.interface";
 import { Usuario } from "../usuario.interface";
-import { CuotaSocial } from "./cuota-social.interface";
+import { Variable } from "../variable.interface";
 
 export interface Socio {
     
@@ -16,7 +16,6 @@ export interface Socio {
     correo: string,
     fechaAlta: string,
     fechaBaja: string,
-    /* cuotaSocial: number, */
     direccion: string,
     extranjero: boolean,
     fechaIngresoLaboral: string,
@@ -28,7 +27,7 @@ export interface Socio {
     telefono: number,
     cuil: string,
     
-    cuotaSocial: CuotaSocial;
+    cuotaSocial: Variable;
     foto: Foto,
     tipo: Tipo,
     estadoCivil: EstadoCivil,

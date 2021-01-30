@@ -28,6 +28,9 @@ import { first, throwIfEmpty } from 'rxjs/operators';
 import { FotosService } from 'src/app/providers/fotos.service';
 import { VariablesService } from 'src/app/providers/variables.service';
 import { ValidadoresService } from 'src/app/providers/validadores.service';
+import { Item } from 'src/app/interfaces/descuentos/item.interface';
+import { Descuento } from 'src/app/interfaces/descuentos/descuento.interface';
+import { DescuentosService } from 'src/app/providers/descuentos.service';
 
 
 @Component({
@@ -57,7 +60,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   tipos: Tipo[] = [];
   estadosCiviles: EstadoCivil[] = [];
 
-  today = new DatePipe('es').transform(new Date(), 'yyyy-MM-dd');
+  hoy = new DatePipe('es').transform(new Date(), 'yyyy-MM-dd');
   
   trigger: Subject<void> = new Subject<void>();
   
@@ -81,6 +84,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     private variablesService: VariablesService,
     private fotosService: FotosService,
     private validadoresService: ValidadoresService,
+    private descuentosService: DescuentosService,
     ) {
       this.crearForm();
     }
@@ -102,7 +106,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     
   ngOnInit(): void {
 
-    this.form.controls['usuario'].patchValue({ fechaAlta: this.today });
+    this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
 
     this.sociosService.getTiposDocumentos().subscribe((res) => {
       this.tiposDocumentos = res;
@@ -187,9 +191,9 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   }
   cambioValor(valor: string) {
     if (valor == 'true') {
-      this.form.controls['fechaBaja'].setValue(this.today);
+      this.form.controls['fechaBaja'].setValue(this.hoy);
 
-      this.form.controls['usuario'].patchValue({ fechaBaja: this.today });
+      this.form.controls['usuario'].patchValue({ fechaBaja: this.hoy });
     } else {
       this.form.controls['fechaBaja'].setValue('');
 
@@ -441,7 +445,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')],],
-      fechaAlta: [this.today, [Validators.required]],
+      fechaAlta: [this.hoy, [Validators.required]],
       fechaBaja: [''],
       direccion: ['', [Validators.required]],
       baja: ['false'],

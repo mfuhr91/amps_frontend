@@ -1,0 +1,42 @@
+<div class="container m-5">
+
+    <div class="row">
+        <div class="col">
+            <div class="card float-left bg-primary text-white">
+                <div class="card-header">
+                    <h2>Cantidad de socios</h2>
+                </div>
+                <div class="card-body">
+                    <h1 class="mx-4 float-none " *ngIf="!totalSocios">0</h1>
+                    <h1 class="mx-4 float-none " *ngIf="totalSocios">{{ totalSocios }}</h1>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="card float-left bg-info text-white">
+                <div class="card-header">
+                    <h2>Cantidad de Convenios</h2>
+                </div>
+                <div class="card-body">
+                    <h1 class="mx-4 float-none contar" *ngIf="!totalConvenios">0</h1>
+                    <h1 class="mx-4 float-none contar" *ngIf="totalConvenios">{{ totalConvenios }}</h1>
+                </div>
+    
+            </div>
+        </div>
+        <div class="col">
+            <div class="card float-left bg-secondary text-white">
+                <div class="card-header">
+                    <h2>Total recaudado</h2>
+                </div>
+                <div class="card-body">
+                    <h1 class="mx-4 float-none" *ngIf="!totalRecaudado">$0.00</h1>
+                    <h1 class="mx-4 float-none" *ngIf="totalRecaudado">${{ totalRecaudado | number:'1.0-2'}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,15 +1,18 @@
 import { Convenio } from "../convenios/convenio.interface";
 import { Socio } from "../socios/socio.interface";
+import { Cuota } from "./cuota.interface";
 import { Item } from "./item.interface";
 
 export interface Descuento {
-    id: number,
+    id?: number,
     descripcion: string,
-    numCuotas: number,
-    valorCuota: number,
+    numCuotas?: number,
+    valorCuota?: number,
     valorTotal: number,
     socio: Socio,
-    convenio: Convenio,
-    fechaAlta: Date,
+    convenio?: Convenio,
+    fechaAlta?: string,
+    ultimaCuota?: string,
+    cuotas?: Cuota[],
     items: Item[],
 }

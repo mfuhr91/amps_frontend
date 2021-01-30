@@ -51,5 +51,13 @@ export class SociosService {
   getTipos(): Observable<Tipo[]>{
     return this.http.get<Tipo[]>(`${this.url}/tipos`);
   }
+
+  buscarSocios(param: string): Observable<Socio[]> {
+    return this.http.get<Socio[]>(`${this.url}/buscar/${param}`)
+  }
+
+  contarSocios(){
+    return this.http.get<number>(`${this.url}/contar`);
+  }
   
 }

@@ -16,4 +16,27 @@ export class DescuentosService {
   getDescuentos() {
     return this.http.get<Descuento[]>(`${this.url}`);
   }
+
+  crearDescuento( descuento: Descuento ) {
+    return this.http.post<Descuento>(`${this.url}/crear`, descuento);
+  }
+
+  getDescuentosDelMes(mes: string){
+    return this.http.get<Descuento[]>(`${this.url}/liquidar/${mes}`);
+  }
+
+  getDescuento( id: number ) {
+    return this.http.get<Descuento>(`${this.url}/editar/${id}`);
+  }
+
+  editarDescuento( descuento: Descuento ) {
+    return this.http.put<Descuento>(`${this.url}/editar`, descuento);
+  }
+  eliminarDescuento( id: number){
+    return this.http.delete(`${this.url}/eliminar/${id}`);
+  }
+
+  sumarTotalRecaudado(){
+    return this.http.get<number>(`${this.url}/total`);
+  }
 }

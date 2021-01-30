@@ -3,11 +3,17 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     <h3 class="my-2">Convenios</h3>
                 </div>
-                <div class="col">
-                    <button class="btn btn-outline-primary float-end mx-4 mt-1" [routerLink]="['crear']">Nuevo</button>
+                <div class="buscador col-3 input-group mb-3">
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-2" [routerLink]="['crear']">Nuevo</button>
                 </div>
             </div>
             
@@ -18,15 +24,15 @@
             <table class="table table-hover table-striped table-bordered text-center table-responsive">
                 <thead class="table-dark thead">
                     <tr>
-                        <th>CUIT</th>
-                        <th>COMERCIO</th>
-                        <th>CONTACTO</th>
-                        <th>DIRECCION</th>
-                        <th>TELEFONO</th>
-                        <th>CORREO</th>
-                        <th>LOCALIDAD</th>
-                        <th>CATEGORIA</th>
-                        <th>OPCIONES</th>
+                        <th class="py-1">CUIT</th>
+                        <th class="py-1">COMERCIO</th>
+                        <th class="py-1">CONTACTO</th>
+                        <th class="py-1">DIRECCION</th>
+                        <th class="py-1">TELEFONO</th>
+                        <th class="py-1">CORREO</th>
+                        <th class="py-1">LOCALIDAD</th>
+                        <th class="py-1">CATEGORIA</th>
+                        <th class="py-1">OPCIONES</th>
                     </tr>
                 </thead>
                 <tbody>

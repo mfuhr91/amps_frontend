@@ -24,7 +24,28 @@ export class ListarConveniosComponent implements OnInit {
   }
 
   getConvenios(){
-    this.conveniosService.getConvenios().subscribe(res => this.convenios = res );
+    this.conveniosService.getConvenios().subscribe(res => {
+      
+      res.forEach( convenio => {
+
+        console.log(res);
+        console.log(convenio.id);
+        if(convenio.id == 1){
+          
+          res.splice(0,1);
+        }
+      })
+      this.convenios = res;
+    });
+  }
+
+  buscar(param: string){
+    
+    if(param.length > 0){
+      this.conveniosService.buscarConvenios(param).subscribe(res => this.convenios = res);
+    }else {
+     this.getConvenios(); 
+    }
   }
 
 

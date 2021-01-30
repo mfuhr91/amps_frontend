@@ -3,7 +3,11 @@
 }
 
 .active {
-    background-color: rgb(254, 123, 6, 0.4);
-    /* background-color: rgba(128,128,128, 0.4); */
+    /* background-color: rgb(254, 123, 6, 0.4); */
+    background-color: rgb(232, 119, 34,0.7);
+    border-radius: 7px;
+}
+
+form .btn {
     border-radius: 7px;
 }

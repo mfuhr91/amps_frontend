@@ -19,86 +19,195 @@
             <form autocomplete="off" [formGroup]="form" (ngSubmit)="guardar()">
 
                 <div class="row">
-                    <div class="col-11 col-sm-5 col-md-3 m-3">
+
+                    <div id="convenio" class="form-group row m-auto my-3 p-3" formGroupName="convenio">
+
+                        <h5>Comercio <span (click)="listarConvenios()" class="badge bg-dark ms-2" data-bs-toggle="modal"
+                                data-bs-target="#comerciosModal"><i class="fas fa-mouse-pointer"></i> Haga click para
+                                buscar un comercio</span></h5>
+
+                        <div class="row" *ngIf="convenio">
+
+                            <div class="col-5">
+                                
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Comercio</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="text" formControlName="nombre" readonly>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Cuit</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="number" formControlName="cuit" readonly>
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-5 ms-4">
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Dirección</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="text" formControlName="direccion" readonly>
+                                    
+                                    </div>
+                                </div>
+                                <div class="form-group row my-3 pe-0">
+
+                                    <label class="col-3 col-form-label">Contacto</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="text" formControlName="contacto" readonly>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <small *ngIf="convenioNoValido" class="text-danger"> Debe seleccionar un comercio
+                        </small>
+                    </div>
+
+
+
+
+
+
+                    <div id="socio" class="form-group row m-auto my-3 p-3" formGroupName="socio">
+
+                        <h5>Socio <span (click)="listarSocios()" id="badge-socio" class="badge bg-dark ms-2"
+                                data-bs-toggle="modal" data-bs-target="#sociosModal"><i
+                                    class="fas fa-mouse-pointer"></i> Haga click para
+                                buscar un socio</span> </h5>
+
+                        <div class="row" *ngIf="socio">
+                            <div class="col-5 ">
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Documento</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="number" formControlName="numDoc" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Legajo</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="number" formControlName="legajo" readonly>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 ms-4">
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Nombre</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="text" formControlName="nombre" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row my-3 pe-0">
+                                    <label class="col-3 col-form-label">Apellido</label>
+                                    <div class="col pe-0">
+
+                                        <input class="form-control" type="text" formControlName="apellido" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small *ngIf="socioNoValido" class="text-danger"> Debe seleccionar un socio
+                        </small>
+
 
                     </div>
-                    <div class="col-11 col-sm-5 col-md-4 ms-3 mt-4">
-                        <div class="form-group row my-3">
-                            <label class="col-4 col-form-label">Descripción</label>
-                            <div class="col">
 
-                                <input class="form-control" type="text" placeholder="Descripción"
-                                    formControlName="descripcion" [class.is-invalid]="descNoValido">
-                                <small *ngIf="descNoValido" class="text-danger"> Debe ingresar una descripción</small>
+                    <div id="inputs" class="row m-auto my-3 p-3">
+                        <div class="col-5">
+                            <div class="form-group row my-3">
+                                <label class="col-3 col-form-label">Descripción</label>
+                                <div class="col">
+
+                                    <input class="form-control" type="text" placeholder="Descripción"
+                                        formControlName="descripcion" [class.is-invalid]="descNoValido">
+                                    <small *ngIf="descNoValido" class="text-danger"> Debe ingresar una
+                                        descripción</small>
+                                </div>
+                            </div>
+                            <div class="form-group row my-3 pt-5">
+                                <label class="col-3 col-form-label">Fecha</label>
+                                <div class="col">
+
+                                    <input class="form-control" type="datetime-local" placeholder="Fecha"
+                                        formControlName="fechaAlta" [class.is-invalid]="fechaAltaNoValido">
+                                    <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una
+                                        fecha</small>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-6 ms-4">
+                            <div class="form-group row my-3">
+                                <label class="col-2 pt-0 col-form-label">Número de cuotas</label>
+                                <div class="cuotas col ms-5">
+                                    <div class="row-12">
+                                        <span *ngFor="let cuota of cuotas">
+                                            <input *ngIf="cuota <= 6" type="radio" class="btn-check"
+                                                [id]="'cuota'+cuota" autocomplete="off" formControlName="numCuotas"
+                                                [value]="cuota">
+                                            <label *ngIf="cuota <= 6" class="btn btn-outline-primary"
+                                                [for]="'cuota'+cuota">{{cuota}}</label>
+                                        </span>
+                                    </div>
+                                    <div class="row-12">
+                                        <span *ngFor="let cuota of cuotas">
+                                            <input *ngIf="cuota > 6" type="radio" class="btn-check" [id]="'cuota'+cuota"
+                                                autocomplete="off" formControlName="numCuotas" [value]="cuota">
+                                            <label *ngIf="cuota > 6" class="btn btn-outline-primary"
+                                                [for]="'cuota'+cuota">{{cuota}}</label>
+                                        </span>
+                                    </div>
 
-                        <div class="form-group row my-3">
-                            <label class="col-4 col-form-label">Número de cuotas</label>
-                            <div class="col">
-
-                                <input class="form-control" #comercio type="number" placeholder="Número de cuotas"
-                                    formControlName="numCuotas" [class.is-invalid]="cuotasNoValido">
-                                <small *ngIf="cuotasNoValido" class="text-danger"> Debe ingresar la cantidad de cuotas
-                                </small>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row my-3">
-                            <label class="col-4 col-form-label">Monto total</label>
-                            <div class="col">
-
-                                <input class="form-control" #contacto type="number" placeholder="Monto total"
-                                    formControlName="valorTotal" [class.is-invalid]="valorTotalNoValido">
-                                <small *ngIf="valorTotalNoValido" class="text-danger"> Debe ingresar un monto
-                                    total</small>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4 ms-4 mt-4">
-
-                        <div class="form-group row" formGroupName="socio">
-                            <div class="form-group row my-3 pe-0">
-                                <label class="col-4 col-form-label">Socio</label>
-                                <div class="col pe-0">
-
-                                    <input class="form-control" type="number"
-                                        placeholder="Click para seleccionar el socio" formControlName="id" readonly
-                                        [class.is-invalid]="socioNoValido">
-                                    <small *ngIf="socioNoValido" class="text-danger"> Debe seleccionar un socio
+                                    <!-- <input class="form-control" type="number" placeholder="Número de cuotas"
+                                        formControlName="numCuotas" [class.is-invalid]="cuotasNoValido"> -->
+                                    <!-- <span *ngFor="let cuota of cuotas" >
+                                        <input type="radio" class="btn-check" [id]="'cuota'+cuota" autocomplete="off" formControlName="numCuotas" [value]="cuota">
+                                        <label class="btn btn-outline-primary" [for]="'cuota'+cuota">{{cuota}}</label>
+                                    </span> -->
+                                    <small *ngIf="cuotasNoValido" class="text-danger"> Debe ingresar la cantidad de
+                                        cuotas
                                     </small>
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="form-group row" formGroupName="covenio">
-                            <div class="form-group row my-3 pe-0">
-                                <label class="col-4 col-form-label">Comercio</label>
-                                <div class="col pe-0">
 
-                                    <input class="form-control" type="text"
-                                        placeholder="Click para seleccionar el comercio" formControlName="id" readonly
-                                        [class.is-invalid]="convenioNoValido">
-                                    <small *ngIf="convenioNoValido" class="text-danger"> Debe seleccionar un comercio    
-                                    </small>
+                            <div class="form-group row my-3">
+                                <label class="col-3 col-form-label">Monto total</label>
+                                <div class="col">
+
+                                    <input class="form-control" #contacto type="number" placeholder="Monto total"
+                                        formControlName="valorTotal" [class.is-invalid]="valorTotalNoValido">
+                                    <small *ngIf="valorTotalNoValido" class="text-danger"> Debe ingresar un monto
+                                        total</small>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="form-group row mb-3">
-                            <label class="col-4 col-form-label">Fecha</label>
-                            <div class="col">
 
-                                <input class="form-control" type="date" placeholder="Fecha" formControlName="fechaAlta"
-                                    [class.is-invalid]="fechaAltaNoValido">
-                                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha</small>
-                            </div>
-                        </div>
+
+
+
+
 
                     </div>
+
+
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
@@ -108,6 +217,132 @@
 
 
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal Comercios -->
+<div class="modal fade" id="comerciosModal" #modalComercios tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" *ngIf="mostrarModalComercios">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccionar comercio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+                    <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                        <thead class="table-dark thead">
+                            <tr>
+                                <th class="py-1">SELECCIONAR</th>
+                                <th class="py-1">CUIT</th>
+                                <th class="py-1">COMERCIO</th>
+                                <th class="py-1">CONTACTO</th>
+                                <th class="py-1">DIRECCION</th>
+                                <!-- <th>TELEFONO</th>
+                                <th>CORREO</th>
+                                <th>LOCALIDAD</th> -->
+                                <th class="py-1">CATEGORIA</th>
+                                <th class="py-1">OPCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *cdkVirtualFor="let convenio of convenios"
+                                class="align-middle animate__animated animate__fadeIn">
+
+
+                                <td class="py-0"><button (click)="seleccionarConvenio(convenio)"
+                                        class="btn btn-outline-primary" data-bs-dismiss="modal"><i
+                                            class="far fa-check-circle"></i></button></td>
+                                <th class="py-0">{{ convenio.cuit }}</th>
+                                <td class="py-0">{{ convenio.nombre }}</td>
+                                <td class="py-0">{{ convenio.contacto }}</td>
+                                <td class="py-0">{{ convenio.direccion }}</td>
+                                <!--  <td class="py-0">{{ convenio.telefono }}</td>
+                                <td class="py-0">{{ convenio.correo }}</td>
+                                <td class="py-0">{{ convenio.localidad.nombre }}</td> -->
+                                <td class="py-0">{{ convenio.categoria.nombre }}</td>
+
+
+
+                                <td class="py-1">
+                                    <button class="btn btn-outline-warning"
+                                        [routerLink]="['convenios/editar/' + convenio.id]"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Socios -->
+<div class="modal fade" id="sociosModal" #modalSocios tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" *ngIf="mostrarModalSocios">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccionar socio</h5>
+                <div class="buscador input-group mb-3">
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+                    <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                        <thead class="table-dark thead">
+                            <tr>
+                                <th class="py-1">SELECCIONAR</th>
+                                <th class="py-1">DOCUMENTO</th>
+                                <th class="py-1">SOCIO</th>
+                                <th class="py-1">LEGAJO</th>
+                                <th class="py-1">OPCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <!-- <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div> -->
+
+
+
+                            <tr *cdkVirtualFor="let socio of socios"
+                                class="align-middle animate__animated animate__fadeIn">
+
+                                <td class="py-0"><button (click)="seleccionarSocio(socio)"
+                                        class="btn btn-outline-primary" data-bs-dismiss="modal"><i
+                                            class="far fa-check-circle"></i></button></td>
+                                <th class="py-0">{{ socio.numDoc }}</th>
+                                <td class="py-0">{{ socio.apellido }}, {{ socio.nombre }}</td>
+                                <td class="py-0">{{ socio.legajo }}</td>
+                                <td class="py-1">
+                                    <button class="btn btn-outline-warning"
+                                        [routerLink]="['socios/editar/' + socio.id]"><i
+                                            class="fas fa-pencil-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+            </div>
         </div>
     </div>
 </div>

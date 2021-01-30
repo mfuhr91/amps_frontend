@@ -5,10 +5,14 @@ import { ConveniosComponent } from './components/convenios/convenios.component';
 import { FormConveniosComponent } from './components/convenios/form-convenios/form-convenios.component';
 import { ListarConveniosComponent } from './components/convenios/listar-convenios/listar-convenios.component';
 import { DescuentosComponent } from './components/descuentos/descuentos.component';
+import { ExportarDescuentosComponent } from './components/descuentos/exportar-descuentos/exportar-descuentos.component';
+import { FormDescuentosComponent } from './components/descuentos/form-descuentos/form-descuentos.component';
+import { ListarDescuentosComponent } from './components/descuentos/listar-descuentos/listar-descuentos.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FormSociosComponent } from './components/socios/form-socios/form-socios.component';
 import { ListarSociosComponent } from './components/socios/listar-socios/listar-socios.component';
 import { SociosComponent } from './components/socios/socios.component';
+import { VariablesComponent } from './components/variables/variables.component';
 
 const routes: Routes = [
   {
@@ -54,7 +58,29 @@ const routes: Routes = [
     path: 'categorias', component: CategoriasComponent
   },
   {
-    path: 'descuentos', component: DescuentosComponent
+    path: 'descuentos', 
+    component: DescuentosComponent,
+    children: [
+      {
+        path: '', component: ListarDescuentosComponent
+      },
+      {
+        path: 'crear', 
+        component: FormDescuentosComponent,
+      },
+      {
+        path: 'editar/:id', 
+        component: FormDescuentosComponent,
+      },
+      {
+        path: 'liquidar', 
+        component: ExportarDescuentosComponent,
+      },
+    ]
+    
+  },
+  {
+    path: 'variables', component: VariablesComponent
   },
   {
     path: '**', pathMatch: 'full', redirectTo: 'inicio'

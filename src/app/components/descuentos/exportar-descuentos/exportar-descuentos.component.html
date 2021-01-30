@@ -1,0 +1,57 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col-7">
+                    <h3 class="my-2">Descuentos a liquidar</h3>
+                </div>
+                <div class="col-4">
+                    <div class="buscador input-group mb-3">
+                        <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                            placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor">
+                        <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                            id="buscador">Buscar</button>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-danger float-end mx-4 mt-2">Exportar</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+                <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                    <thead class="table-dark thead">
+                        <tr>
+                            <th class="py-1">FECHA</th>
+                            <th class="py-1">NUMERO CUENTA</th>
+                            <th class="py-1">RAZON SOCIAL</th>
+                            <th class="py-1">DOCUMENTO</th>
+                            <th class="py-1">DEBITADO</th>
+                            <th class="py-1">TOTAL</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let item of items" class="align-middle animate__animated animate__fadeIn">
+                            <th class="py-0">{{ item.descuento.fechaAlta | date:'HH:mm dd/MM/yyyy':'UTC-3' }}</th>
+                            <td class="py-0">{{ item.descuento.socio.numCuenta }}</td>
+                            <td class="py-0">{{ item.descuento.socio.apellido }} {{ item.descuento.socio.nombre }}</td>
+                            <td class="py-0">{{ item.descuento.socio.numDoc }}</td>
+                            <td class="py-0">{{ item.valorSubTotal | number:'1.0-2' }}</td>
+                            <td class="py-0" *ngIf="item.id == 0">{{ item.valorTotal | number:'1.0-2'  }}</td>
+                            <td class="py-0" *ngIf="item.id != 0">{{ item.valorTotal | number:'1.0-2'  }}</td>
+                            
+                        </tr>
+                        <tr *ngIf="total">
+                            <td class="py-0" colspan="4"></td>
+                            <th class="py-0">{{ subTotal | number:'1.0-2' }}</th>
+                            <th class="py-0">{{ total | number:'1.0-2' }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </div>
+</div>
