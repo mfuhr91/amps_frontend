@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Convenio } from '../interfaces/convenios/convenio.interface';
 import { environment } from "../../environments/environment";
+import { Categoria } from '../interfaces/convenios/categoria.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,10 @@ private url = `${environment.url}/convenios`;
 
   buscarConvenios(param: string): Observable<Convenio[]> {
     return this.http.get<Convenio[]>(`${this.url}/buscar/${param}`)
+  }
+
+  buscarPorCategoria(nombreCategoria: string) {
+    return this.http.get<Convenio[]>(`${this.url}/categoria/${nombreCategoria}`);
   }
 
   contarConvenios(){

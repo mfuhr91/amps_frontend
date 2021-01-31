@@ -21,8 +21,7 @@ export class ListarSociosComponent implements OnInit {
   }
 
   getSocios(){
-    this.sociosService.getSocios().subscribe( res => {this.socios = res; console.log(res);
-    });
+    this.sociosService.getSocios().subscribe( res => this.socios = res);
   }
 
   buscar(param: string){
@@ -35,10 +34,8 @@ export class ListarSociosComponent implements OnInit {
   }
 
   borrarSocio(socio: Socio){
-    console.log(socio.id);
-    
     Swal.fire({
-      title: `Está seguro que desea eliminar el socio ${socio.apellido}, ${socio.nombre}?`,
+      title: `¿Está seguro que desea eliminar el socio ${socio.apellido}, ${socio.nombre}?`,
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

@@ -156,9 +156,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
       this.sociosService.getSocio(id).subscribe((res) => {
         this.socio = res;
-        console.log(this.socio);
-        
-        
+      
         this.socio.fechaAlta = this.formatFecha( res.fechaAlta );
         this.socio.fechaBaja = this.formatFecha( res.fechaBaja );
         this.socio.fechaNacimiento = this.formatFecha( res.fechaNacimiento );
@@ -180,8 +178,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         }
         
         this.form.setValue(this.socio);
-        
-        console.log(this.foto);
+      
             
       });
     } else {
@@ -296,7 +293,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     }
   
     this.fotosService.subirImagen(file, tipo).subscribe((res: any) => {
-      console.log(res);
       
       this.foto = res;
       this.guardado = false;
@@ -335,10 +331,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
   guardar() {
 
-    
-
-    console.log(this.form.value);
-
     if( this.form.invalid ) {
 
       return Object.values( this.form.controls ).forEach( control => {
@@ -347,7 +339,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
           Object.values( control.controls ).forEach( control => control.markAllAsTouched);
         }
         control.markAllAsTouched();
-        console.log( this.form );
         
       });
       

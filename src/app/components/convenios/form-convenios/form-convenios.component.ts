@@ -80,8 +80,9 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     this.crearForm();
 
     this.categoriasService.getCategorias().subscribe((res) => {
+      
+      res.splice(0,1);
       this.categorias = res;
-
       this.categorias.unshift({
         id: 0,
         nombre: 'Seleccione la categoría',

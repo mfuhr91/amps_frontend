@@ -1,1 +1,42 @@
-<p>listar-variables works!</p>
+
+<div class="container animate__animated animate__fadeIn">
+    <div class="card ">
+        <div class="card-header pt-2">
+            <div class="row">
+                <h3 class="my-2">Variables</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            
+            <cdk-virtual-scroll-viewport *ngIf="variables.length > 0" itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+            <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                <thead class="table-dark thead">
+                    <tr>
+                        <th class="py-1">VARIABLE</th>
+                        <th class="py-1">VALOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr *cdkVirtualFor="let variable of variables" class="align-middle animate__animated animate__fadeIn">
+
+                            <th class="py-0">{{ variable.nombre }}</th>
+                            <td class="py-0" *ngIf="variable.nombre == 'Cuota'">${{variable.valor | number:'1.2'}}
+                            </td>
+                            <td class="py-0" *ngIf="variable.nombre == 'Comision'">{{ variable.valor | number:'1.2' }}%
+                            </td>
+                            <td class="py-0" *ngIf="variable.nombre == 'Valor item'">${{variable.valor | number:'1.2'}}
+                            </td>
+                            
+                            <td class="py-0" *ngIf="variable.nombre == 'Fecha de cierre'">Día {{variable.valor}}
+                            </td>
+                        
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+
+
+        </div>
+        
+    </div>
+</div>

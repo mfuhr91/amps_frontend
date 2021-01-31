@@ -1,1 +1,73 @@
-<p>listar-categorias works!</p>
+<div class="container animate__animated animate__fadeIn">
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col-8">
+                    <h3 class="my-2">Categorías</h3>
+                </div>
+                <div class="buscador col-3 input-group mb-3">
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-2" (click)="crearFila()">Nuevo</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+
+           
+            <div class="alert alert-warning alert-dismissible fade show animate__animated animate__fadeIn" role="alert" *ngIf="categoria">
+                <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i>  ¡Hay convenios asignados a la categoria <span class="badge bg-dark fs-4">{{ categoria.nombre }}</span> !</h4>
+                <h6>Convenios:</h6> 
+                <ul *ngFor="let con of convenios">
+                    <li> {{ con.nombre}} </li>
+                </ul>
+                <hr>
+                <p class="mb-0 fs-5"><strong>Por favor cambie la categoria de cada convenio listado, antes de eliminarla.</strong></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="categoria =  null" aria-label="Cerrar"></button>
+            </div>
+            <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+                <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                    <thead class="table-dark thead">
+                        <tr>
+                            <th class="py-1">NOMBRE</th>
+                            <th class="py-1">OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cat of categorias, let i = index"
+                            class="align-middle animate__animated animate__fadeIn">
+                            <th class="py-0">
+                                <div class="row m-auto w-50">
+                                    <div class="input-group ">
+                                        <input [readOnly]="i < numCategoriasIniciales" #input (keyup)="ocultarError(error)" type="text" class="form-control my-1" placeholder="Ingrese una categoria" [id]="cat.id" [value]="cat.nombre">
+                                    </div>
+                                </div>
+                                <div class="row m-auto w-50 text-start">
+                                    <small #error hidden class="text-danger animate__animated animate__fadeIn">Debe ingresar una categoría</small>
+                                </div>
+                                
+                            </th>
+                            <td class="py-1">
+                                <button #guardarBtn class="btn btn-outline-success mx-1" (click)="guardar(guardarBtn, input, input.id, input.value, error)" [disabled]="i < numCategoriasIniciales">
+                                    
+                                    <i class="fas fa-save"></i></button>
+                                <button class="btn btn-outline-warning mx-1" (click)="editar(input, guardarBtn)"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-1" (click)="borrarCategoria(cat, i)"><i
+                                        class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+
+
+        </div>
+
+    </div>
+</div>

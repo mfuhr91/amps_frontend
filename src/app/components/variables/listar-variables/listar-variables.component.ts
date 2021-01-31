@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Variable } from 'src/app/interfaces/variable.interface';
+import { VariablesService } from 'src/app/providers/variables.service';
 
 @Component({
   selector: 'app-listar-variables',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListarVariablesComponent implements OnInit {
 
-  constructor() { }
+  variables: Variable[] = [];
+
+  
+
+  constructor( private variablesService: VariablesService ) { }
 
   ngOnInit(): void {
+    this.getVariables();
   }
 
+  getVariables(){
+    this.variablesService.getVariables().subscribe(res => this.variables = res);
+    
+  }
 }

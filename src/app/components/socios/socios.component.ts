@@ -9,15 +9,9 @@ import { SociosService } from 'src/app/providers/socios.service';
 })
 export class SociosComponent implements OnInit {
 
-  socios: Socio[] = [];
-
-  constructor( private sociosService: SociosService ) { }
+  constructor() { }
 
   ngOnInit(): void {
-
-    this.sociosService.getSocios().subscribe( res => this.socios = res);
-          
-
   }
 
 }

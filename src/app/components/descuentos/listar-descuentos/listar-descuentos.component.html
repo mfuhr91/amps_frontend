@@ -1,13 +1,16 @@
-
 <div class="container-fluid animate__animated animate__fadeIn">
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col-7"></div>
-                <div class="buscador col-3 input-group mb-3 me-0">
+                <div class="col-7">
+                    <h3 class="my-2">Descuentos</h3>
+                </div>
+                
+                <div class="buscador col-3 input-group mb-3">
                     <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
                     <button  (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button" id="buscador">Buscar</button>
                 </div>
+
                 
                 <div class="col-2">
                     <button class="btn btn-outline-primary float-end me-4 mt-2" [routerLink]="['crear']">Nuevo</button>

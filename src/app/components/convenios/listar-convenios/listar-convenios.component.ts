@@ -51,7 +51,7 @@ export class ListarConveniosComponent implements OnInit {
 
   borrarConvenio(convenio: Convenio){
     Swal.fire({
-      title: `Está seguro que desea eliminar el convenio con ${convenio.nombre}?`,
+      title: `¿Está seguro que desea eliminar el convenio con ${convenio.nombre}?`,
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

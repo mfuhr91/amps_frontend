@@ -36,14 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                        <!-- <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div> -->
-                    
-
-
                         <tr *cdkVirtualFor="let convenio of convenios" class="align-middle animate__animated animate__fadeIn">
-
-                           
                             <th class="py-0">{{ convenio.cuit }}</th>
                             <td class="py-0">{{ convenio.nombre }}</td>
                             <td class="py-0">{{ convenio.contacto }}</td>
@@ -51,10 +44,7 @@
                             <td class="py-0">{{ convenio.telefono }}</td>
                             <td class="py-0">{{ convenio.correo }}</td>
                             <td class="py-0">{{ convenio.localidad.nombre }}</td>
-                            <td class="py-0">{{ convenio.categoria.nombre }}</td>
-                            
-                           
-                            
+                            <td class="py-0">{{ convenio.categoria.nombre }}</td>         
                             <td class="py-1">
                                 <button class="btn btn-outline-warning" [routerLink]="['editar/' + convenio.id]"><i class="fas fa-pencil-alt"></i></button>
                                 <button class="btn btn-outline-danger mx-2" (click)="borrarConvenio(convenio)"><i class="fas fa-trash"></i></button>

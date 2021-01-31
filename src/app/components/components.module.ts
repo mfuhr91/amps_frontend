@@ -17,7 +17,6 @@ import { DescuentosComponent } from './descuentos/descuentos.component';
 import { ListarConveniosComponent } from './convenios/listar-convenios/listar-convenios.component';
 import { FormConveniosComponent } from './convenios/form-convenios/form-convenios.component';
 import { ListarCategoriasComponent } from './categorias/listar-categorias/listar-categorias.component';
-import { FormCategoriasComponent } from './categorias/form-categorias/form-categorias.component';
 import { FormDescuentosComponent } from './descuentos/form-descuentos/form-descuentos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ListarUsuariosComponent } from './usuarios/listar-usuarios/listar-usuarios.component';
@@ -45,7 +44,6 @@ import { ListarVariablesComponent } from './variables/listar-variables/listar-va
     ListarConveniosComponent,
     FormConveniosComponent,
     ListarCategoriasComponent,
-    FormCategoriasComponent,
     FormDescuentosComponent,
     UsuariosComponent,
     ListarUsuariosComponent,

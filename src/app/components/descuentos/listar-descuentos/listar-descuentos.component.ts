@@ -75,7 +75,7 @@ export class ListarDescuentosComponent implements OnInit {
   borrarDescuento( descuento: Descuento ) {
 
     Swal.fire({
-      title: `Está seguro que desea eliminar el descuento de $${descuento.valorTotal} del socio ${descuento.socio.apellido}, ${descuento.socio.nombre}?`,
+      title: `¿Está seguro que desea eliminar el descuento de $${descuento.valorTotal} del socio ${descuento.socio.apellido}, ${descuento.socio.nombre}?`,
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

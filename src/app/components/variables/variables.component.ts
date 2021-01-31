@@ -9,19 +9,10 @@ import { VariablesService } from 'src/app/providers/variables.service';
 })
 export class VariablesComponent implements OnInit {
 
-  variables: Variable[] = [];
-
-  
-
-  constructor( private variablesService: VariablesService ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getVariables();
-  }
 
-  getVariables(){
-    this.variablesService.getVariables().subscribe(res => this.variables = res);
-    
   }
 
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoriasComponent } from './components/categorias/categorias.component';
+import { ListarCategoriasComponent } from './components/categorias/listar-categorias/listar-categorias.component';
 import { ConveniosComponent } from './components/convenios/convenios.component';
 import { FormConveniosComponent } from './components/convenios/form-convenios/form-convenios.component';
 import { ListarConveniosComponent } from './components/convenios/listar-convenios/listar-convenios.component';
@@ -12,6 +13,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { FormSociosComponent } from './components/socios/form-socios/form-socios.component';
 import { ListarSociosComponent } from './components/socios/listar-socios/listar-socios.component';
 import { SociosComponent } from './components/socios/socios.component';
+import { ListarVariablesComponent } from './components/variables/listar-variables/listar-variables.component';
 import { VariablesComponent } from './components/variables/variables.component';
 
 const routes: Routes = [
@@ -55,7 +57,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'categorias', component: CategoriasComponent
+    path: 'categorias', 
+    component: CategoriasComponent,
+    children: [
+      {
+        path: '', component: ListarCategoriasComponent
+      }
+    ]
   },
   {
     path: 'descuentos', 
@@ -80,7 +88,13 @@ const routes: Routes = [
     
   },
   {
-    path: 'variables', component: VariablesComponent
+    path: 'variables', 
+    component: VariablesComponent,
+    children: [
+      {
+        path: '', component: ListarVariablesComponent
+      }
+    ]
   },
   {
     path: '**', pathMatch: 'full', redirectTo: 'inicio'
