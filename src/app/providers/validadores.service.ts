@@ -28,4 +28,22 @@ export class ValidadoresService {
       return noCero ? {distintoCero: {value: control.value}} : null;
     };
   }
+
+  passwordsIguales(pass1: string, pass2: string) {
+    
+
+
+    return ( formGroup: FormGroup ) => {
+
+      const pass1Control = formGroup.controls[pass1];
+      const pass2Control = formGroup.controls[pass2];
+
+      if(pass1Control.value === pass2Control.value) {
+        pass2Control.setErrors(null);
+      } else {
+
+        pass2Control.setValue({ noEsIgual: true });
+      }
+    }
+  }
 }

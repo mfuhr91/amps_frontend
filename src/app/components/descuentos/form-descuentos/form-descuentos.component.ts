@@ -84,12 +84,12 @@ export class FormDescuentosComponent implements OnInit {
         
         console.log(res);
         
-        this.descuento = res
+        this.descuento = res;
         
         if(this.descuento.convenio) {
           let foto: Foto = { id: 0, url: '', publicId: ''};
           let rol: Rol = { id: 0, authority: ''}
-          let usuario: Usuario = {id: 0,nombreUsuario: '', contraseña: '', fechaAlta: '', fechaBaja: '', rol }
+          let usuario: Usuario = {id: 0, nombreUsuario: '', contrasena: '', fechaAlta: '', fechaBaja: '', rol }
           this.descuento.convenio.usuario = usuario;
           this.descuento.convenio.foto = foto; 
           

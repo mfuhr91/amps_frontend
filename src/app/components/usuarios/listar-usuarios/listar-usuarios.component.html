@@ -1,1 +1,52 @@
-<p>listar-usuarios works!</p>
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="card mb-3">
+        <div class="card-header pt-2">
+            <div class="row">
+                <div class="col-8">
+                    <h3 class="my-2">Usuarios</h3>
+                </div>
+                <div class="buscador col-3 input-group mb-3">
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-primary float-end mx-4 mt-2" [routerLink]="['crear']">Nuevo</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+
+            <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400"
+                style="height: 750px;">
+                <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                    <thead class="table-dark thead">
+                        <tr>
+                            <th class="py-1">USUARIO</th>
+                            <th class="py-1">FECHA ALTA</th>
+                            <th class="py-1">FECHA BAJA</th>
+                            <th class="py-1">OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let usr of usuarios" class="align-middle animate__animated animate__fadeIn">
+
+                            <th class="py-0">{{ usr.nombreUsuario }}</th>
+                            <td class="py-0">{{ usr.fechaAlta }}</td>
+                            <td class="py-0">{{ usr.fechaBaja }}</td>
+
+                            <td class="py-1">
+                                <button class="btn btn-outline-warning" [routerLink]="['editar/' + usr.id]"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" (click)="borrarUsuario(usr)"><i
+                                        class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </div>
+</div>

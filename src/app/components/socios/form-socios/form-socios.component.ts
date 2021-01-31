@@ -461,7 +461,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       usuario: this.fb.group({
         id: [],
         nombreUsuario: [''],
-        contraseña: [''],
+        contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
         rol: this.fb.group({

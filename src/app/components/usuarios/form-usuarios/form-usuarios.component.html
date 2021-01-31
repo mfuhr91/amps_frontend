@@ -1,1 +1,109 @@
-<p>form-usuarios works!</p>
+<div class="container mt-2 animate__animated animate__fadeIn">
+
+  <div class="card mb-3">
+    <div class="card-header pt-2">
+      <div class="row">
+        <div class="col" *ngIf="!editar">
+          <h2>Nuevo usuario</h2>
+        </div>
+        <div class="col" *ngIf="editar">
+          <h2>Editar usuario</h2>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="guardar()">
+
+        <div class="row">
+
+          <div class="col-6 ms-3 mt-4">
+            <div class="form-group row my-3">
+              <label class="col-4 col-form-label">Nombre</label>
+              <div class="col-7">
+
+                <input #usuario (blur)="checkearUsuario(usuario.value)" class="form-control" #nombre type="text" placeholder="Nombre de usuario"
+                  formControlName="nombreUsuario" [class.is-invalid]="nombreUsuarioNoValido || usuarioExiste">
+                  
+                <small *ngIf="nombreUsuarioNoValido" class="text-danger"> Debe ingresar un nombre de Usuario</small>
+                <small *ngIf="usuarioExiste" class="text-danger"> ¡El usuario ya existe!</small>
+
+              </div>
+            </div>
+
+            <div class="form-group row my-3">
+              <label class="col-4 col-form-label">Contraseña</label>
+              <div class="col-7">
+
+                <input class="form-control" type="password" placeholder="Contraseña" formControlName="contrasena"
+                  [class.is-invalid]="contrasenaNoValido">
+                <small *ngIf="contrasenaNoValido" class="text-danger"> Debe ingresar una contraseña</small>
+              </div>
+            </div>
+            <div class="form-group row my-3">
+              <label class="col-4 col-form-label">Repetir contraseña</label>
+              <div class="col-7">
+
+                <input class="form-control" type="password" placeholder="Contraseña" formControlName="contrasena2"
+                  [class.is-invalid]="contrasenaNoCoincide">
+                
+                <small *ngIf="contrasenaNoCoincide" class="text-danger"> Las contraseñas no coinciden</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-5 ms-3 mt-4">
+            <div class="form-group row my-3" formGroupName="rol">
+              <label class="col-4 col-form-label">Rol</label>
+              <div class="col ">
+                <div class="input-group">
+                  <select class="form-select" formControlName="id" [class.is-invalid]="rolNoValido">
+                    <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.authority }}</option>
+                  </select>
+                </div>
+                <small *ngIf="rolNoValido" class="text-danger"> Debe seleccionar un rol</small>
+
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group row my-3">
+              <label class="col-4 col-form-label">Fecha de Alta</label>
+              <div class="col">
+
+                <input #fechaAlta class="form-control" type="date" placeholder="Fecha de Alta"
+                  formControlName="fechaAlta" [class.is-invalid]="fechaAltaNoValido">
+                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha </small>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando || usuarioExiste">Guardar</button>
+
+      </form>
+
+
+
+
+    </div>
+  </div>
+</div>

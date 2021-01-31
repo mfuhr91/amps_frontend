@@ -343,7 +343,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
 
     Swal.fire({
-      title: `Comercio ${this.form.controls['comercio'].value} guardado con éxito!`,
+      title: `Comercio ${this.form.controls['nombre©'].value} guardado con éxito!`,
       icon: 'success',
       confirmButtonText: 'OK',
       buttonsStyling: false,

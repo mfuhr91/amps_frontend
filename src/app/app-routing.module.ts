@@ -13,6 +13,9 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { FormSociosComponent } from './components/socios/form-socios/form-socios.component';
 import { ListarSociosComponent } from './components/socios/listar-socios/listar-socios.component';
 import { SociosComponent } from './components/socios/socios.component';
+import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
+import { ListarUsuariosComponent } from './components/usuarios/listar-usuarios/listar-usuarios.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ListarVariablesComponent } from './components/variables/listar-variables/listar-variables.component';
 import { VariablesComponent } from './components/variables/variables.component';
 
@@ -37,8 +40,7 @@ const routes: Routes = [
         component: FormSociosComponent,
       },
     ]
-  },
-  
+  },  
   {
     path: 'convenios', 
     component: ConveniosComponent,
@@ -97,7 +99,24 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**', pathMatch: 'full', redirectTo: 'inicio'
+    path: 'usuarios', 
+    component: UsuariosComponent,
+    children: [
+      {
+        path: '', component: ListarUsuariosComponent
+      },
+      {
+        path: 'crear', 
+        component: FormUsuariosComponent,
+      },
+      {
+        path: 'editar/:id', 
+        component: FormUsuariosComponent,
+      },
+    ]
+  },
+  {
+    path: '**', pathMatch: 'full', redirectTo: 'usuarios'
   },
 ];
 
