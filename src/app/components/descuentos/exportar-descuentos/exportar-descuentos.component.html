@@ -5,16 +5,18 @@
                 <div class="col-7">
                     <h3 class="my-2">Descuentos a liquidar</h3>
                 </div>
-                <div class="col-4">
-                    <div class="buscador input-group mb-3">
-                        <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                            placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor">
-                        <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
-                            id="buscador">Buscar</button>
-                    </div>
+                
+                <div class="buscador col-3 input-group mb-3">
+                    <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
                 </div>
-                <div class="col-1">
-                    <button class="btn btn-outline-danger float-end mx-4 mt-2">Exportar</button>
+                
+                
+                <div class="col-2">
+                    <button class="btn btn-outline-dark me-4 mt-2 float-end" (click)="volver()"> Volver </button>
+                    <button class="btn btn-outline-danger float-end me-4 mt-2">Exportar</button>
                 </div>
             </div>
 

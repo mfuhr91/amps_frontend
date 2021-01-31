@@ -116,7 +116,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**', pathMatch: 'full', redirectTo: 'usuarios'
+    path: '**', pathMatch: 'full', redirectTo: 'inicio'
   },
 ];
 

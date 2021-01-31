@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { elementAt } from 'rxjs/operators';
 import { Descuento } from 'src/app/interfaces/descuentos/descuento.interface';
@@ -42,7 +42,8 @@ export class ExportarDescuentosComponent implements OnInit {
 
   constructor(  private descuentosService: DescuentosService,
                 private variablesService: VariablesService,
-                private sociosService: SociosService ) { }
+                private sociosService: SociosService,
+                private location: Location ) { }
 
   ngOnInit(): void {
     this.getVariables();
@@ -137,6 +138,11 @@ export class ExportarDescuentosComponent implements OnInit {
       
         
     
+  }
+
+  volver(){
+
+    this.location.back();
   }
 
 }
