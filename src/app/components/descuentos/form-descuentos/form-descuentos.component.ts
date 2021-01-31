@@ -254,7 +254,7 @@ export class FormDescuentosComponent implements OnInit {
       },
     })
 
-    /* this.location.back(); */
+    this.location.back();
   }
 
   volver() {

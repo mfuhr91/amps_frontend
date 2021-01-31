@@ -20,8 +20,8 @@ export class ListarUsuariosComponent implements OnInit {
 
   getUsuarios(){
     this.usuariosService.getUsuarios().subscribe(res => {
-      
-      console.log(res);
+
+      res.splice(0,1); // no muestra el usuario mfuhr en listado
       
       this.usuarios = res});
   }

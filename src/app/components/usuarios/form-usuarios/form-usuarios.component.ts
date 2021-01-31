@@ -125,7 +125,7 @@ export class FormUsuariosComponent implements OnInit{
           },
     })
 
-    /* this.location.back(); */
+    this.location.back();
   }
 
   volver(){
