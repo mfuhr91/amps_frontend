@@ -301,7 +301,8 @@ export class FormDescuentosComponent implements OnInit {
         nombre: [''],
         apellido: [''],
         legajo: [''],
-       
+        seguroVida: [],
+        cuotaDeporte: [],
         correo: [''],
         fechaAlta: [],
         fechaBaja: [],
@@ -327,7 +328,7 @@ export class FormDescuentosComponent implements OnInit {
         usuario: this.fb.group({
           id: [],
           nombreUsuario: [],
-          contraseña: [],
+          contrasena: [],
           fechaAlta: [],
           fechaBaja: [],
           rol: this.fb.group({
@@ -370,7 +371,7 @@ export class FormDescuentosComponent implements OnInit {
         usuario: this.fb.group({
           id: [],
           nombreUsuario: [],
-          contraseña: [],
+          contrasena: [],
           fechaAlta: [],
           fechaBaja: [],
           rol: this.fb.group({

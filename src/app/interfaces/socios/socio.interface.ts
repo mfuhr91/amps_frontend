@@ -26,6 +26,8 @@ export interface Socio {
     baja: string,
     telefono: number,
     cuil: string,
+    cuotaDeporte: number,
+    seguroVida: number,
     
     cuotaSocial: Variable;
     foto: Foto,

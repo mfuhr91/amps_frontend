@@ -76,7 +76,14 @@ export class FormUsuariosComponent implements OnInit{
   async checkearUsuario(param: string) {
 
     const promise = await this.usuariosService.getUsuarios().toPromise();
+    
+    if(this.editar){
 
+        let usr = promise.filter(usuario => usuario.id === this.usuario.id );
+
+        promise.splice(promise.indexOf(usr[0]));
+
+    }
     let nuevoUsuario!: Usuario;
     promise.forEach(usuario => {
       if(usuario.nombreUsuario == param ) {

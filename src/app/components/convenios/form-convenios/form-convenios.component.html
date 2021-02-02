@@ -119,8 +119,8 @@
                             <label class="col-4 col-form-label">Fecha de Alta</label>
                             <div class="col">
 
-                                <input #fechaAlta class="form-control" type="date" placeholder="Fecha de Alta"
-                                    formControlName="fechaAlta" (change)="asignarFechaAltaUsuario(fechaAlta.value)"
+                                <input class="form-control" type="date" placeholder="Fecha de Alta"
+                                    formControlName="fechaAlta"
                                     [class.is-invalid]="fechaAltaNoValido">
                                 <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha
                                 </small>
@@ -211,8 +211,8 @@
                             <label class="col-4 col-form-label">Fecha de Baja</label>
                             <div class="col">
 
-                                <input #fechaBaja class="form-control" type="date" placeholder="Fecha de Baja"
-                                    formControlName="fechaBaja" (change)="asignarFechaBajaUsuario(fechaBaja.value)">
+                                <input class="form-control" type="date" placeholder="Fecha de Baja"
+                                    formControlName="fechaBaja">
                             </div>
                         </div>
                     </div>

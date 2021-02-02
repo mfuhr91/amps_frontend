@@ -106,6 +106,8 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     
   ngOnInit(): void {
 
+    this.cargarDataAlFormulario(); //TODO: BORRAR
+
     this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
 
     this.sociosService.getTiposDocumentos().subscribe((res) => {
@@ -322,14 +324,17 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
   
 
-  asignarFechaAltaUsuario(fecha: string) {
+  /* asignarFechaAltaUsuario(fecha: string) {
     this.form.controls['usuario'].patchValue({ fechaAlta: fecha });
   }
   asignarFechaBajaUsuario(fecha: string) {
     this.form.controls['usuario'].patchValue({ fechaBaja: fecha });
   }
-
+ */
   guardar() {
+
+    this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
+    this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
 
     if( this.form.invalid ) {
 
@@ -368,7 +373,8 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         confirmButton: 'btn btn-outline-primary',
       },
     })
-
+    console.log(this.form.value);
+    
     this.location.back();
   }
 
@@ -439,12 +445,14 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       fechaAlta: [this.hoy, [Validators.required]],
       fechaBaja: [''],
       direccion: ['', [Validators.required]],
-      baja: ['false'],
+      baja: [false],
       extranjero: [false],
       fechaIngresoLaboral: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       legajo: ['', [Validators.required]],
-      motivoBaja: [''],
+      motivoBaja: [],
+      cuotaDeporte: [],
+      seguroVida: [],
       numCuenta: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       cuil: ['', [Validators.required]],
@@ -490,47 +498,65 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   }
 
 
-  /* cargarDataAlFormulario() {
+  cargarDataAlFormulario() {
     this.form = this.fb.group({
       id: [''],
-      numDoc: [''],
-      nombre: ['Mariano'],
-      apellido: ['Fuhr'],
-      correo: [''],
-      fechaAlta: [this.today],
+      numDoc: [3123213],
+      nombre: ['Pablo'],
+      apellido: ['Ruiz'],
+      correo: ['pruiz@mail.com'],
+      fechaAlta: [this.hoy],
       fechaBaja: [''],
-      categoria: [''],
-      cuotaSocial: [''],
-      direccion: [''],
-      suspendido: [false],
+      direccion: ['dir 123'],
+      baja: ['false'],
       extranjero: [false],
-      fechaIngresoLaboral: [''],
-      fechaNacimiento: [''],
-      foto: [''],
-      legajo: [''],
-      motivoSusp: [''],
-      numCuenta: [''],
-      telefono: [''],
-      cuil: [''],
-      usuario: this.fb.group({
+      fechaIngresoLaboral: [this.hoy],
+      fechaNacimiento: [this.hoy],
+      legajo: [3214123],
+      motivoBaja: [],
+      cuotaDeporte: [],
+      seguroVida: [],
+      numCuenta: [1312434],
+      telefono: [4324213],
+      cuil: [12321313],
+      foto: this.fb.group({
         id: [''],
+        publicId: [''],
+        url: [''],
+      }),
+      cuotaSocial: this.fb.group({
+        id: [''],
+        nombre: [''],
+        valor: [''],
+      }),
+      usuario: this.fb.group({
+        id: [],
         nombreUsuario: [''],
-        contraseña: [''],
+        contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
         rol: this.fb.group({
-          id: [1],
+          id: [3],
           authority: [''],
         }),
       }),
       localidad: this.fb.group({
         id: [1],
         nombre: [''],
+        cp: [],
       }),
       tipoDocumento: this.fb.group({
         id: [1],
         nombre: [''],
       }),
+      tipo: this.fb.group({
+        id: [1],
+        nombre: [''],
+      }),
+      estadoCivil: this.fb.group({
+        id: [1],
+        nombre: [''],
+      }),
     });
-  } */
+  }
 }

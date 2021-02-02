@@ -145,7 +145,6 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     let fechaFormat = new DatePipe('es').transform(
       fecha,
       'yyyy-MM-dd',
-      'UTC+3'
       );
       
       if (fechaFormat) {
@@ -230,16 +229,16 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
       
       this.contrasena = comercio.charAt(0).toLowerCase().concat(contacto.charAt(0).toLowerCase()).concat(telefono);
 
-      this.form.controls['usuario'].patchValue({contraseña: this.contrasena});
+      this.form.controls['usuario'].patchValue({contrasena: this.contrasena});
     }
   }
 
-  asignarFechaAltaUsuario(fecha: string) {
+  /* asignarFechaAltaUsuario(fecha: string) {
     this.form.controls['usuario'].patchValue({ fechaAlta: fecha });
   }
   asignarFechaBajaUsuario(fecha: string) {
     this.form.controls['usuario'].patchValue({ fechaBaja: fecha });
-  }
+  } */
 
 
 
@@ -295,7 +294,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
       usuario: this.fb.group({
         id: [],
         nombreUsuario: [''],
-        contraseña: [''],
+        contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
         rol: this.fb.group({
@@ -324,6 +323,22 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
   guardar() {
 
     console.log(this.form.value);
+
+    this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
+    this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
+
+    if( this.form.invalid ) {
+
+      return Object.values( this.form.controls ).forEach( control => {
+        
+        if( control instanceof FormGroup ) {
+          Object.values( control.controls ).forEach( control => control.markAllAsTouched);
+        }
+        control.markAllAsTouched();
+        
+      });
+      
+    }
     
     if (this.editar) {
       this.conveniosService.editarConvenio(this.form.value).subscribe();
@@ -343,7 +358,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
 
     Swal.fire({
-      title: `Comercio ${this.form.controls['nombre©'].value} guardado con éxito!`,
+      title: `Comercio ${this.form.controls['nombre'].value} guardado con éxito!`,
       icon: 'success',
       confirmButtonText: 'OK',
       buttonsStyling: false,

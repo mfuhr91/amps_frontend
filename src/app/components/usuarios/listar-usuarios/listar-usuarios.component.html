@@ -26,7 +26,6 @@
                         <tr>
                             <th class="py-1">USUARIO</th>
                             <th class="py-1">FECHA ALTA</th>
-                            <th class="py-1">FECHA BAJA</th>
                             <th class="py-1">OPCIONES</th>
                         </tr>
                     </thead>
@@ -34,8 +33,7 @@
                         <tr *cdkVirtualFor="let usr of usuarios" class="align-middle animate__animated animate__fadeIn">
 
                             <th class="py-0">{{ usr.nombreUsuario }}</th>
-                            <td class="py-0">{{ usr.fechaAlta }}</td>
-                            <td class="py-0">{{ usr.fechaBaja }}</td>
+                            <td class="py-0">{{ usr.fechaAlta | date:'dd/MM/yyyy'}}</td>
 
                             <td class="py-1">
                                 <button class="btn btn-outline-warning" [routerLink]="['editar/' + usr.id]"><i
