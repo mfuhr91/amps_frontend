@@ -8,6 +8,8 @@ import { Variable } from 'src/app/interfaces/variable.interface';
 import { DescuentosService } from 'src/app/providers/descuentos.service';
 import { SociosService } from 'src/app/providers/socios.service';
 import { VariablesService } from 'src/app/providers/variables.service';
+import * as fileSaver from 'file-saver';
+
 
 @Component({
   selector: 'app-exportar-descuentos',
@@ -22,7 +24,7 @@ export class ExportarDescuentosComponent implements OnInit {
 
   items: Item[] = [];
 
-  variables: Variable[] = [];
+  itemsListados: boolean = false;
 
   cuotaSocial!: number;
 
@@ -46,82 +48,90 @@ export class ExportarDescuentosComponent implements OnInit {
                 private location: Location ) { }
 
   ngOnInit(): void {
-    this.getVariables();
-    console.log(this.hoy);
+    this.getVariables();    
+    
+  }
+
+  exportar( param: string ) {
+    let arreglo = param.split('/');
+    arreglo.reverse();
+    param = arreglo.join('-');
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    /* downloadLink.cl('display', 'none'); */
+    this.descuentosService.exportar(param).subscribe( res => {
+
+      let blob: any = res;
+
+      let fecha = this.fechaHoy?.toString().replace("-", "").replace("-", "");
+
+      const url= window.URL.createObjectURL(blob);
+			//window.open(url);
+			//window.location.href = url;
+			fileSaver.saveAs(blob, `126-${fecha}.prn`);
+    
+
     
     
     
+    })
+
     
   }
 
   getVariables(){
     this.variablesService.getVariables().subscribe(res => {
+
+      let variables: Variable[] = res;
       this.diaCierre = res[2].valor.toString();
-      console.log(this.fechaHoy);
+
       let arr = this.fechaHoy?.split('-');
-      console.log(arr);
       arr?.splice(0,1, this.diaCierre);
-      console.log(arr);
       if(arr){
 
         this.fechaCierre = new Date(Date.parse(arr.reverse().join('/')));
       }
 
-      if(this.hoy?.getTime() > this.fechaCierre?.getTime()){
-        console.log('fecha cierre menor');
-        
-      }
+    
 
-      console.log(arr?.join('-'));
-      console.log(this.fechaCierre);
+     /*  console.log(arr?.join('-')); */
       
-
-      console.log(res);
-      this.variables = res;
-      this.variables;
-      this.cuotaSocial = this.variables[0].valor;
-      this.comision = (this.variables[1].valor / 100) + 1 ;
-      console.log(this.cuotaSocial);
-      console.log(this.comision);
+    
+      this.cuotaSocial = variables[0].valor;
+      this.comision = (variables[1].valor / 100) + 1 ;
+     
       
     })
   }
 
-  liquidarCuotaSocial(){
-
-  }
-
   buscar(param: string){
-    let arreglo = param.split('/');
-    arreglo.reverse();
-    param = arreglo.join('-');
+
+    if(param){
+
+      let arreglo = param.split('/');
+      arreglo.reverse();
+      param = arreglo.join('-');
+      
+      this.items = [];
+      this.descuentosService.getDescuentosDelMes(param).subscribe(res => {
+        
     
-    this.items = [];
-    this.descuentosService.getDescuentosDelMes(param).subscribe(res => {
-      
-  
-      let arreglo: Item[] = [];
-      
-      
-      res.forEach(descuento => {
-        console.log(descuento.items);
+        let arreglo: Item[] = [];
+        
+        
+        res.forEach(descuento => {
 
-       
-        descuento.items.forEach(element => {
-            element.descuento = descuento;
-
-            console.log(element);
-            arreglo.push(element);
-
-            
-            
+          descuento.items.forEach(element => {
+              element.descuento = descuento;
+              arreglo.push(element);
           });
-          
-          
+            
+            
         });
-
+  
         this.items = arreglo;
-        console.log(this.items);
+        
 
         let subtotal = 0;
         let total = 0;
@@ -133,16 +143,25 @@ export class ExportarDescuentosComponent implements OnInit {
         });
         this.subTotal = subtotal;
         this.total = total;
-    });
+        if(res.length > 0){
+          this.itemsListados = true;
+        }
+      });
+    }
 
       
         
     
   }
 
+  escribiendo(){
+    this.itemsListados = false;
+  }
+
   volver(){
 
     this.location.back();
   }
+
 
 }

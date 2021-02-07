@@ -39,4 +39,11 @@ export class DescuentosService {
   sumarTotalRecaudado(){
     return this.http.get<number>(`${this.url}/total`);
   }
+
+  exportar(mes: string){
+    return this.http.get(`${this.url}/descargar/${mes}`,
+    {
+      responseType: 'blob',
+    });
+  }
 }

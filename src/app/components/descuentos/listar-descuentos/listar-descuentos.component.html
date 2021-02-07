@@ -46,8 +46,8 @@
 
                             <th class="py-0">{{ desc.descripcion }}</th>
                             <td class="py-0">{{ desc.numCuotas }}</td>
-                            <td class="py-0">${{ desc.valorCuota | number:'1.0-2' }}</td> <!-- TODO: cuota mensual con comision -->
-                            <td class="py-0">${{ desc.valorTotal | number:'1.0-2' }}</td>
+                            <td class="py-0">${{ desc.valorCuota | number:'1.2-2' }}</td> <!-- TODO: cuota mensual con comision -->
+                            <td class="py-0">${{ desc.valorTotal | number:'1.2-2' }}</td>
                             <td class="py-0">{{ desc.socio.apellido }}, {{ desc.socio.nombre }}</td>
                             <td class="py-0">{{ desc.convenio.nombre }}</td>
                             <td class="py-0">{{ desc.fechaAlta | date:'HH:mm dd/MM/yyyy':'UTC-3' }}</td>

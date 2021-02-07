@@ -7,8 +7,8 @@
                 </div>
                 
                 <div class="buscador col-3 input-group mb-3">
-                    <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                        placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor">
+                    <input id="inputMes" #buscador (keyup)="escribiendo()" (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Ingresar MM/AAAA" data-mask="99/9999" aria-label="Buscar" aria-describedby="buscardor">
                     <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
                         id="buscador">Buscar</button>
                 </div>
@@ -16,7 +16,10 @@
                 
                 <div class="col-2">
                     <button class="btn btn-outline-dark me-4 mt-2 float-end" (click)="volver()"> Volver </button>
-                    <button class="btn btn-outline-danger float-end me-4 mt-2">Exportar</button>
+                    <button class="btn btn-outline-danger float-end me-4 mt-2" 
+                            
+                            (click)="exportar(buscador.value)" 
+                            [disabled]="!itemsListados">Exportar</button>
                 </div>
             </div>
 
@@ -41,15 +44,15 @@
                             <td class="py-0">{{ item.descuento.socio.numCuenta }}</td>
                             <td class="py-0">{{ item.descuento.socio.apellido }} {{ item.descuento.socio.nombre }}</td>
                             <td class="py-0">{{ item.descuento.socio.numDoc }}</td>
-                            <td class="py-0">{{ item.valorSubTotal | number:'1.0-2' }}</td>
-                            <td class="py-0" *ngIf="item.id == 0">{{ item.valorTotal | number:'1.0-2'  }}</td>
-                            <td class="py-0" *ngIf="item.id != 0">{{ item.valorTotal | number:'1.0-2'  }}</td>
+                            <td class="py-0">{{ item.valorSubTotal | number:'1.2-2' }}</td>
+                            <td class="py-0" *ngIf="item.id == 0">{{ item.valorTotal | number:'1.2-2'  }}</td>
+                            <td class="py-0" *ngIf="item.id != 0">{{ item.valorTotal | number:'1.2-2'  }}</td>
                             
                         </tr>
                         <tr *ngIf="total">
                             <td class="py-0" colspan="4"></td>
-                            <th class="py-0">{{ subTotal | number:'1.0-2' }}</th>
-                            <th class="py-0">{{ total | number:'1.0-2' }}</th>
+                            <th class="py-0">{{ subTotal | number:'1.2-2' }}</th>
+                            <th class="py-0">{{ total | number:'1.2-2' }}</th>
                         </tr>
                     </tbody>
                 </table>

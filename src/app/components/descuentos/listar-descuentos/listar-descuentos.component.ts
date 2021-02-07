@@ -33,40 +33,17 @@ export class ListarDescuentosComponent implements OnInit {
     
     const { param } = this.route.snapshot.params;
 
-    if(param === 'socio') {
-      console.log('socio');
-      
-    } else if (param == 'convenio'){
-      console.log('convenio');
-      
-    } else {
-
-    }
   }
 
   private getDescuentos(){
-    this.descuentosService.getDescuentos().subscribe( res => {
-      
-      console.log(res);
-      
+    this.descuentosService.getDescuentos().subscribe( res => {  
       this.descuentos = res
-      
-      res.forEach( descuento => {
-
-        console.log(descuento.valorCuota);
-        
-      });
-  
-
     });
   }
   getVariables(){
     this.variablesService.getVariables().subscribe(res => {
-      
-      
+    
       this.comision = (res[1].valor / 100) + 1 ;
-      
-      console.log(this.comision);
       
     })
   }
