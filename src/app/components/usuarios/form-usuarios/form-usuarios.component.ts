@@ -55,10 +55,11 @@ export class FormUsuariosComponent implements OnInit{
       this.usuariosService.getUsuario(id).subscribe((res) => {
         this.usuario = res;
 
-        this.usuario.contrasena2 = res.contrasena;
+        this.usuario.contrasena2 = res.contrasena = '**********';
         
         let fechaAlta = new DatePipe('es').transform( this.usuario.fechaAlta, 'yyyy-MM-dd');
       
+
 
         if(fechaAlta){
           this.usuario.fechaAlta = fechaAlta;
@@ -73,15 +74,17 @@ export class FormUsuariosComponent implements OnInit{
   }
 
   async checkearUsuario(param: string) {
-
+    console.log(param);
+    
     const promise = await this.usuariosService.getUsuarios().toPromise();
     
     if(this.editar){
 
-        let usr = promise.filter(usuario => usuario.id === this.usuario.id );
-
-        promise.splice(promise.indexOf(usr[0]));
-
+      let usr = promise.filter(usuario => usuario.id == this.usuario.id );
+       
+        
+      promise.splice(promise.indexOf(usr[1])); // usr[0] es usuario oculto del desarrollador
+      
     }
     let nuevoUsuario!: Usuario;
     promise.forEach(usuario => {

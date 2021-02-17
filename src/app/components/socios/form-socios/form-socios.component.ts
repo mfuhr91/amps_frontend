@@ -103,7 +103,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     
   ngOnInit(): void {
 
-    this.cargarDataAlFormulario(); //TODO: BORRAR
+    /* this.cargarDataAlFormulario(); */ //TODO: BORRAR
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
 
