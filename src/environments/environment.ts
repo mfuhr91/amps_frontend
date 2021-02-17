@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  /* url: 'https://amps-backend-test.herokuapp.com', */
-  url: 'http://localhost:8080'
+  url: 'https://amps-backend-test.herokuapp.com',
+  /* url: 'http://localhost:8080' */
 };
 
 /*
