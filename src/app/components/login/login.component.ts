@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit{
 
   login(): void {
 
-    
+    this.entrando = true;
     this.usuario = new LoginUsuario(this.form.nombreUsuario, this.form.contrasena);
     
     
@@ -52,9 +52,10 @@ export class LoginComponent implements OnInit{
 
       if(data.authorities[0].authority === 'socio') {
         this.router.navigate(['login']); 
+        this.entrando = false;
       }else{
         
-        this.entrando = true;
+        
         
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.nombreUsuario);
@@ -79,6 +80,7 @@ export class LoginComponent implements OnInit{
       (err: any) => {
       
         this.isLoginFail = true;
+        this.entrando = false;
         /* this.errorMsg = err.error.message;
         this.authService.loginUsuario$.emit(undefined); */
       }
