@@ -13,26 +13,28 @@
                     <h2>Editar descuento</h2>
                 </div>
                 <div class="col">
-                    <button *ngIf="!rolComercio" class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
+                    <button *ngIf="!rolComercio" class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()">
+                        <i class="fas fa-chevron-left"></i> Volver </button>
                 </div>
             </div>
         </div>
         <div class="card-body pt-0">
 
-            <form autocomplete="off" [formGroup]="form" >
+            <form autocomplete="off" [formGroup]="form">
 
                 <div class="row">
 
                     <div id="convenio" class="form-group row m-auto my-3 p-3" formGroupName="convenio">
 
-                        <h5>Comercio <span *ngIf="!rolComercio" (click)="listarConvenios()" class="badge bg-dark ms-2" data-bs-toggle="modal"
-                                data-bs-target="#comerciosModal"><i class="fas fa-mouse-pointer"></i> Haga click para
+                        <h5>Comercio <span *ngIf="!rolComercio" (click)="listarConvenios()" class="badge bg-dark ms-2"
+                                data-bs-toggle="modal" data-bs-target="#comerciosModal"><i
+                                    class="fas fa-mouse-pointer"></i> Haga click para
                                 buscar un comercio</span></h5>
 
                         <div class="row" *ngIf="convenio">
 
                             <div class="col-5">
-                                
+
                                 <div class="form-group row my-3 pe-0">
                                     <label class="col-3 col-form-label">Comercio</label>
                                     <div class="col pe-0">
@@ -48,7 +50,7 @@
                                     <div class="col pe-0">
 
                                         <input class="form-control" type="number" formControlName="cuit" readonly>
-                                       
+
                                     </div>
                                 </div>
 
@@ -59,7 +61,7 @@
                                     <div class="col pe-0">
 
                                         <input class="form-control" type="text" formControlName="direccion" readonly>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="form-group row my-3 pe-0">
@@ -84,21 +86,28 @@
 
 
                     <div id="socio" class="form-group row m-auto my-3 p-3" formGroupName="socio">
-
-                        <h5 class="col-1 mt-2">Socio
-                            
-                        </h5>
-                        <div class="buscador input-group mb-3">
-                            <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                                placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
-                            <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
-                                id="buscador">Buscar</button>
-                        </div>
                         
-                       <!--  <h5>Socio <span (click)="mostrarModalSocios = !mostrarModalSocios" id="badge-socio" class="badge bg-dark ms-2"
-                                data-bs-toggle="modal" data-bs-target="#sociosModal"><i
-                                    class="fas fa-mouse-pointer"></i> Haga click para
-                                buscar un socio</span> </h5> -->
+                        <div class="row">
+                            <h5 class="col-1 mt-2">Socio
+                                
+                            </h5>
+                            <div class="buscador input-group mb-3">
+                                <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                                placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                                <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                                id="buscador">Buscar</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div *ngIf="socioNoEncontrado" class="alert alert-danger col-6 mt-3" role="alert">
+                                ¡No existe un socio con ese documento!
+                            </div>
+                            <div *ngIf="!socioHabilitado" class="alert alert-warning col-6 mt-3" role="alert">
+                                ¡El socio no está habilitado para realizar compras!
+                            </div>
+                        </div>
+
+
 
                         <div class="row" *ngIf="socio">
                             <div class="col-5 ">
@@ -223,7 +232,10 @@
 
                 </div>
 
-                <button type="button" (click)="guardar()" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
+                <button *ngIf="!guardando" type="button" (click)="guardar()" class="btn btn-outline-primary mx-4 mt-2"
+                    [disabled]="guardando"><i class="fas fa-save"></i> Guardar</button>
+                <button *ngIf="guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" 
+                    disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
 
             </form>
 
@@ -300,62 +312,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- Modal Socios -->
-<!-- 
-<div class="modal fade" id="sociosModal" #modalSocios tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content" *ngIf="mostrarModalSocios">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Seleccionar socio</h5>
-                <div *ngIf="!rolComercio" class="buscador input-group mb-3">
-                    <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
-                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
-                        id="buscador">Buscar</button>
-                </div>
-               
-                <button (click)="mostrarModalSocios = !mostrarModalSocios" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
-                    <table class="table table-hover table-striped table-bordered text-center table-responsive">
-                        <thead class="table-dark thead">
-                            <tr>
-                                <th class="py-1">SELECCIONAR</th>
-                                <th class="py-1">DOCUMENTO</th>
-                                <th class="py-1">SOCIO</th>
-                                <th class="py-1">LEGAJO</th>
-                                <th class="py-1">OPCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr *cdkVirtualFor="let socio of socios"
-                                class="align-middle animate__animated animate__fadeIn">
-
-                                <td class="py-0"><button (click)="seleccionarSocio(socio)"
-                                        class="btn btn-outline-primary" data-bs-dismiss="modal"><i
-                                            class="far fa-check-circle"></i></button></td>
-                                <th class="py-0">{{ socio.numDoc }}</th>
-                                <td class="py-0">{{ socio.apellido }}, {{ socio.nombre }}</td>
-                                <td class="py-0">{{ socio.legajo }}</td>
-                                <td class="py-1">
-                                    <button class="btn btn-outline-warning"
-                                        [routerLink]="['socios/editar/' + socio.id]"><i
-                                            class="fas fa-pencil-alt"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </cdk-virtual-scroll-viewport>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -24,6 +24,7 @@ export interface Socio {
     motivoBaja: string,
     numCuenta: number,
     baja: string,
+    habilitado: boolean,
     telefono: number,
     cuil: string,
     cuotaDeporte: number,

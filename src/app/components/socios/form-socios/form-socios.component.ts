@@ -374,7 +374,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         confirmButton: 'btn btn-outline-primary',
       },
     })
-    console.log(this.form.value);
     
     this.location.back();
   }
@@ -446,7 +445,8 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       fechaAlta: [this.hoy, [Validators.required]],
       fechaBaja: [''],
       direccion: ['', [Validators.required]],
-      baja: [false],
+      baja: ['false'],
+      habilitado: [true],
       extranjero: [false],
       fechaIngresoLaboral: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
@@ -476,7 +476,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         baja: [false],
         rol: this.fb.group({
           id: [3],
-          authority: [''],
+          nombreRol: [''],
         }),
       }),
       localidad: this.fb.group({
@@ -511,6 +511,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       fechaBaja: [''],
       direccion: ['dir 123'],
       baja: ['false'],
+      habilitado: [true],
       extranjero: [false],
       fechaIngresoLaboral: [this.hoy],
       fechaNacimiento: [this.hoy],

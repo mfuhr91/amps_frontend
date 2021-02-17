@@ -10,7 +10,7 @@
                     <h2>Editar convenio</h2>
                 </div>
                 <div class="col">
-                    <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
+                    <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"><i class="fas fa-chevron-left"></i> Volver </button>
                 </div>
             </div>
         </div>
@@ -222,8 +222,9 @@
                 <div class="alert alert-success" *ngIf="contrasena" role="alert">
                     La contraseña del comercio será: <span class="badge bg-success">{{ contrasena }}</span>
                 </div>
-                <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
-
+                <button *ngIf="!guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando"><i class="fas fa-save"></i> Guardar</button>
+                <button *ngIf="guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" 
+                    [disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
             </form>
 
 

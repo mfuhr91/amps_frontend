@@ -33,14 +33,13 @@ td .btn {
     margin-bottom: 5px;
 }
 
-/* .buscador {
-    width: 25%;
-    float: left !important;
-    top: 0px;
-    left: 55%;
-} */
 .buscador {
     max-width: 25% !important;
     top: 8px !important;
     left: 25px;
+}
+
+.alert {
+
+    border-radius: 10px !important;
 }

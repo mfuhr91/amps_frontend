@@ -25,8 +25,6 @@ export class ListarCategoriasComponent implements OnInit {
 
   soloLectura: boolean = true;
 
-  guardando: boolean = false;
-
   numCategoriasIniciales: number = 0;
 
   constructor(  private categoriasService: CategoriasService,
@@ -200,7 +198,7 @@ export class ListarCategoriasComponent implements OnInit {
         }else {
           this.categoriasService.crearCategoria(cat).subscribe();
           Swal.fire({
-            title: `¡Categoria ${cat.nombre} guardado con éxito!`,
+            title: `¡Categoria ${cat.nombre} guardada con éxito!`,
             icon: 'success',
             confirmButtonText: 'OK',
             buttonsStyling: false,
@@ -211,14 +209,13 @@ export class ListarCategoriasComponent implements OnInit {
           input.setAttribute('readonly', 'true');
           btn.setAttribute('disabled','true');
         }
-        
       });
       
     }else{
       this.mostrarError(error);
+      
     }
 
-      
       
       
     

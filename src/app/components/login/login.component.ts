@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit{
   isLoginFail = false;
   roles: string[] = [];
   errorMsg = '';
+  entrando = false;
 
   constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) { }
 
@@ -46,10 +47,14 @@ export class LoginComponent implements OnInit{
     
     
     this.authService.login(this.usuario).subscribe((data: any)=> {
+      
+      
+
       if(data.authorities[0].authority === 'socio') {
         this.router.navigate(['login']); 
       }else{
-
+        
+        this.entrando = true;
         
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.nombreUsuario);
@@ -69,7 +74,6 @@ export class LoginComponent implements OnInit{
         
 
       }
-        
      
     },
       (err: any) => {

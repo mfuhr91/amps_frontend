@@ -59,6 +59,10 @@ export class FormDescuentosComponent implements OnInit {
 
   usuarioLogin!: any;
 
+  socioNoEncontrado = false;
+
+  socioHabilitado = true;
+
 
   constructor(  private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -211,22 +215,27 @@ export class FormDescuentosComponent implements OnInit {
 
   buscar(param: string){
     if(param.length > 0){
-      this.sociosService.buscarSocioPorDoc(param).subscribe(res => {
+      this.sociosService.buscarSocioPorDoc(param).subscribe((res : any) => {
         
-        
-        this.socio = res
-      
         if(res){
-          this.form.controls['socio'].patchValue({
-                                                    id: res.id, 
-                                                    nombre: res.nombre,
-                                                    apellido: res.apellido,
-                                                    numDoc: res.numDoc,
-                                                    legajo: res.legajo
-                                                  })
-
+          this.socioNoEncontrado = false;
+          
+          if(!res.habilitado){
+            this.socioHabilitado = false;
+          }else {
+            
+            this.socio = res
+            this.form.controls['socio'].patchValue({
+                                                      id: res.id, 
+                                                      nombre: res.nombre,
+                                                      apellido: res.apellido,
+                                                      numDoc: res.numDoc,
+                                                      legajo: res.legajo
+                                                    })
+          }
+        } else {
+          this.socioNoEncontrado = true;
         }
-
       })
     }
   }
@@ -353,6 +362,7 @@ export class FormDescuentosComponent implements OnInit {
         fechaBaja: [],
         direccion: [],
         baja: [],
+        habilitado: [],
         extranjero: [],
         fechaIngresoLaboral: [],
         fechaNacimiento: [],

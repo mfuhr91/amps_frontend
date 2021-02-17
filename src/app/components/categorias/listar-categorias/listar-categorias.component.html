@@ -53,9 +53,12 @@
                                 
                             </th>
                             <td class="py-1">
-                                <button #guardarBtn class="btn btn-outline-success mx-1" (click)="guardar(guardarBtn, input, input.id, input.value, error)" [disabled]="i < numCategoriasIniciales">
-                                    
-                                    <i class="fas fa-save"></i></button>
+                                <button #guardarBtn 
+                                        class="btn btn-outline-success mx-1" 
+                                        (click)="guardar(guardarBtn, input, input.id, input.value, error)" 
+                                        [disabled]="i < numCategoriasIniciales">
+                                        <i class="fas fa-save"></i>
+                                </button>
                                 <button class="btn btn-outline-warning mx-1" (click)="editar(input, guardarBtn)"><i
                                         class="fas fa-pencil-alt"></i></button>
                                 <button class="btn btn-outline-danger mx-1" (click)="borrarCategoria(cat, i)"><i

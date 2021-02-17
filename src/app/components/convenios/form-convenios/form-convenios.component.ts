@@ -109,7 +109,6 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
       this.editar = true;
       this.conveniosService.getConvenio(id).subscribe((res: Convenio) => {
         this.convenio = res;
-        console.log(this.convenio);
         
         
         this.convenio.fechaAlta = this.formatFecha( res.fechaAlta );
@@ -322,8 +321,6 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-
-    console.log(this.form.value);
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
     this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
