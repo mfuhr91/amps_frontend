@@ -26,6 +26,7 @@
                         <tr>
                             <th class="py-1">USUARIO</th>
                             <th class="py-1">FECHA ALTA</th>
+                            <th class="py-1">BAJA</th>
                             <th class="py-1">OPCIONES</th>
                         </tr>
                     </thead>
@@ -34,6 +35,7 @@
 
                             <th class="py-0">{{ usr.nombreUsuario }}</th>
                             <td class="py-0">{{ usr.fechaAlta | date:'dd/MM/yyyy'}}</td>
+                            <td class="py-0">{{ usr.baja ? 'SI' : 'NO' }}</td>
 
                             <td class="py-1">
                                 <button class="btn btn-outline-warning" [routerLink]="['editar/' + usr.id]"><i

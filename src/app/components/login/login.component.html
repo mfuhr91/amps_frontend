@@ -1,0 +1,26 @@
+<div class="container text-center my-5 col-3 animate__animated animate__fadeIn ">
+
+    
+    <img class="pb-1" src="../../../assets/img/favicon.png" width="300px">
+    
+    
+    <h5 class=" my-3">Ingresar</h5>
+    <form name="form" #f="ngForm" novalidate (ngSubmit)="login()">
+        <div class="form-group">
+            <input type="text" class="form-control my-3 fs-5" name="nombreusuario" placeholder="Ingrese su nombre de usuario" [(ngModel)]="form.nombreUsuario"
+                autocomplete="off">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control  my-3 fs-5" name="contrasena" placeholder="Ingrese su contraseña" [(ngModel)]="form.contrasena"
+                autocomplete="off">
+        </div>
+        <div class="form-group my-4">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="!f.valid">Ingresar</button>
+            <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Fail al loguearse: {{ errorMsg
+                }}</div>
+        </div>
+    </form>
+    
+
+
+</div>

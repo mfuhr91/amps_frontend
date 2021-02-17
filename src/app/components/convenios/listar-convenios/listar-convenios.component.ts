@@ -27,9 +27,6 @@ export class ListarConveniosComponent implements OnInit {
     this.conveniosService.getConvenios().subscribe(res => {
       
       res.forEach( convenio => {
-
-        console.log(res);
-        console.log(convenio.id);
         if(convenio.id == 1){
           
           res.splice(0,1);

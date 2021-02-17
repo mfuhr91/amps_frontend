@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav *ngIf="rol || loginUsuario" class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
-      <a class="navbar-brand py-0" href="#">                
+      <a class="navbar-brand py-0">                
         <img class="pb-1" src="../../../assets/img/favicon.png" width="30px">
         <span>
           AMPS
@@ -12,32 +12,40 @@
       <div class="collapse navbar-collapse animate__animated animate__fadeIn" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item" >
-            <a class="nav-link" [routerLink]="['/inicio']" routerLinkActive="active">INICIO</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/inicio']" routerLinkActive="active"><i class="fas fa-home"></i> INICIO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/socios']" routerLinkActive="active">SOCIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/socios']" routerLinkActive="active"><i class="fas fa-user"></i> SOCIOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/convenios']" routerLinkActive="active">CONVENIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/convenios']" routerLinkActive="active"><i class="fas fa-store-alt"></i> CONVENIOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/categorias']" routerLinkActive="active">CATEGORIAS</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/categorias']" routerLinkActive="active"><i class="far fa-list-alt"></i> CATEGORIAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/descuentos']" routerLinkActive="active">DESCUENTOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/descuentos']" routerLinkActive="active"> <i class="fas fa-money-check-alt"></i> DESCUENTOS</a>
+            <a class="nav-link" *ngIf="rolComercio" [routerLink]="['/descuentos/crear']" routerLinkActive="active"><i class="fas fa-shopping-bag"></i> COMPRAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/variables']" routerLinkActive="active">VARIABLES</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/variables']" routerLinkActive="active"><i class="fas fa-percent"></i> VARIABLES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/usuarios']" routerLinkActive="active">USUARIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/usuarios']" routerLinkActive="active"><i class="fas fa-user-cog"></i> USUARIOS</a>
           </li>
           
 
         </ul>
+        <!-- <form class="d-flex" *ngIf="!isLogin">
+    
+          <button class="btn btn-info" routerLink="login">Ingresar</button>
+          
+        </form> -->
         <form class="d-flex">
-          <h4 class="text-danger mt-2 me-2">Barrionuevo, A.</h4>
-          <button class="btn btn-danger" type="submit">Salir</button> <!-- TODO: AJUSTAR TAMAÑO -->
+      
+    
+          <h4 class="text-danger mt-2 me-2">{{ loginUsuario?.nombreUsuario || nombreUsuario }}</h4>
+          <button class="btn btn-danger fs-5" (click)="logout()" type="submit"><i class="fas fa-sign-out-alt"></i> Salir</button> <!-- TODO: AJUSTAR TAMAÑO -->
         </form>
       </div>
     </div>

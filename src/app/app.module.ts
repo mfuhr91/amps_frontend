@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from "@angular/common/http";
+import { interceptorProvider } from './providers/interceptor.service';
+import { errorInterceptorProvider } from './providers/error-interceptor.service';
+
 
 
 
@@ -25,7 +28,7 @@ import { HttpClientModule } from "@angular/common/http";
     HttpClientModule,
     
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }, interceptorProvider, errorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

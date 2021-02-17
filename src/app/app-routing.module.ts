@@ -10,6 +10,7 @@ import { ExportarDescuentosComponent } from './components/descuentos/exportar-de
 import { FormDescuentosComponent } from './components/descuentos/form-descuentos/form-descuentos.component';
 import { ListarDescuentosComponent } from './components/descuentos/listar-descuentos/listar-descuentos.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { LoginComponent } from './components/login/login.component';
 import { FormSociosComponent } from './components/socios/form-socios/form-socios.component';
 import { ListarSociosComponent } from './components/socios/listar-socios/listar-socios.component';
 import { SociosComponent } from './components/socios/socios.component';
@@ -18,15 +19,22 @@ import { ListarUsuariosComponent } from './components/usuarios/listar-usuarios/l
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ListarVariablesComponent } from './components/variables/listar-variables/listar-variables.component';
 import { VariablesComponent } from './components/variables/variables.component';
+import { GuardService as guard } from './providers/guard.service';
 
 const routes: Routes = [
   {
+    path: 'login', 
+    component: LoginComponent
+  },
+  {
     path: 'inicio', 
-    component: InicioComponent
+    component: InicioComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario']}
   },
   {
     path: 'socios', 
     component: SociosComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario']},
     children: [
       {
         path: '', component: ListarSociosComponent
@@ -44,6 +52,7 @@ const routes: Routes = [
   {
     path: 'convenios', 
     component: ConveniosComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario']},
     children: [
       {
         path: '', component: ListarConveniosComponent
@@ -61,6 +70,7 @@ const routes: Routes = [
   {
     path: 'categorias', 
     component: CategoriasComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario']},
     children: [
       {
         path: '', component: ListarCategoriasComponent
@@ -72,19 +82,23 @@ const routes: Routes = [
     component: DescuentosComponent,
     children: [
       {
-        path: '', component: ListarDescuentosComponent
+        path: '', component: ListarDescuentosComponent,
+        canActivate: [guard], data: { expectedRol: ['admin','usuario']}
       },
       {
         path: 'crear', 
         component: FormDescuentosComponent,
+        canActivate: [guard], data: { expectedRol: ['admin','usuario','comercio']},
       },
       {
         path: 'editar/:id', 
         component: FormDescuentosComponent,
+        canActivate: [guard], data: { expectedRol: ['admin','usuario']}
       },
       {
         path: 'liquidar', 
         component: ExportarDescuentosComponent,
+        canActivate: [guard], data: { expectedRol: ['admin','usuario']}
       },
     ]
     
@@ -92,6 +106,7 @@ const routes: Routes = [
   {
     path: 'variables', 
     component: VariablesComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario']},
     children: [
       {
         path: '', component: ListarVariablesComponent
@@ -101,6 +116,7 @@ const routes: Routes = [
   {
     path: 'usuarios', 
     component: UsuariosComponent,
+    canActivate: [guard], data: { expectedRol: ['admin','usuario','comercio']},
     children: [
       {
         path: '', component: ListarUsuariosComponent
@@ -115,6 +131,7 @@ const routes: Routes = [
       },
     ]
   },
+
   {
     path: '**', pathMatch: 'full', redirectTo: 'inicio'
   },

@@ -8,7 +8,7 @@ import { Variable } from 'src/app/interfaces/variable.interface';
 import { DescuentosService } from 'src/app/providers/descuentos.service';
 import { SociosService } from 'src/app/providers/socios.service';
 import { VariablesService } from 'src/app/providers/variables.service';
-import * as fileSaver from 'file-saver';
+import { saveAs as fileSaver } from 'file-saver';
 
 
 @Component({
@@ -69,7 +69,7 @@ export class ExportarDescuentosComponent implements OnInit {
       const url= window.URL.createObjectURL(blob);
 			//window.open(url);
 			//window.location.href = url;
-			fileSaver.saveAs(blob, `126-${fecha}.prn`);
+			fileSaver(blob, `126-${fecha}.prn`);
     
 
     
@@ -155,6 +155,7 @@ export class ExportarDescuentosComponent implements OnInit {
   }
 
   escribiendo(){
+
     this.itemsListados = false;
   }
 

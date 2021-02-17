@@ -7,5 +7,6 @@ export interface Usuario {
     contrasena2?: string,
     fechaAlta: string,
     fechaBaja: string,
+    baja: boolean,
     rol: Rol,
 }

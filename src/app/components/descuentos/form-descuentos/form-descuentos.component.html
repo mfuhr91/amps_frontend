@@ -3,26 +3,29 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col" *ngIf="!editar">
+                <div class="col" *ngIf="!editar && !rolComercio">
                     <h2>Nuevo descuento</h2>
+                </div>
+                <div class="col" *ngIf="rolComercio">
+                    <h2>Nueva compra</h2>
                 </div>
                 <div class="col" *ngIf="editar">
                     <h2>Editar descuento</h2>
                 </div>
                 <div class="col">
-                    <button class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
+                    <button *ngIf="!rolComercio" class="btn btn-outline-dark mx-4 mt-1 float-end" (click)="volver()"> Volver </button>
                 </div>
             </div>
         </div>
         <div class="card-body pt-0">
 
-            <form autocomplete="off" [formGroup]="form" (ngSubmit)="guardar()">
+            <form autocomplete="off" [formGroup]="form" >
 
                 <div class="row">
 
                     <div id="convenio" class="form-group row m-auto my-3 p-3" formGroupName="convenio">
 
-                        <h5>Comercio <span (click)="listarConvenios()" class="badge bg-dark ms-2" data-bs-toggle="modal"
+                        <h5>Comercio <span *ngIf="!rolComercio" (click)="listarConvenios()" class="badge bg-dark ms-2" data-bs-toggle="modal"
                                 data-bs-target="#comerciosModal"><i class="fas fa-mouse-pointer"></i> Haga click para
                                 buscar un comercio</span></h5>
 
@@ -82,10 +85,20 @@
 
                     <div id="socio" class="form-group row m-auto my-3 p-3" formGroupName="socio">
 
-                        <h5>Socio <span (click)="listarSocios()" id="badge-socio" class="badge bg-dark ms-2"
+                        <h5 class="col-1 mt-2">Socio
+                            
+                        </h5>
+                        <div class="buscador input-group mb-3">
+                            <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                                placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                            <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                                id="buscador">Buscar</button>
+                        </div>
+                        
+                       <!--  <h5>Socio <span (click)="mostrarModalSocios = !mostrarModalSocios" id="badge-socio" class="badge bg-dark ms-2"
                                 data-bs-toggle="modal" data-bs-target="#sociosModal"><i
                                     class="fas fa-mouse-pointer"></i> Haga click para
-                                buscar un socio</span> </h5>
+                                buscar un socio</span> </h5> -->
 
                         <div class="row" *ngIf="socio">
                             <div class="col-5 ">
@@ -210,7 +223,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
+                <button type="button" (click)="guardar()" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando">Guardar</button>
 
             </form>
 
@@ -220,6 +233,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- Modal Comercios -->
 <div class="modal fade" id="comerciosModal" #modalComercios tabindex="-1">
@@ -288,18 +303,20 @@
 
 
 <!-- Modal Socios -->
+<!-- 
 <div class="modal fade" id="sociosModal" #modalSocios tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content" *ngIf="mostrarModalSocios">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Seleccionar socio</h5>
-                <div class="buscador input-group mb-3">
-                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                <div *ngIf="!rolComercio" class="buscador input-group mb-3">
+                    <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
                         placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
                     <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
                         id="buscador">Buscar</button>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               
+                <button (click)="mostrarModalSocios = !mostrarModalSocios" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
@@ -315,10 +332,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <!-- <div *cdkVirtualFor="let item of items" class="example-item">{{item}}</div> -->
-
-
 
                             <tr *cdkVirtualFor="let socio of socios"
                                 class="align-middle animate__animated animate__fadeIn">
@@ -345,4 +358,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

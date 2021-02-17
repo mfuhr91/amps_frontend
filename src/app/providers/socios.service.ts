@@ -55,6 +55,9 @@ export class SociosService {
   buscarSocios(param: string): Observable<Socio[]> {
     return this.http.get<Socio[]>(`${this.url}/buscar/${param}`)
   }
+  buscarSocioPorDoc(param: string): Observable<Socio> {
+    return this.http.get<Socio>(`${this.url}/buscarPorDoc/${param}`)
+  }
 
   contarSocios(){
     return this.http.get<number>(`${this.url}/contar`);

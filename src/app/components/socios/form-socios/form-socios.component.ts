@@ -24,12 +24,9 @@ import { TipoDocumento } from 'src/app/interfaces/socios/tipo-documento.interfac
 import { EstadoCivil } from 'src/app/interfaces/socios/estado-civil.interface';
 import { Tipo } from 'src/app/interfaces/socios/tipo.interface';
 import { Foto } from 'src/app/interfaces/foto.interface';
-import { first, throwIfEmpty } from 'rxjs/operators';
 import { FotosService } from 'src/app/providers/fotos.service';
 import { VariablesService } from 'src/app/providers/variables.service';
 import { ValidadoresService } from 'src/app/providers/validadores.service';
-import { Item } from 'src/app/interfaces/descuentos/item.interface';
-import { Descuento } from 'src/app/interfaces/descuentos/descuento.interface';
 import { DescuentosService } from 'src/app/providers/descuentos.service';
 
 
@@ -174,7 +171,9 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         
         this.socio.baja = res.baja.toString();
         /* this.socio.extranjero = res.extranjero; */
-        
+        if(!this.socio.usuario.baja){
+          this.socio.usuario.baja = false;
+        }
         if(this.socio.foto.id != 0) {
           this.foto = this.fotoAnterior = this.socio.foto;
         }
@@ -335,6 +334,8 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
     this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
+    this.form.controls['usuario'].patchValue({ baja:  this.form.controls['baja'].value });
+
 
     if( this.form.invalid ) {
 
@@ -472,6 +473,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
+        baja: [false],
         rol: this.fb.group({
           id: [3],
           authority: [''],
@@ -535,9 +537,10 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
+        baja: [false],
         rol: this.fb.group({
           id: [3],
-          authority: [''],
+          nombreRol: [''],
         }),
       }),
       localidad: this.fb.group({

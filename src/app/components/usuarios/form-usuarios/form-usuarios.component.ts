@@ -54,7 +54,6 @@ export class FormUsuariosComponent implements OnInit{
 
       this.usuariosService.getUsuario(id).subscribe((res) => {
         this.usuario = res;
-        console.log(res);
 
         this.usuario.contrasena2 = res.contrasena;
         
@@ -145,7 +144,7 @@ export class FormUsuariosComponent implements OnInit{
       this.roles = res
       this.roles.unshift({
         id: 0,
-        authority: "Seleccione un rol"
+        nombreRol: "Seleccione un rol"
       })
       });
   }
@@ -180,9 +179,10 @@ export class FormUsuariosComponent implements OnInit{
       contrasena2: ['', Validators.required],
       fechaAlta: [this.hoy, Validators.required],
       fechaBaja: [''],
+      baja: [false],
       rol: this.fb.group({
         id: [0,this.validadoresService.distintoCero(/^[0]+/)],
-        authority: [''],
+        nombreRol: [''],
       })
     },
     {

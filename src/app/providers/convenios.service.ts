@@ -39,6 +39,10 @@ private url = `${environment.url}/convenios`;
     return this.http.get<Convenio[]>(`${this.url}/buscar/${param}`)
   }
 
+  buscarConvenioPorUsuario(nombreUsuario: string): Observable<Convenio> {
+    return this.http.get<Convenio>(`${this.url}/buscarPorUsuario/${nombreUsuario}`)
+  }
+
   buscarPorCategoria(nombreCategoria: string) {
     return this.http.get<Convenio[]>(`${this.url}/categoria/${nombreCategoria}`);
   }

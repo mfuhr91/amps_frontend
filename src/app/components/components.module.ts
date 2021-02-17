@@ -26,6 +26,8 @@ import { ListarDescuentosComponent } from './descuentos/listar-descuentos/listar
 import { ExportarDescuentosComponent } from './descuentos/exportar-descuentos/exportar-descuentos.component';
 import { VariablesComponent } from './variables/variables.component';
 import { ListarVariablesComponent } from './variables/listar-variables/listar-variables.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from '../providers/auth.service';
 
 
 
@@ -54,7 +56,9 @@ import { ListarVariablesComponent } from './variables/listar-variables/listar-va
     
     VariablesComponent,
     
-    ListarVariablesComponent
+    ListarVariablesComponent,
+    
+    LoginComponent
     
   ],
   imports: [
@@ -67,7 +71,8 @@ import { ListarVariablesComponent } from './variables/listar-variables/listar-va
   ],
   exports: [
     NavbarComponent,
-    InicioComponent 
+    InicioComponent,
+    
   ]
 })
 export class ComponentsModule { }

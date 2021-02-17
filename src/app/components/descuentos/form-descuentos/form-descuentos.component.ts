@@ -12,6 +12,7 @@ import { Variable } from 'src/app/interfaces/variable.interface';
 import { ConveniosService } from 'src/app/providers/convenios.service';
 import { DescuentosService } from 'src/app/providers/descuentos.service';
 import { SociosService } from 'src/app/providers/socios.service';
+import { TokenService } from 'src/app/providers/token.service';
 import { UsuariosService } from 'src/app/providers/usuarios.service';
 import { ValidadoresService } from 'src/app/providers/validadores.service';
 import { VariablesService } from 'src/app/providers/variables.service';
@@ -32,7 +33,7 @@ export class FormDescuentosComponent implements OnInit {
 
   mostrarModalComercios = false;
 
-  mostrarModalSocios = false;
+  /* mostrarModalSocios = false; */
 
   convenios: Convenio[] = [];
 
@@ -54,6 +55,10 @@ export class FormDescuentosComponent implements OnInit {
 
   comision!: number;
 
+  rolComercio = false;
+
+  usuarioLogin!: any;
+
 
   constructor(  private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -63,7 +68,8 @@ export class FormDescuentosComponent implements OnInit {
                 private conveniosService: ConveniosService,
                 private usuariosService: UsuariosService,
                 private validadoresService: ValidadoresService,
-                private variablesService: VariablesService) { }
+                private variablesService: VariablesService,
+                private tokenService: TokenService) { }
 
   ngOnInit(): void {
 
@@ -72,7 +78,25 @@ export class FormDescuentosComponent implements OnInit {
 
     this.getVariables();
 
-    
+    if(this.tokenService.roles.includes('comercio')){
+      this.usuarioLogin = this.tokenService.getUserName();
+      this.conveniosService.buscarConvenioPorUsuario(this.usuarioLogin).subscribe(res => {
+        
+        
+        this.convenio = res
+        
+        this.form.controls['convenio'].patchValue({'id':res.id});
+        this.form.controls['convenio'].patchValue({'nombre':res.nombre});
+        this.form.controls['convenio'].patchValue({'direccion':res.direccion});
+        this.form.controls['convenio'].patchValue({'cuit':res.cuit});
+        this.form.controls['convenio'].patchValue({'contacto':res.contacto});
+      
+      });
+
+      this.rolComercio = true;
+    }
+
+
 
     const { id } = this.route.snapshot.params;
     
@@ -88,8 +112,8 @@ export class FormDescuentosComponent implements OnInit {
         
         if(this.descuento.convenio) {
           let foto: Foto = { id: 0, url: '', publicId: ''};
-          let rol: Rol = { id: 0, authority: ''}
-          let usuario: Usuario = {id: 0, nombreUsuario: '', contrasena: '', fechaAlta: '', fechaBaja: '', rol }
+          let rol: Rol = { id: 0, nombreRol: ''}
+          let usuario: Usuario = {id: 0, nombreUsuario: '', contrasena: '', fechaAlta: '', fechaBaja: '', rol , baja: false }
           this.descuento.convenio.usuario = usuario;
           this.descuento.convenio.foto = foto; 
           
@@ -163,11 +187,11 @@ export class FormDescuentosComponent implements OnInit {
     
   }
 
-  listarSocios(){
+  /* listarSocios(){
     this.mostrarModalSocios = true;
     this.sociosService.getSocios().subscribe(res => this.socios = res);
 
-  }
+  } */
 
   seleccionarSocio(socio: Socio){
     this.socios.find( element => {
@@ -187,11 +211,26 @@ export class FormDescuentosComponent implements OnInit {
 
   buscar(param: string){
     if(param.length > 0){
-      this.sociosService.buscarSocios(param).subscribe(res => this.socios = res);
-    }else {
-      this.listarSocios();
+      this.sociosService.buscarSocioPorDoc(param).subscribe(res => {
+        
+        
+        this.socio = res
+      
+        if(res){
+          this.form.controls['socio'].patchValue({
+                                                    id: res.id, 
+                                                    nombre: res.nombre,
+                                                    apellido: res.apellido,
+                                                    numDoc: res.numDoc,
+                                                    legajo: res.legajo
+                                                  })
+
+        }
+
+      })
     }
   }
+ 
 
   getVariables(){
     this.variablesService.getVariables().subscribe(res => {
@@ -199,7 +238,7 @@ export class FormDescuentosComponent implements OnInit {
       
       this.comision = (res[1].valor / 100) + 1 ;
       
-      console.log(this.comision);
+     /*  console.log(this.comision); */
       
     })
   }
@@ -207,7 +246,7 @@ export class FormDescuentosComponent implements OnInit {
   guardar(){
     
 
-    console.log(this.form.value);
+   /*  console.log(this.form.value); */
 
     if( this.form.invalid ) {
 
@@ -217,7 +256,7 @@ export class FormDescuentosComponent implements OnInit {
           Object.values( control.controls ).forEach( control => control.markAllAsTouched);
         }
         control.markAllAsTouched();
-        console.log( this.form );
+       /*  console.log( this.form ); */
         
       });
       
@@ -252,9 +291,15 @@ export class FormDescuentosComponent implements OnInit {
       customClass: {
         confirmButton: 'btn btn-outline-primary',
       },
-    })
-
-    this.location.back();
+    }).then((result) => {
+  
+      if(this.rolComercio){
+        window.location.reload();   
+      }
+    });
+    if(!this.rolComercio){
+      this.location.back();   
+    }
   }
 
   volver() {
@@ -333,7 +378,7 @@ export class FormDescuentosComponent implements OnInit {
           fechaBaja: [],
           rol: this.fb.group({
             id: [],
-            authority: [],
+            nombreRol: [],
           }),
         }),
         localidad: this.fb.group({

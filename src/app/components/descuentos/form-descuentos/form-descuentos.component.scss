@@ -33,9 +33,14 @@ td .btn {
     margin-bottom: 5px;
 }
 
-.buscador {
+/* .buscador {
     width: 25%;
-    float: right !important;
-    top: 10px;
+    float: left !important;
+    top: 0px;
     left: 55%;
+} */
+.buscador {
+    max-width: 25% !important;
+    top: 8px !important;
+    left: 25px;
 }

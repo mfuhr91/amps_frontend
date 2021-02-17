@@ -8,7 +8,8 @@
                 
                 <div class="buscador col-3 input-group mb-3">
                     <input id="inputMes" #buscador (keyup)="escribiendo()" (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                        placeholder="Ingresar MM/AAAA" data-mask="99/9999" aria-label="Buscar" aria-describedby="buscardor">
+                        placeholder="Ingresar MM/AAAA" data-mask="99/9999" aria-label="Buscar" aria-describedby="buscardor"
+                        >
                     <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
                         id="buscador">Buscar</button>
                 </div>
@@ -19,7 +20,7 @@
                     <button class="btn btn-outline-danger float-end me-4 mt-2" 
                             
                             (click)="exportar(buscador.value)" 
-                            [disabled]="!itemsListados">Exportar</button>
+                            [disabled]="!itemsListados"><i class="fas fa-file-invoice-dollar"></i> Exportar</button>
                 </div>
             </div>
 

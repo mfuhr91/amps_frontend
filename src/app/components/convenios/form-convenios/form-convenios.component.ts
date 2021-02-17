@@ -297,9 +297,10 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
         contrasena: [''],
         fechaAlta: [''],
         fechaBaja: [''],
+        baja: [false],
         rol: this.fb.group({
           id: [4],
-          authority: [''],
+          nombreRol: [''],
         }),
       }),
       foto: this.fb.group({
@@ -326,6 +327,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
     this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
+    this.form.controls['usuario'].patchValue({ baja:  this.form.controls['baja'].value });
 
     if( this.form.invalid ) {
 
