@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Convenio } from 'src/app/interfaces/convenios/convenio.interface';
 import { ConveniosService } from 'src/app/providers/convenios.service';
 import Swal from 'sweetalert2';
@@ -16,6 +16,8 @@ export class ListarConveniosComponent implements OnInit {
   convenio!: Convenio;
 
   constructor(private conveniosService: ConveniosService ) {
+
+    
     
    }
 

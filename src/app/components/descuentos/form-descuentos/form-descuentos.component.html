@@ -26,7 +26,12 @@
 
                     <div id="convenio" class="form-group row m-auto my-3 p-3" formGroupName="convenio">
 
-                        <h5>Comercio <span *ngIf="!rolComercio" (click)="listarConvenios()" class="badge bg-dark ms-2"
+                        <h5 *ngIf="convenio"> Comercio <span *ngIf="!rolComercio && convenio.id != 1" (click)="listarConvenios()" class="badge bg-dark ms-2"
+                                data-bs-toggle="modal" data-bs-target="#comerciosModal"><i
+                                    class="fas fa-mouse-pointer"></i> Haga click para
+                                buscar un comercio</span></h5>
+
+                        <h5 *ngIf="!rolComercio && !convenio" > Comercio <span (click)="listarConvenios()" class="badge bg-dark ms-2"
                                 data-bs-toggle="modal" data-bs-target="#comerciosModal"><i
                                     class="fas fa-mouse-pointer"></i> Haga click para
                                 buscar un comercio</span></h5>
@@ -214,7 +219,7 @@
                                 <div class="col">
 
                                     <input class="form-control" #contacto type="number" placeholder="Monto total"
-                                        formControlName="valorTotal" [class.is-invalid]="valorTotalNoValido">
+                                        formControlName="valorSubTotal" [class.is-invalid]="valorTotalNoValido">
                                     <small *ngIf="valorTotalNoValido" class="text-danger"> Debe ingresar un monto
                                         total</small>
                                 </div>

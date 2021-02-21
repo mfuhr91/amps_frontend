@@ -8,6 +8,7 @@ export interface Descuento {
     descripcion: string,
     numCuotas?: number,
     valorCuota?: number,
+    valorSubTotal?: number,
     valorTotal: number,
     socio: Socio,
     convenio?: Convenio,

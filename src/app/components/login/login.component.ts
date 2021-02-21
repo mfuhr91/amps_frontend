@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
@@ -14,7 +15,7 @@ import { TokenService } from 'src/app/providers/token.service';
 })
 export class LoginComponent implements OnInit{
   
-  form: any = {};
+  form!: FormGroup;
   usuario!: LoginUsuario;
   isLogin = false;
   isLoginFail = false;
@@ -22,9 +23,12 @@ export class LoginComponent implements OnInit{
   errorMsg = '';
   entrando = false;
 
-  constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) { }
+  constructor(private authService: AuthService, private tokenService: TokenService, private router: Router, private fb: FormBuilder,) { }
 
   ngOnInit() {
+
+    this.crearForm();
+
     if(this.isLogin){
       this.router.navigate(['inicio']);
     }
@@ -42,7 +46,7 @@ export class LoginComponent implements OnInit{
   login(): void {
 
     this.entrando = true;
-    this.usuario = new LoginUsuario(this.form.nombreUsuario, this.form.contrasena);
+    this.usuario = new LoginUsuario(this.form.controls['nombreUsuario'].value, this.form.controls['contrasena'].value);
     
     
     
@@ -85,6 +89,13 @@ export class LoginComponent implements OnInit{
         this.authService.loginUsuario$.emit(undefined); */
       }
     );
+  }
+
+  crearForm() {
+    this.form = this.fb.group({
+      nombreUsuario: [],
+      contrasena: [],
+    });
   }
 
   

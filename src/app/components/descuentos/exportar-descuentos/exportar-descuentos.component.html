@@ -34,7 +34,6 @@
                             <th class="py-1">NUMERO CUENTA</th>
                             <th class="py-1">RAZON SOCIAL</th>
                             <th class="py-1">DOCUMENTO</th>
-                            <th class="py-1">DEBITADO</th>
                             <th class="py-1">TOTAL</th>
                             
                         </tr>
@@ -45,14 +44,12 @@
                             <td class="py-0">{{ item.descuento.socio.numCuenta }}</td>
                             <td class="py-0">{{ item.descuento.socio.apellido }} {{ item.descuento.socio.nombre }}</td>
                             <td class="py-0">{{ item.descuento.socio.numDoc }}</td>
-                            <td class="py-0">{{ item.valorSubTotal | number:'1.2-2' }}</td>
-                            <td class="py-0" *ngIf="item.id == 0">{{ item.valorTotal | number:'1.2-2'  }}</td>
-                            <td class="py-0" *ngIf="item.id != 0">{{ item.valorTotal | number:'1.2-2'  }}</td>
+                            <td class="py-0" *ngIf="item.id == 0">{{ item.valor| number:'1.2-2'  }}</td>
+                            <td class="py-0" *ngIf="item.id != 0">{{ item.valor | number:'1.2-2'  }}</td>
                             
                         </tr>
                         <tr *ngIf="total">
                             <td class="py-0" colspan="4"></td>
-                            <th class="py-0">{{ subTotal | number:'1.2-2' }}</th>
                             <th class="py-0">{{ total | number:'1.2-2' }}</th>
                         </tr>
                     </tbody>

@@ -18,8 +18,6 @@ export class ListarDescuentosComponent implements OnInit {
 
   valorCuota!: number;
 
-  comision!: number;
-
   constructor(  private descuentosService: DescuentosService,
                 private route: ActivatedRoute,
                 private variablesService: VariablesService ) { }
@@ -29,7 +27,7 @@ export class ListarDescuentosComponent implements OnInit {
    
     this.getDescuentos();
 
-    this.getVariables();
+    /* this.getVariables(); */
     
     const { param } = this.route.snapshot.params;
 
@@ -40,13 +38,12 @@ export class ListarDescuentosComponent implements OnInit {
       this.descuentos = res
     });
   }
-  getVariables(){
+  /* getVariables(){
     this.variablesService.getVariables().subscribe(res => {
-    
-      this.comision = (res[1].valor / 100) + 1 ;
+  
       
     })
-  }
+  } */
   
 
   borrarDescuento( descuento: Descuento ) {

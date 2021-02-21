@@ -29,8 +29,6 @@ export class ExportarDescuentosComponent implements OnInit {
   cuotaSocial!: number;
 
   comision!: number;
-
-  subTotal!: number;
   
   total!: number;
 
@@ -125,24 +123,20 @@ export class ExportarDescuentosComponent implements OnInit {
           descuento.items.forEach(element => {
               element.descuento = descuento;
               arreglo.push(element);
-          });
-            
-            
+
+          });              
         });
   
         this.items = arreglo;
         
-
-        let subtotal = 0;
         let total = 0;
         this.items.forEach(element => {
-          
-          subtotal += element.valorSubTotal;
-          total += element.valorTotal;
+        
+          total += element.valor;
           
         });
-        this.subTotal = subtotal;
         this.total = total;
+        
         if(res.length > 0){
           this.itemsListados = true;
         }

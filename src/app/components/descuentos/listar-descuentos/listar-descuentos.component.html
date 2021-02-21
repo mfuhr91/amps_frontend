@@ -5,58 +5,58 @@
                 <div class="col-7">
                     <h3 class="my-2">Descuentos</h3>
                 </div>
-                
+
                 <div class="buscador col-3 input-group mb-3">
-                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
-                    <button  (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button" id="buscador">Buscar</button>
+                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                        id="buscador">Buscar</button>
                 </div>
 
-                
+
                 <div class="col-2">
                     <button class="btn btn-outline-primary float-end me-4 mt-2" [routerLink]="['crear']">Nuevo</button>
-                    <button class="btn btn-outline-danger float-end me-4 mt-2" [routerLink]="['liquidar']"><i class="fas fa-cash-register"></i> Liquidar</button>
+                    <button class="btn btn-outline-danger float-end me-4 mt-2" [routerLink]="['liquidar']"><i
+                            class="fas fa-cash-register"></i> Liquidar</button>
                 </div>
             </div>
-            
+
         </div>
         <div class="card-body">
-            
-            <cdk-virtual-scroll-viewport  itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
-            <table class="table table-hover table-striped table-bordered text-center table-responsive">
-                <thead class="table-dark thead">
-                    <tr>
-                        <th class="py-1">DESCRIPCION</th>
-                        <th class="py-1">CUOTAS</th>
-                        <th class="py-1">VALOR CUOTA</th>
-                        <th class="py-1">TOTAL</th>
-                        <th class="py-1">SOCIO</th>
-                        <th class="py-1">COMERCIO</th>
-                        <th class="py-1">FECHA DE COMPRA</th>
-                        <th class="py-1">ULTIMA CUOTA</th>
-                        <th class="py-1">OPCIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        
-                    
 
-
-                        <tr *cdkVirtualFor="let desc of descuentos" class="align-middle animate__animated animate__fadeIn">
+            <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400" style="height: 750px;">
+                <table class="table table-hover table-striped table-bordered text-center table-responsive">
+                    <thead class="table-dark thead">
+                        <tr>
+                            <th class="py-1">DESCRIPCION</th>
+                            <th class="py-1">CUOTAS</th>
+                            <th class="py-1">VALOR CUOTA</th>
+                            <th class="py-1">TOTAL</th>
+                            <th class="py-1">SOCIO</th>
+                            <th class="py-1">COMERCIO</th>
+                            <th class="py-1">FECHA DE COMPRA</th>
+                            <th class="py-1">ULTIMA CUOTA</th>
+                            <th class="py-1">OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *cdkVirtualFor="let desc of descuentos"
+                            class="align-middle animate__animated animate__fadeIn">
 
                             <th class="py-0">{{ desc.descripcion }}</th>
                             <td class="py-0">{{ desc.numCuotas }}</td>
-                            <td class="py-0">${{ desc.valorCuota | number:'1.2-2' }}</td> <!-- TODO: cuota mensual con comision -->
+                            <td class="py-0">${{ desc.valorCuota | number:'1.2-2' }}</td>
                             <td class="py-0">${{ desc.valorTotal | number:'1.2-2' }}</td>
                             <td class="py-0">{{ desc.socio.apellido }}, {{ desc.socio.nombre }}</td>
                             <td class="py-0">{{ desc.convenio.nombre }}</td>
-                            <td class="py-0">{{ desc.fechaAlta | date:'HH:mm dd/MM/yyyy':'UTC-3' }}</td>
-                            <td class="py-0">{{ desc.ultimaCuota | date:'MM/yyyy':'UTC-3' }}</td>
-                            
-                            
+                            <td class="py-0">{{ desc.fechaAlta | date:'HH:mm dd/MM/yyyy' }}</td>
+                            <td class="py-0">{{ desc.ultimaCuota | date:'MM/yyyy' }}</td>
+
                             <td class="py-1">
-                                <button class="btn btn-outline-warning" [routerLink]="['editar/' + desc.id]"><i class="fas fa-pencil-alt"></i></button>
-                                <button class="btn btn-outline-danger mx-2" (click)="borrarDescuento(desc)"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-outline-warning" [routerLink]="['editar/' + desc.id]"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" (click)="borrarDescuento(desc)"><i
+                                        class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -65,6 +65,6 @@
 
 
         </div>
-        
+
     </div>
 </div>

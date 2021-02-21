@@ -33,8 +33,6 @@ export class FormDescuentosComponent implements OnInit {
 
   mostrarModalComercios = false;
 
-  /* mostrarModalSocios = false; */
-
   convenios: Convenio[] = [];
 
   socios: Socio[] = [];
@@ -52,8 +50,6 @@ export class FormDescuentosComponent implements OnInit {
   today = new DatePipe('es').transform(new Date(), 'yyyy-MM-ddTHH:mm');
 
   variables!: Variable[];
-
-  comision!: number;
 
   rolComercio = false;
 
@@ -78,9 +74,6 @@ export class FormDescuentosComponent implements OnInit {
   ngOnInit(): void {
 
     this.crearForm();
-  
-
-    this.getVariables();
 
     if(this.tokenService.roles.includes('comercio')){
       this.usuarioLogin = this.tokenService.getUserName();
@@ -109,8 +102,6 @@ export class FormDescuentosComponent implements OnInit {
       this.editar = true;
 
       this.descuentosService.getDescuento(id).subscribe( res => {
-        
-        console.log(res);
         
         this.descuento = res;
         
@@ -141,13 +132,6 @@ export class FormDescuentosComponent implements OnInit {
         if(fechaAlta){
           this.descuento.fechaAlta = fechaAlta;
         }
-
-        if(!this.descuento.valorCuota){
-          this.descuento.valorCuota = this.descuento.valorTotal;
-
-        }
-
-
 
         this.form.setValue(this.descuento);
         
@@ -191,12 +175,6 @@ export class FormDescuentosComponent implements OnInit {
     
   }
 
-  /* listarSocios(){
-    this.mostrarModalSocios = true;
-    this.sociosService.getSocios().subscribe(res => this.socios = res);
-
-  } */
-
   seleccionarSocio(socio: Socio){
     this.socios.find( element => {
 
@@ -239,24 +217,9 @@ export class FormDescuentosComponent implements OnInit {
       })
     }
   }
- 
-
-  getVariables(){
-    this.variablesService.getVariables().subscribe(res => {
-      
-      
-      this.comision = (res[1].valor / 100) + 1 ;
-      
-     /*  console.log(this.comision); */
-      
-    })
-  }
 
   guardar(){
     
-
-   /*  console.log(this.form.value); */
-
     if( this.form.invalid ) {
 
       return Object.values( this.form.controls ).forEach( control => {
@@ -265,22 +228,10 @@ export class FormDescuentosComponent implements OnInit {
           Object.values( control.controls ).forEach( control => control.markAllAsTouched);
         }
         control.markAllAsTouched();
-       /*  console.log( this.form ); */
         
       });
       
     }
-
-   
-
-    
-    
-
-    this.form.controls['valorCuota'].setValue((this.form.controls['valorTotal'].value / this.form.controls['numCuotas'].value ) * this.comision );
-    this.form.controls['valorTotal'].setValue(this.form.controls['valorTotal'].value * this.comision );
-    
-
-
     
     this.guardando = true;
 
@@ -293,22 +244,25 @@ export class FormDescuentosComponent implements OnInit {
     this.guardado = true;
 
     Swal.fire({
-      title: `Descuento de $${this.form.controls['valorTotal'].value} guardado con éxito!`,
+      title: `Descuento: $${this.form.controls['valorSubTotal'].value} 
+              ${this.socio.apellido}, ${this.socio.nombre}
+              ¡Guardado con éxito!`,
       icon: 'success',
       confirmButtonText: 'OK',
       buttonsStyling: false,
       customClass: {
         confirmButton: 'btn btn-outline-primary',
       },
-    }).then((result) => {
+    })/* .then((result) => {
   
-      if(this.rolComercio){
-        window.location.reload();   
-      }
-    });
-    if(!this.rolComercio){
+    }); */
+    if(this.rolComercio){
+      window.location.reload();   
+    }else{
       this.location.back();   
     }
+    /* if(!this.rolComercio){
+    } */
   }
 
   volver() {
@@ -345,7 +299,8 @@ export class FormDescuentosComponent implements OnInit {
       numCuotas: ['', [Validators.required]],
       ultimaCuota: [''],
       valorCuota: [],
-      valorTotal: ['', [Validators.required]],
+      valorSubTotal: ['', [Validators.required]],
+      valorTotal: [],
       fechaAlta: [this.today , [Validators.required]],
       cuotas: [],
       items: [],
@@ -386,6 +341,7 @@ export class FormDescuentosComponent implements OnInit {
           contrasena: [],
           fechaAlta: [],
           fechaBaja: [],
+          baja: [],
           rol: this.fb.group({
             id: [],
             nombreRol: [],
@@ -416,7 +372,6 @@ export class FormDescuentosComponent implements OnInit {
         direccion: [''],
         cuit: [''],
         contacto: [''],
-      
         correo: [],
         fechaAlta: [],
         fechaBaja: [],
@@ -429,9 +384,10 @@ export class FormDescuentosComponent implements OnInit {
           contrasena: [],
           fechaAlta: [],
           fechaBaja: [],
+          baja: [],
           rol: this.fb.group({
             id: [],
-            authority: [],
+            nombreRol: [],
           }),
         }),
         foto: this.fb.group({

@@ -5,20 +5,19 @@
     
     
     <h5 class=" my-3">Ingresar</h5>
-    <form name="form" #f="ngForm" novalidate (ngSubmit)="login()">
+    <form name="form" [formGroup]="form" novalidate (ngSubmit)="login()">
+        <div *ngIf="isLoginFail" class="alert alert-danger mt-3 animate__animated animate__headShake"> Error: El usuario o la contraseña no son válidos </div>
         <div class="form-group">
-            <input type="text" class="form-control my-3 fs-5" name="nombreusuario" placeholder="Ingrese su nombre de usuario" [(ngModel)]="form.nombreUsuario"
+            <input type="text" class="form-control my-3 fs-5" (keyup)="isLoginFail = false" name="nombreusuario" placeholder="Ingrese su nombre de usuario"  formControlName="nombreUsuario"
                 autocomplete="off">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control  my-3 fs-5" name="contrasena" placeholder="Ingrese su contraseña" [(ngModel)]="form.contrasena"
+            <input type="password" class="form-control  my-3 fs-5" (keyup)="isLoginFail = false" name="contrasena" placeholder="Ingrese su contraseña" formControlName="contrasena"
                 autocomplete="off">
         </div>
         <div class="form-group my-4">
-            <button *ngIf="!entrando" type="submit" class="btn btn-outline-primary" [disabled]="!f.valid"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
-            <button *ngIf="entrando" type="submit" class="btn btn-outline-primary" [disabled]="!f.valid"><i class="fas fa-sync-alt fa-spin"></i> Ingresando</button>
-            <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">Fail al loguearse: {{ errorMsg
-                }}</div>
+            <button *ngIf="!entrando" type="submit" class="btn btn-outline-primary" [disabled]="!form.valid"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+            <button *ngIf="entrando" type="submit" class="btn btn-outline-primary" [disabled]="!form.valid"><i class="fas fa-sync-alt fa-spin"></i> Ingresando</button>
         </div>
     </form>
     
