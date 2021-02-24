@@ -4,7 +4,7 @@
         <div class="col">
             <div class="card float-left bg-primary text-white">
                 <div class="card-header">
-                    <h2>Cantidad de socios</h2>
+                    <h2>Socios totales</h2>
                 </div>
                 <div class="card-body">
                     <h1 class="mx-4 float-none " *ngIf="!totalSocios">0</h1>
@@ -17,7 +17,7 @@
         <div class="col">
             <div class="card float-left bg-info text-white">
                 <div class="card-header">
-                    <h2>Cantidad de Convenios</h2>
+                    <h2>Convenios totales</h2>
                 </div>
                 <div class="card-body">
                     <h1 class="mx-4 float-none contar" *ngIf="!totalConvenios">0</h1>
@@ -39,18 +39,4 @@
         </div>
     </div>
 
-
-   <!--  <div *ngIf="info.token; else loggedOut">
-        <div class="container">
-          <p><strong>Tu nombre de usuario: </strong>{{ info.nombreUsuario}}</p>
-          <p><strong>Este es el token: </strong>{{ info.token}}</p>
-          <p><strong>Tus privilegios: </strong>{{ info.authorities}}</p>
-        </div>
-      </div>
-      <ng-template #loggedOut>
-        <div class="container">
-          No has iniciado sesión
-        </div>
-      </ng-template>
- -->
 </div>

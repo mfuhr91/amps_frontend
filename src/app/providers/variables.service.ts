@@ -14,8 +14,10 @@ export class VariablesService {
 
 
   getVariables(){
+
     return this.http.get<Variable[]>(`${this.url}`);
   }
+
   getVariable(id: number){
     return this.http.get<Variable>(`${this.url}/${id}`);
   }

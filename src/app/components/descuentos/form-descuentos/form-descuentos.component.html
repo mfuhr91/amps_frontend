@@ -97,7 +97,7 @@
                                 
                             </h5>
                             <div class="buscador input-group mb-3">
-                                <input #buscador (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                                <input #buscador (keyup.enter)="buscar(buscador.value)" (keyup)="limpiarSocio()" type="text" class="form-control"
                                 placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
                                 <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
                                 id="buscador">Buscar</button>
@@ -200,13 +200,6 @@
                                                 [for]="'cuota'+cuota">{{cuota}}</label>
                                         </span>
                                     </div>
-
-                                    <!-- <input class="form-control" type="number" placeholder="Número de cuotas"
-                                        formControlName="numCuotas" [class.is-invalid]="cuotasNoValido"> -->
-                                    <!-- <span *ngFor="let cuota of cuotas" >
-                                        <input type="radio" class="btn-check" [id]="'cuota'+cuota" autocomplete="off" formControlName="numCuotas" [value]="cuota">
-                                        <label class="btn btn-outline-primary" [for]="'cuota'+cuota">{{cuota}}</label>
-                                    </span> -->
                                     <small *ngIf="cuotasNoValido" class="text-danger"> Debe ingresar la cantidad de
                                         cuotas
                                     </small>
@@ -240,7 +233,7 @@
                 <button *ngIf="!guardando" type="button" (click)="guardar()" class="btn btn-outline-primary mx-4 mt-2"
                     [disabled]="guardando"><i class="fas fa-save"></i> Guardar</button>
                 <button *ngIf="guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" 
-                    disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
+                    [disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
 
             </form>
 
@@ -272,9 +265,6 @@
                                 <th class="py-1">COMERCIO</th>
                                 <th class="py-1">CONTACTO</th>
                                 <th class="py-1">DIRECCION</th>
-                                <!-- <th>TELEFONO</th>
-                                <th>CORREO</th>
-                                <th>LOCALIDAD</th> -->
                                 <th class="py-1">CATEGORIA</th>
                                 <th class="py-1">OPCIONES</th>
                             </tr>
@@ -292,9 +282,6 @@
                                 <td class="py-0">{{ convenio.nombre }}</td>
                                 <td class="py-0">{{ convenio.contacto }}</td>
                                 <td class="py-0">{{ convenio.direccion }}</td>
-                                <!--  <td class="py-0">{{ convenio.telefono }}</td>
-                                <td class="py-0">{{ convenio.correo }}</td>
-                                <td class="py-0">{{ convenio.localidad.nombre }}</td> -->
                                 <td class="py-0">{{ convenio.categoria.nombre }}</td>
 
 

@@ -103,50 +103,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     
   ngOnInit(): void {
 
-    /* this.cargarDataAlFormulario(); */ //TODO: BORRAR
-
-    this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
-
-    this.sociosService.getTiposDocumentos().subscribe((res) => {
-      this.tiposDocumentos = res;
-      this.tiposDocumentos.unshift({
-        id: 0,
-        nombre: 'Seleccione un tipo',
-      });
-    });
-
-    this.variablesService.getVariable(1).subscribe( res => {      
-      this.form.controls['cuotaSocial'].patchValue({id: res.id, valor: res.valor});
-    });
-    
-    this.usuariosService.getRol(3).subscribe(res => this.rol = res);
-    
-    this.localidadesService.getLocalidades().subscribe((res) => {
-      this.localidades = res;
-      
-      this.localidades.unshift({
-        id: 0,
-        nombre: 'Seleccione la localidad',
-        cp: 0,
-      });
-    });
-    this.sociosService.getTipos().subscribe((res) => {
-      this.tipos = res;
-      
-      this.tipos.unshift({
-        id: 0,
-        nombre: 'Seleccione la clase',
-      });
-    });
-    this.sociosService.getEstadosCiviles().subscribe((res) => {
-      this.estadosCiviles = res;
-      
-      this.estadosCiviles.unshift({
-        id: 0,
-        nombre: 'Seleccione el estado civil',
-      });
-    });
-    
     const { id } = this.route.snapshot.params;
     
     if (id) {
@@ -185,6 +141,53 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     } else {
       /* this.cargarDataAlFormulario(); */
     }
+
+    /* this.cargarDataAlFormulario(); */ //TODO: BORRAR
+
+    this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
+
+    this.sociosService.getTiposDocumentos().subscribe((res) => {
+      this.tiposDocumentos = res;
+      this.tiposDocumentos.unshift({
+        id: 0,
+        nombre: 'Seleccione un tipo',
+      });
+    });
+
+    this.variablesService.getVariable(1).subscribe( res => {      
+      this.form.controls['cuotaSocial'].patchValue({id: res.id, valor: res.valor});
+  
+    });
+    
+    this.usuariosService.getRol(3).subscribe(res => this.rol = res);
+    
+    this.localidadesService.getLocalidades().subscribe((res) => {
+      this.localidades = res;
+      
+      this.localidades.unshift({
+        id: 0,
+        nombre: 'Seleccione la localidad',
+        cp: 0,
+      });
+    });
+    this.sociosService.getTipos().subscribe((res) => {
+      this.tipos = res;
+      
+      this.tipos.unshift({
+        id: 0,
+        nombre: 'Seleccione la clase',
+      });
+    });
+    this.sociosService.getEstadosCiviles().subscribe((res) => {
+      this.estadosCiviles = res;
+      
+      this.estadosCiviles.unshift({
+        id: 0,
+        nombre: 'Seleccione el estado civil',
+      });
+    });
+    
+    
         
   }
   cambioValor(valor: string) {

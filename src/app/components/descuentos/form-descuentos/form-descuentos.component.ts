@@ -29,7 +29,7 @@ export class FormDescuentosComponent implements OnInit {
 
   convenio!: Convenio;
 
-  socio!: Socio;
+  socio!: Socio | null;
 
   mostrarModalComercios = false;
 
@@ -218,6 +218,18 @@ export class FormDescuentosComponent implements OnInit {
     }
   }
 
+  limpiarSocio() {
+    this.form.controls['socio'].patchValue({
+                                              id: 0, 
+                                              nombre: '',
+                                              apellido: '',
+                                              numDoc: '',
+                                              legajo: ''
+                                            })
+
+    this.socio = null;
+  }
+
   guardar(){
     
     if( this.form.invalid ) {
@@ -233,19 +245,19 @@ export class FormDescuentosComponent implements OnInit {
       
     }
     
-    this.guardando = true;
-
+    
     if (this.editar) {
       this.descuentosService.editarDescuento(this.form.value).subscribe();
     } else {
       this.descuentosService.crearDescuento(this.form.value).subscribe();
     }
-
+    
+    this.guardando = true;
     this.guardado = true;
 
     Swal.fire({
       title: `Descuento: $${this.form.controls['valorSubTotal'].value} 
-              ${this.socio.apellido}, ${this.socio.nombre}
+              ${this.socio?.apellido}, ${this.socio?.nombre}
               ¡Guardado con éxito!`,
       icon: 'success',
       confirmButtonText: 'OK',
@@ -253,16 +265,13 @@ export class FormDescuentosComponent implements OnInit {
       customClass: {
         confirmButton: 'btn btn-outline-primary',
       },
-    })/* .then((result) => {
-  
-    }); */
+    });
+
     if(this.rolComercio){
       window.location.reload();   
     }else{
       this.location.back();   
     }
-    /* if(!this.rolComercio){
-    } */
   }
 
   volver() {
