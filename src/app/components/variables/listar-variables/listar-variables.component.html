@@ -22,11 +22,10 @@
                             <th class="py-0">{{ variable.nombre }}</th>
                             <td class="py-0" *ngIf="variable.nombre == 'Cuota'">${{variable.valor | number:'1.2'}}
                             </td>
-                            <td class="py-0" *ngIf="variable.nombre == 'Comision'">{{ variable.valor | number:'1.2' }}%
+                            <td class="py-0" *ngIf="variable.nombre == 'Comisión'">{{ variable.valor | number:'1.2' }}%
                             </td>
                             <td class="py-0" *ngIf="variable.nombre == 'Valor item'">${{variable.valor | number:'1.2'}}
                             </td>
-                            
                             <td class="py-0" *ngIf="variable.nombre == 'Fecha de cierre'">Día {{variable.valor}}
                             </td>
                         
