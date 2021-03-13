@@ -46,4 +46,10 @@ export class DescuentosService {
       responseType: 'blob',
     });
   }
+  exportarXLSX(mes: string){
+    return this.http.get(`${this.url}/exportar/${mes}`,
+    {
+      responseType: 'blob',
+    });
+  }
 }

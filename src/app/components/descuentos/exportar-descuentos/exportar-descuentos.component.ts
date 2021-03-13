@@ -65,16 +65,32 @@ export class ExportarDescuentosComponent implements OnInit {
       let fecha = this.fechaHoy?.toString().replace("-", "").replace("-", "");
 
       const url= window.URL.createObjectURL(blob);
-			//window.open(url);
-			//window.location.href = url;
+	
 			fileSaver(blob, `126-${fecha}.prn`);
-    
-
-    
-    
     
     })
 
+    
+  }
+  exportarXLSX( param: string ) {
+
+    let arreglo = param.split('/');
+
+    let mes = param.replace("/","-");
+    arreglo.reverse();
+    param = arreglo.join('-');
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    /* downloadLink.cl('display', 'none'); */
+    this.descuentosService.exportarXLSX(param).subscribe( res => {
+
+      let blob: any = res;
+      
+      const url = window.URL.createObjectURL(blob);
+			fileSaver(blob, `descuentos-${mes}.xls`);
+
+    });
     
   }
 
