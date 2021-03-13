@@ -28,12 +28,12 @@ export class ListarConveniosComponent implements OnInit {
   getConvenios(){
     this.conveniosService.getConvenios().subscribe(res => {
       
-      res.forEach( convenio => {
+      /* res.forEach( convenio => {
         if(convenio.id == 1){
           
           res.splice(0,1);
         }
-      })
+      }) */
       this.convenios = res;
     });
   }
@@ -49,36 +49,37 @@ export class ListarConveniosComponent implements OnInit {
 
 
   borrarConvenio(convenio: Convenio){
-    Swal.fire({
-      title: `¿Está seguro que desea eliminar el convenio con ${convenio.nombre}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Eliminar',
-      buttonsStyling: false,
-      focusCancel: true,
-      reverseButtons: true,
-      customClass: {
-        cancelButton: 'btn btn-outline-danger me-1',
-        confirmButton: 'btn btn-outline-primary ms-1',
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        
-        this.conveniosService.eliminarConvenio(convenio.id).subscribe( res => {
-        
-          Swal.fire({
-            title: `El convenio ${convenio.nombre} se ha eliminado!`,
-            icon: 'success',
-            confirmButtonText: 'OK',
-            buttonsStyling: false,
-            customClass: {
-              confirmButton: 'btn btn-outline-primary me-1',
-            }
-          })
-          this.getConvenios();
-        });
-      }
-    })
-  }
+      Swal.fire({
+        title: `¿Está seguro que desea eliminar el convenio con ${convenio.nombre}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Eliminar',
+        buttonsStyling: false,
+        focusCancel: true,
+        reverseButtons: true,
+        customClass: {
+          cancelButton: 'btn btn-outline-danger me-1',
+          confirmButton: 'btn btn-outline-primary ms-1',
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+          this.conveniosService.eliminarConvenio(convenio.id).subscribe( res => {
+          
+            Swal.fire({
+              title: `El convenio ${convenio.nombre} se ha eliminado!`,
+              icon: 'success',
+              confirmButtonText: 'OK',
+              buttonsStyling: false,
+              customClass: {
+                confirmButton: 'btn btn-outline-primary me-1',
+              }
+            })
+            this.getConvenios();
+          });
+        }
+      })
+
+    }
 }

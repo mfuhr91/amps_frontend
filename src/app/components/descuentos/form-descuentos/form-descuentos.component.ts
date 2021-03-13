@@ -146,13 +146,13 @@ export class FormDescuentosComponent implements OnInit {
     this.mostrarModalComercios = true;
     this.conveniosService.getConvenios().subscribe(res => {
       
-      res.forEach( convenio => {
+     /*  res.forEach( convenio => {
 
         if(convenio.id == 1){
 
           res.splice(0,1);
         }
-      })
+      }) */
       this.convenios = res;
     });
 
