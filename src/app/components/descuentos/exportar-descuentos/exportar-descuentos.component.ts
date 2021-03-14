@@ -72,7 +72,7 @@ export class ExportarDescuentosComponent implements OnInit {
 
     
   }
-  exportarXLSX( param: string ) {
+  exportarXLS( param: string ) {
 
     let arreglo = param.split('/');
 

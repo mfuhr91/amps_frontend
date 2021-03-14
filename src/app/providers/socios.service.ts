@@ -62,5 +62,12 @@ export class SociosService {
   contarSocios(){
     return this.http.get<number>(`${this.url}/contar`);
   }
+
+  exportarXLS(){
+    return this.http.get(`${this.url}/exportar`,
+    {
+      responseType: 'blob',
+    });
+  }
   
 }
