@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { saveAs as fileSaver } from 'file-saver';
 import { Socio } from 'src/app/interfaces/socios/socio.interface';
 import { SociosService } from 'src/app/providers/socios.service';
 import Swal from 'sweetalert2';
@@ -31,6 +32,23 @@ export class ListarSociosComponent implements OnInit {
     }else {
      this.getSocios(); 
     }
+  }
+
+  exportarXLS() {
+
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    /* downloadLink.cl('display', 'none'); */
+    this.sociosService.exportarXLS().subscribe( res => {
+
+      let blob: any = res;
+      
+      const url = window.URL.createObjectURL(blob);
+			fileSaver(blob, `socios.xls`);
+
+    });
+    
   }
 
   borrarSocio(socio: Socio){

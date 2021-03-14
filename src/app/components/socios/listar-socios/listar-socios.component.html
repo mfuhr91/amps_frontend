@@ -2,7 +2,7 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col-8">
+                <div class="col-7">
                     <h3 class="my-2">Socios</h3>
                 </div>
                 <div class="buscador col-3 input-group mb-3">
@@ -11,8 +11,10 @@
                     <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
                         id="buscador">Buscar</button>
                 </div>
-                <div class="col-1">
-                    <button class="btn btn-outline-primary float-end mx-4 mt-2" [routerLink]="['crear']">Nuevo</button>
+                <div class="col-2">
+                    <button class="btn btn-outline-primary float-end me-4 mt-2" [routerLink]="['crear']">Nuevo</button>
+                    <button class="btn btn-outline-success float-end me-4 mt-2" (click)="exportarXLS()">
+                        <i class="fas fa-file-download"></i> XLS</button>
                 </div>
             </div>
 
