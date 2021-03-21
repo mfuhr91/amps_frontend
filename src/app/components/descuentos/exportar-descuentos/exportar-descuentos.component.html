@@ -2,28 +2,28 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col-6">
+                <div class="col-xl-5 col-sm-12">
                     <h3 class="my-2">Descuentos a liquidar</h3>
                 </div>
-                
-                <div class="buscador col-3 input-group mb-3">
-                    <input id="inputMes" #buscador (keyup)="escribiendo()" (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
-                        placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor"
-                        >
-                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
-                        id="buscador">Buscar</button>
-                </div>
+        
+                <div class="col-xl-7 col-sm-12">
+                    <button class="btn btn-outline-dark me-2 mt-2 float-end" (click)="volver()"><i class="fas fa-chevron-left"></i> Volver </button>
+                    <button class="btn btn-outline-danger float-end me-2 mt-2" 
+                    
+                    (click)="exportar(buscador.value)" 
+                    [disabled]="!itemsListados"><i class="fas fa-file-invoice-dollar"></i> Exportar</button>
+                    <button class="btn btn-outline-success float-end me-2 mt-2" 
+                    
+                    (click)="exportarXLS(buscador.value)" 
+                    [disabled]="!itemsListados"><i class="fas fa-file-download"></i> XLS</button>
 
-                <div class="col-3">
-                    <button class="btn btn-outline-dark me-4 mt-2 float-end" (click)="volver()"><i class="fas fa-chevron-left"></i> Volver </button>
-                    <button class="btn btn-outline-danger float-end me-4 mt-2" 
-                            
-                            (click)="exportar(buscador.value)" 
-                            [disabled]="!itemsListados"><i class="fas fa-file-invoice-dollar"></i> Exportar</button>
-                    <button class="btn btn-outline-success float-end me-4 mt-2" 
-                            
-                            (click)="exportarXLS(buscador.value)" 
-                            [disabled]="!itemsListados"><i class="fas fa-file-download"></i> XLS</button>
+                    <div class="buscador float-end input-group me-2 mb-3">
+                        <input id="inputMes" #buscador (keyup)="escribiendo()" (keyup.enter)="buscar(buscador.value)" type="text" class="form-control"
+                            placeholder="Ingresar MM/AAAA" aria-label="Buscar" aria-describedby="buscardor"
+                            >
+                        <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                            id="buscador">Buscar</button>
+                    </div>
                 </div>
             </div>
 

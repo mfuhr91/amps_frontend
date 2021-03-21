@@ -3,17 +3,17 @@
     <div class="card mb-3">
         <div class="card-header pt-2">
             <div class="row">
-                <div class="col-8">
+                <div class="col-md-5 col-sm-12">
                     <h3 class="my-2">Convenios</h3>
                 </div>
-                <div class="buscador col-3 input-group mb-3">
-                    <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
-                        placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
-                    <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
-                        id="buscador">Buscar</button>
-                </div>
-                <div class="col-1">
-                    <button class="btn btn-outline-primary float-end mx-4 mt-2" [routerLink]="['crear']">Nuevo</button>
+                <div class="col-md-7 col-sm-12">
+                    <button class="btn btn-outline-primary float-end me-2 mt-2" [routerLink]="['crear']">Nuevo</button>
+                    <div class="buscador input-group float-end me-2 mb-3">
+                        <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control"
+                            placeholder="Buscar" aria-label="Buscar" aria-describedby="buscardor">
+                        <button (click)="buscar(buscador.value)" class="btn btn-outline-secondary" type="button"
+                            id="buscador">Buscar</button>
+                    </div>
                 </div>
             </div>
             

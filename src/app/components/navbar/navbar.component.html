@@ -1,4 +1,4 @@
-<nav *ngIf="rol || loginUsuario" class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<nav *ngIf="rol || loginUsuario" class="navbar sticky-top navbar-expand-xl navbar-dark bg-dark ">
     <div class="container-fluid">
       <a class="navbar-brand py-0">                
         <img class="pb-1" src="../../../assets/img/favicon.png" width="30px">
@@ -12,26 +12,26 @@
       <div class="collapse navbar-collapse animate__animated animate__fadeIn" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item" >
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/inicio']" routerLinkActive="active"><i class="fas fa-home"></i> INICIO</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/inicio']" routerLinkActive="active"><i class="fas fa-home"></i> INICIO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/socios']" routerLinkActive="active"><i class="fas fa-user"></i> SOCIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/socios']" routerLinkActive="active"><i class="fas fa-user"></i> SOCIOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/convenios']" routerLinkActive="active"><i class="fas fa-store-alt"></i> CONVENIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/convenios']" routerLinkActive="active"><i class="fas fa-store-alt"></i> CONVENIOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/categorias']" routerLinkActive="active"><i class="far fa-list-alt"></i> CATEGORIAS</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/categorias']" routerLinkActive="active"><i class="far fa-list-alt"></i> CATEGORIAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/descuentos']" routerLinkActive="active"> <i class="fas fa-money-check-alt"></i> DESCUENTOS</a>
-            <a class="nav-link" *ngIf="rolComercio" [routerLink]="['/descuentos/crear']" routerLinkActive="active"><i class="fas fa-shopping-bag"></i> COMPRAS</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/descuentos']" routerLinkActive="active"> <i class="fas fa-money-check-alt"></i> DESCUENTOS</a>
+            <a class="nav-link" *ngIf="rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/descuentos/crear']" routerLinkActive="active"><i class="fas fa-shopping-bag"></i> COMPRAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/variables']" routerLinkActive="active"><i class="fas fa-percent"></i> VARIABLES</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/variables']" routerLinkActive="active"><i class="fas fa-percent"></i> VARIABLES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!rolComercio" [routerLink]="['/usuarios']" routerLinkActive="active"><i class="fas fa-user-cog"></i> USUARIOS</a>
+            <a class="nav-link" *ngIf="!rolComercio" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/usuarios']" routerLinkActive="active"><i class="fas fa-user-cog"></i> USUARIOS</a>
           </li>
           
 
