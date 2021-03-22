@@ -18,7 +18,10 @@ private url = `${environment.url}/convenios`;
 
 
   getConvenios(): Observable<Convenio[]> {
-    return this.http.get<Convenio[]>(`${this.url}`);
+    return this.http.get<Convenio[]>(this.url);
+  }
+  getConveniosNoBaja(): Observable<Convenio[]> {
+    return this.http.get<Convenio[]>(`${this.url}/todos-no-baja`);
   }
 
   getConvenio(id: number) {

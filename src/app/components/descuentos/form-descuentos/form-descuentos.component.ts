@@ -59,6 +59,8 @@ export class FormDescuentosComponent implements OnInit {
 
   socioHabilitado = true;
 
+  socioDeBaja = false;
+
 
   constructor(  private fb: FormBuilder,
                 private route: ActivatedRoute,
@@ -144,15 +146,8 @@ export class FormDescuentosComponent implements OnInit {
 
   listarConvenios(){
     this.mostrarModalComercios = true;
-    this.conveniosService.getConvenios().subscribe(res => {
+    this.conveniosService.getConveniosNoBaja().subscribe(res => {
       
-     /*  res.forEach( convenio => {
-
-        if(convenio.id == 1){
-
-          res.splice(0,1);
-        }
-      }) */
       this.convenios = res;
     });
 
@@ -200,6 +195,8 @@ export class FormDescuentosComponent implements OnInit {
           
           if(!res.habilitado){
             this.socioHabilitado = false;
+          } else if(res.baja) {
+            this.socioDeBaja = true;
           }else {
             
             this.socio = res

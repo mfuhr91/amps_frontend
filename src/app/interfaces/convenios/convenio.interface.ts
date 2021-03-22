@@ -16,7 +16,7 @@ export interface Convenio {
     baja: string,
     fechaAlta: string,
     fechaBaja: string,
-    foto: Foto,
+    foto: Foto | null,
     localidad: Localidad,
     categoria: Categoria,
     usuario: Usuario,

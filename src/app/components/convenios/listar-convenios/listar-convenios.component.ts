@@ -18,24 +18,18 @@ export class ListarConveniosComponent implements OnInit {
   constructor(private conveniosService: ConveniosService ) {
 
     
-    
    }
 
   ngOnInit(): void {
     this.getConvenios();
   }
 
+  mostrarTodos(){
+    this.conveniosService.getConvenios().subscribe(res => this.convenios = res );
+  }
+
   getConvenios(){
-    this.conveniosService.getConvenios().subscribe(res => {
-      
-      /* res.forEach( convenio => {
-        if(convenio.id == 1){
-          
-          res.splice(0,1);
-        }
-      }) */
-      this.convenios = res;
-    });
+    this.conveniosService.getConveniosNoBaja().subscribe(res => this.convenios = res );
   }
 
   buscar(param: string){

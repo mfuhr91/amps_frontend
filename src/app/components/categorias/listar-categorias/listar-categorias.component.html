@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="row m-auto w-50 text-start">
-                                    <small #error hidden class="text-danger animate__animated animate__fadeIn">Debe ingresar una categoría</small>
+                                    <span #error hidden class="text-danger animate__animated animate__fadeIn">Debe ingresar una categoría</span>
                                 </div>
                                 
                             </th>
@@ -61,8 +61,8 @@
                                 </button>
                                 <button class="btn btn-outline-warning mx-1" (click)="editar(input, guardarBtn)"><i
                                         class="fas fa-pencil-alt"></i></button>
-                                <button class="btn btn-outline-danger mx-1" (click)="borrarCategoria(cat, i)"><i
-                                        class="fas fa-trash"></i></button>
+                                <button class="btn btn-outline-danger mx-1" (click)="borrarCategoria(cat, i)" [disabled]="cat.id == 1"><i
+                                        class="fas fa-trash" ></i></button>
                             </td>
                         </tr>
                     </tbody>

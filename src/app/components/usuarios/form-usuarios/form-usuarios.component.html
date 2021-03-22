@@ -28,8 +28,8 @@
                 <input #usuario (blur)="checkearUsuario(usuario.value)" class="form-control" #nombre type="text" placeholder="Nombre de usuario"
                   formControlName="nombreUsuario" [class.is-invalid]="nombreUsuarioNoValido || usuarioExiste">
                   
-                <small *ngIf="nombreUsuarioNoValido" class="text-danger"> Debe ingresar un nombre de Usuario</small>
-                <small *ngIf="usuarioExiste" class="text-danger"> ¡El usuario ya existe!</small>
+                <span *ngIf="nombreUsuarioNoValido" class="text-danger"> Debe ingresar un nombre de Usuario</span>
+                <span *ngIf="usuarioExiste" class="text-danger"> ¡El usuario ya existe!</span>
 
               </div>
             </div>
@@ -40,7 +40,7 @@
 
                 <input class="form-control" type="password" placeholder="Contraseña" formControlName="contrasena"
                   [class.is-invalid]="contrasenaNoValido">
-                <small *ngIf="contrasenaNoValido" class="text-danger"> Debe ingresar una contraseña</small>
+                <span *ngIf="contrasenaNoValido" class="text-danger"> Debe ingresar una contraseña</span>
               </div>
             </div>
             <div class="form-group row my-3">
@@ -50,7 +50,7 @@
                 <input class="form-control" type="password" placeholder="Contraseña" formControlName="contrasena2"
                   [class.is-invalid]="contrasenaNoCoincide">
                 
-                <small *ngIf="contrasenaNoCoincide" class="text-danger"> Las contraseñas no coinciden</small>
+                <span *ngIf="contrasenaNoCoincide" class="text-danger"> Las contraseñas no coinciden</span>
               </div>
             </div>
           </div>
@@ -63,7 +63,7 @@
                     <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombreRol }}</option>
                   </select>
                 </div>
-                <small *ngIf="rolNoValido" class="text-danger"> Debe seleccionar un rol</small>
+                <span *ngIf="rolNoValido" class="text-danger"> Debe seleccionar un rol</span>
 
 
               </div>
@@ -77,7 +77,7 @@
 
                 <input #fechaAlta class="form-control" type="date" placeholder="Fecha de Alta"
                   formControlName="fechaAlta" [class.is-invalid]="fechaAltaNoValido">
-                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha </small>
+                <span *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha </span>
 
               </div>
             </div>

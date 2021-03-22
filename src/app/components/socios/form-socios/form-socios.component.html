@@ -31,8 +31,8 @@
                 <button type="button" class="btn btn-outline-danger me-1" (click)="activarCamara = !activarCamara">
                   Cancelar
                 </button>
-                <button type="button" class="btn btn-outline-secondary ms-1" (click)="triggerSnapshot()">
-                  Tomar foto
+                <button type="button" class="btn btn-outline-success ms-1" (click)="triggerSnapshot()">
+                  <i class="fas fa-camera"></i> Tomar
                 </button>
 
               </div>
@@ -48,25 +48,22 @@
                 src="../../../../assets/img/no-image-icon.png" width="230px" height="230px">
               </div>
               <div class="text-danger ms-4" *ngIf="!guardado">
-                <small>No olvides guardar el formulario para guardar esta imagen!</small>
+                <span>No olvides guardar el formulario para guardar esta imagen!</span>
               </div>
               <div class="my-4" *ngIf="guardado">
 
               </div>
 
               <div class="text-center mt-2">
-
-
-                <button type="button" class="btn btn-outline-secondary me-1" (click)="activarCamara = !activarCamara">
-                  Tomar foto </button>
-
-
-                <button type="button" class="btn btn-outline-secondary ms-1" (click)="inputFoto()"> Subir foto
+                <button type="button" class="btn btn-outline-success me-1" (click)="activarCamara = !activarCamara">
+                  <i class="fas fa-camera"></i> Tomar
                 </button>
-
-
-
-
+                <button type="button" class="btn btn-outline-primary ms-1" (click)="inputFoto()">
+                  <i class="fas fa-cloud-upload-alt"></i> Subir
+                </button>
+                <button type="button" class="btn btn-outline-danger ms-1" (click)="quitarFoto()">
+                  <i class="fas fa-trash"></i> Borrar
+                </button>
               </div>
             </div>
 
@@ -77,7 +74,7 @@
               <div class="col">
 
                 <input class="form-control" #nombre type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
-                <small *ngIf="nombreNoValido" class="text-danger"> Debe ingresar un nombre</small>
+                <span *ngIf="nombreNoValido" class="text-danger"> Debe ingresar un nombre</span>
                
               </div>
             </div>
@@ -87,7 +84,7 @@
               <div class="col">
 
                 <input class="form-control" #apellido type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoNoValido">
-                       <small *ngIf="apellidoNoValido" class="text-danger"> Debe ingresar un apellido</small>
+                       <span *ngIf="apellidoNoValido" class="text-danger"> Debe ingresar un apellido</span>
               </div>
             </div>
             <div class="form-group row my-3" formGroupName="tipoDocumento">
@@ -98,7 +95,7 @@
                     <option *ngFor="let tipo of tiposDocumentos" [value]="tipo.id">{{ tipo.nombre }}</option>
                   </select>
                 </div>
-                <small *ngIf="tipoDocumentoNoValido" class="text-danger"> Debe seleccionar un tipo de documento </small>
+                <span *ngIf="tipoDocumentoNoValido" class="text-danger"> Debe seleccionar un tipo de documento </span>
               </div>
               
             </div>
@@ -107,7 +104,7 @@
               <div class="col">
                 
                 <input class="form-control" #documento type="number" placeholder="Documento" formControlName="numDoc" [class.is-invalid]="docNoValido">
-                <small *ngIf="docNoValido" class="text-danger"> Debe ingresar un documento</small>
+                <span *ngIf="docNoValido" class="text-danger"> Debe ingresar un documento</span>
                
               </div>
             </div>
@@ -119,7 +116,7 @@
 
                 <input class="form-control" type="text" placeholder="Correo" formControlName="correo" #correo
                   (keyup)="crearUsuarioPass(nombre.value, apellido.value, documento.value, correo.value)" [class.is-invalid]="correoNoValido">
-                  <small *ngIf="correoNoValido" class="text-danger"> Debe ingresar un email válido</small>
+                  <span *ngIf="correoNoValido" class="text-danger"> Debe ingresar un email válido</span>
   
               </div>
             </div>
@@ -131,7 +128,7 @@
               <div class="col">
 
                 <input class="form-control" type="number" placeholder="Teléfono" formControlName="telefono"[class.is-invalid]="telefonoNoValido">
-                <small *ngIf="telefonoNoValido" class="text-danger"> Debe ingresar un teléfono </small>
+                <span *ngIf="telefonoNoValido" class="text-danger"> Debe ingresar un teléfono </span>
               </div>
             </div>
             <div class="form-group row my-3">
@@ -139,7 +136,7 @@
               <div class="col">
 
                 <input class="form-control" type="number" placeholder="CUIL" formControlName="cuil" [class.is-invalid]="cuilNoValido">
-                <small *ngIf="cuilNoValido" class="text-danger"> Debe ingresar un cuil </small>
+                <span *ngIf="cuilNoValido" class="text-danger"> Debe ingresar un cuil </span>
               </div>
             </div>
 
@@ -149,7 +146,7 @@
 
                 <input class="form-control" type="date" placeholder="Fecha de Alta"  formControlName="fechaAlta"
                          [class.is-invalid]="fechaAltaNoValido">
-                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha </small>
+                <span *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha </span>
 
               </div>
             </div>
@@ -160,7 +157,7 @@
 
                 <input class="form-control" type="date" placeholder="Fecha de Nacimiento"
                   formControlName="fechaNacimiento" [class.is-invalid]="fechaNacimientoNoValido">
-                  <small *ngIf="fechaNacimientoNoValido" class="text-danger"> Debe seleccionar una fecha </small>
+                  <span *ngIf="fechaNacimientoNoValido" class="text-danger"> Debe seleccionar una fecha </span>
               </div>
             </div>
             <div class="form-group row">
@@ -169,7 +166,7 @@
 
                 <input class="form-control" type="date" placeholder="Fecha de ingreso laboral"
                   formControlName="fechaIngresoLaboral" [class.is-invalid]="fechaIngresoLaboralNoValido">
-                  <small *ngIf="fechaIngresoLaboralNoValido" class="text-danger"> Debe seleccionar una fecha </small>
+                  <span *ngIf="fechaIngresoLaboralNoValido" class="text-danger"> Debe seleccionar una fecha </span>
                
               </div>
             </div>
@@ -193,7 +190,7 @@
                     <option *ngFor="let estado of estadosCiviles" [value]="estado.id">{{ estado.nombre }}</option>
                   </select>
                 </div>
-                <small *ngIf="estadoCivilNoValido" class="text-danger"> Debe seleccionar un estado civil </small>
+                <span *ngIf="estadoCivilNoValido" class="text-danger"> Debe seleccionar un estado civil </span>
 
               </div>
             </div>
@@ -202,7 +199,7 @@
               <div class="col">
 
                 <input class="form-control" type="text" placeholder="Dirección" formControlName="direccion" [class.is-invalid]="direccionNoValido">
-                <small *ngIf="direccionNoValido" class="text-danger"> Debe ingresar una dirección </small>
+                <span *ngIf="direccionNoValido" class="text-danger"> Debe ingresar una dirección </span>
               </div>
             </div>
             <div class="form-group row my-3" formGroupName="localidad">
@@ -214,7 +211,7 @@
                   </select>
                   
                 </div>
-                <small *ngIf="localidadNoValido" class="text-danger"> Debe seleccionar una localidad </small>
+                <span *ngIf="localidadNoValido" class="text-danger"> Debe seleccionar una localidad </span>
 
               </div>
             </div>
@@ -224,7 +221,7 @@
               <div class="col">
 
                 <input class="form-control" type="number" placeholder="Legajo" formControlName="legajo" [class.is-invalid]="legajoNoValido">
-                <small *ngIf="legajoNoValido" class="text-danger"> Debe ingresar el legajo </small>
+                <span *ngIf="legajoNoValido" class="text-danger"> Debe ingresar el legajo </span>
               </div>
             </div>
             <div class="form-group row my-3" formGroupName="tipo">
@@ -236,7 +233,7 @@
                     <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nombre }}</option>
                   </select>
                 </div>
-                <small *ngIf="tipoNoValido" class="text-danger"> Debe seleccionar una clase </small>
+                <span *ngIf="tipoNoValido" class="text-danger"> Debe seleccionar una clase </span>
 
       
               </div>
@@ -276,7 +273,7 @@
               <div class="col">
   
                 <input class="form-control" type="number" placeholder="Número de Cuenta" formControlName="numCuenta" [class.is-invalid]="numCuentaNoValido">
-                <small *ngIf="numCuentaNoValido" class="text-danger"> Debe ingresar un número de cuenta </small>
+                <span *ngIf="numCuentaNoValido" class="text-danger"> Debe ingresar un número de cuenta </span>
               </div>
             </div>
             <div class="form-group row my-3">
@@ -396,7 +393,7 @@
         </div>
 
 
-        <button *ngIf="!guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando"><i class="fas fa-save"></i> Guardar</button>
+        <button *ngIf="!guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando || subiendo"><i class="fas fa-save"></i> Guardar</button>
         <button *ngIf="guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
 
       </form>

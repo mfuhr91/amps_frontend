@@ -27,8 +27,10 @@ import { ExportarDescuentosComponent } from './descuentos/exportar-descuentos/ex
 import { VariablesComponent } from './variables/variables.component';
 import { ListarVariablesComponent } from './variables/listar-variables/listar-variables.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from '../providers/auth.service';
 
+
+import { CapitalizadoPipe } from '../pipes/capitalizado.pipe';
+   
 
 
 
@@ -51,9 +53,8 @@ import { AuthService } from '../providers/auth.service';
     ListarUsuariosComponent,
     FormUsuariosComponent,
     ListarDescuentosComponent,
-    
     ExportarDescuentosComponent,
-    
+    CapitalizadoPipe,
     VariablesComponent,
     
     ListarVariablesComponent,

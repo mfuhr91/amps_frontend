@@ -22,6 +22,10 @@ export class SociosService {
 
 
 
+  getSociosNoBaja(): Observable<Socio[]> {
+    return this.http.get<Socio[]>(`${this.url}/todos-no-baja`);          
+  }
+
   getSocios(): Observable<Socio[]> {
     return this.http.get<Socio[]>(this.url);          
   }
@@ -39,6 +43,9 @@ export class SociosService {
   }
   eliminarSocio( id: number){
     return this.http.delete(`${this.url}/eliminar/${id}`);
+  }
+  confirmarEliminarSocio( id: number){
+    return this.http.delete(`${this.url}/confirmar-eliminar/${id}`);
   }
 
   getTiposDocumentos(){

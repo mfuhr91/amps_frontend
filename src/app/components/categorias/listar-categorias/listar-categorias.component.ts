@@ -39,8 +39,6 @@ export class ListarCategoriasComponent implements OnInit {
 
   getCategorias(){
     this.categoriasService.getCategorias().subscribe( res => {
-      res.splice(0,1);
-     
       this.categorias = res;
 
       this.numCategoriasIniciales = res.length;

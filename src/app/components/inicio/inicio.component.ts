@@ -15,6 +15,8 @@ export class InicioComponent implements OnInit {
   totalConvenios!: number;
   totalSocios!: number;
   totalRecaudado!: number;
+  totalRecaudadoMes!: number;
+  hoy: Date = new Date;
   info: any = {};
 
   constructor(  private conveniosService: ConveniosService,
@@ -24,9 +26,12 @@ export class InicioComponent implements OnInit {
                 private auth: AuthService) { }
 
   ngOnInit(): void {
+
     this.conveniosService.contarConvenios().subscribe(res => this.totalConvenios = res);
     this.sociosService.contarSocios().subscribe(res => this.totalSocios = res);
     this.descuentosService.sumarTotalRecaudado().subscribe(res => this.totalRecaudado = res);
+    this.descuentosService.sumarTotalRecaudado().subscribe(res => this.totalRecaudado = res);
+    this.descuentosService.sumarTotalRecaudadoMes().subscribe(res => this.totalRecaudadoMes = res);
 
     this.info = {
       token: this.tokenService.getToken(),

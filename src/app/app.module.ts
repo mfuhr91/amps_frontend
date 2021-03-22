@@ -16,10 +16,10 @@ import { errorInterceptorProvider } from './providers/error-interceptor.service'
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,

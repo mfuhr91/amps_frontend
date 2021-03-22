@@ -39,6 +39,9 @@ export class DescuentosService {
   sumarTotalRecaudado(){
     return this.http.get<number>(`${this.url}/total`);
   }
+  sumarTotalRecaudadoMes(){
+    return this.http.get<number>(`${this.url}/totalMes`);
+  }
 
   exportar(mes: string){
     return this.http.get(`${this.url}/descargar/${mes}`,

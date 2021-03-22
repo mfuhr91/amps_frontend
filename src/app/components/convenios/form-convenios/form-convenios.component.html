@@ -32,7 +32,7 @@
                                     src="../../../../assets/img/noimage.png" width="230px" height="230px">
                             </div>
                             <div class="text-danger ms-4" *ngIf="!guardado">
-                                <small>No olvides guardar el formulario para guardar esta imagen!</small>
+                                <span>No olvides guardar el formulario para guardar esta imagen!</span>
                             </div>
                             <div class="my-4" *ngIf="guardado">
 
@@ -40,8 +40,12 @@
 
                             <div class="text-center mt-2">
 
-                                <button type="button" class="btn btn-outline-secondary ms-1" (click)="inputFoto()">
-                                    Subir foto </button>
+                                <button type="button" class="btn btn-outline-primary ms-1" (click)="inputFoto()">
+                                    <i class="fas fa-cloud-upload-alt"></i> Subir
+                                </button>
+                                <button type="button" class="btn btn-outline-danger ms-1" (click)="quitarFoto()">
+                                    <i class="fas fa-trash"></i> Borrar
+                                </button>
 
                             </div>
                         </div>
@@ -54,7 +58,7 @@
 
                                 <input class="form-control" type="text" placeholder="Cuit" formControlName="cuit"
                                     [class.is-invalid]="cuitNoValido">
-                                <small *ngIf="cuitNoValido" class="text-danger"> Debe ingresar un cuit</small>
+                                <span *ngIf="cuitNoValido" class="text-danger"> Debe ingresar un cuit</span>
                             </div>
                         </div>
 
@@ -64,7 +68,7 @@
 
                                 <input class="form-control" #comercio type="text" placeholder="Comercio"
                                     formControlName="nombre" [class.is-invalid]="nombreNoValido">
-                                <small *ngIf="nombreNoValido" class="text-danger"> Debe ingresar un nombre </small>
+                                <span *ngIf="nombreNoValido" class="text-danger"> Debe ingresar un nombre </span>
                             </div>
                         </div>
 
@@ -75,7 +79,7 @@
 
                                 <input class="form-control" #contacto type="text" placeholder="Contacto"
                                     formControlName="contacto" [class.is-invalid]=" contactoNoValido">
-                                <small *ngIf="contactoNoValido" class="text-danger"> Debe ingresar un contacto</small>
+                                <span *ngIf="contactoNoValido" class="text-danger"> Debe ingresar un contacto</span>
                             </div>
                         </div>
                         <div class="form-group row my-3">
@@ -84,7 +88,7 @@
 
                                 <input class="form-control" #telefono type="number" placeholder="Teléfono"
                                     formControlName="telefono" [class.is-invalid]="telefonoNoValido">
-                                <small *ngIf="telefonoNoValido" class="text-danger"> Debe ingresar un teléfono </small>
+                                <span *ngIf="telefonoNoValido" class="text-danger"> Debe ingresar un teléfono </span>
                             </div>
                         </div>
                         <div class="form-group row my-3">
@@ -95,8 +99,8 @@
                                     #correo
                                     (keyup)="crearUsuarioPass(comercio.value, contacto.value, telefono.value, correo.value)"
                                     [class.is-invalid]="correoNoValido">
-                                <small *ngIf="correoNoValido" class="text-danger"> Debe ingresar un correo
-                                    válido</small>
+                                <span *ngIf="correoNoValido" class="text-danger"> Debe ingresar un correo
+                                    válido</span>
                             </div>
                         </div>
                     </div>
@@ -122,8 +126,8 @@
                                 <input class="form-control" type="date" placeholder="Fecha de Alta"
                                     formControlName="fechaAlta"
                                     [class.is-invalid]="fechaAltaNoValido">
-                                <small *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha
-                                </small>
+                                <span *ngIf="fechaAltaNoValido" class="text-danger"> Debe seleccionar una fecha
+                                </span>
                             </div>
                         </div>
 
@@ -133,8 +137,8 @@
 
                                 <input class="form-control" type="text" placeholder="Dirección"
                                     formControlName="direccion" [class.is-invalid]="direccionNoValido">
-                                <small *ngIf="direccionNoValido" class="text-danger"> Debe ingresar una dirección
-                                </small>
+                                <span *ngIf="direccionNoValido" class="text-danger"> Debe ingresar una dirección
+                                </span>
                             </div>
                         </div>
                         <div class="form-group row my-3" formGroupName="localidad">
@@ -147,8 +151,8 @@
                                             localidad.nombre }}</option>
                                     </select>
                                 </div>
-                                <small *ngIf="localidadNoValido" class="text-danger"> Debe seleccionar una localidad
-                                </small>
+                                <span *ngIf="localidadNoValido" class="text-danger"> Debe seleccionar una localidad
+                                </span>
                             </div>
                         </div>
 
@@ -170,8 +174,8 @@
                                             categoria.nombre }}</option>
                                     </select>
                                 </div>
-                                <small *ngIf="categoriaNoValido" class="text-danger"> Debe seleccionar una categoria
-                                </small>
+                                <span *ngIf="categoriaNoValido" class="text-danger"> Debe seleccionar una categoria
+                                </span>
                             </div>
                         </div>
 
@@ -222,7 +226,7 @@
                 <div class="alert alert-success" *ngIf="contrasena" role="alert">
                     La contraseña del comercio será: <span class="badge bg-success">{{ contrasena }}</span>
                 </div>
-                <button *ngIf="!guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando"><i class="fas fa-save"></i> Guardar</button>
+                <button *ngIf="!guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" [disabled]="guardando || subiendo"><i class="fas fa-save"></i> Guardar</button>
                 <button *ngIf="guardando" type="submit" class="btn btn-outline-primary mx-4 mt-2" 
                     [disabled]="guardando"><i class="fas fa-sync-alt fa-spin"></i> Guardando</button>
             </form>

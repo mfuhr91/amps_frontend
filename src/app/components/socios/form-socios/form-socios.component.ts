@@ -65,9 +65,9 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   
   activarCamara: boolean = false;
   
-  foto!: Foto;
+  foto!: Foto | null;
 
-  fotoAnterior!: Foto; 
+  fotoAnterior!: Foto | null; 
 
   form!: FormGroup;
 
@@ -88,6 +88,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if(!this.guardado) {
+      if(this.foto)
       this.borrarImagen(this.foto);
     }    
   }
@@ -96,6 +97,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
   onReload() { //windows:beforeunload => antes de recargar
 
     if(!this.guardado) {
+      if(this.foto)
       this.borrarImagen(this.foto);
     }
   }
@@ -126,7 +128,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
         
         
         this.socio.baja = res.baja.toString();
-        /* this.socio.extranjero = res.extranjero; */
+    
         if(!this.socio.usuario.baja){
           this.socio.usuario.baja = false;
         }
@@ -141,8 +143,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     } else {
       /* this.cargarDataAlFormulario(); */
     }
-
-    /* this.cargarDataAlFormulario(); */ //TODO: BORRAR
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.hoy });
 
@@ -293,6 +293,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     const tipo = "socio";
     
     if(!this.guardado){
+      if(this.foto)
       this.borrarImagen(this.foto);
     }
   
@@ -307,9 +308,24 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     });
   }
 
+  quitarFoto(){
+    
+    if(this.fotoAnterior){
+      if(this.foto){
+        this.borrarImagen(this.foto);
+      }
+    } else if ( this.foto) {
+      this.borrarImagen(this.foto);
+      
+    }
+  }
+
   borrarImagen(img: Foto) {
     if(this.foto){
-      this.fotosService.borrarImagen(img.publicId).subscribe();
+      this.fotosService.borrarImagen('socio', this.socio.id.toString(), img.publicId).subscribe();
+      this.foto = null;
+      this.fotoAnterior = null;
+      this.form.controls['foto'].reset();
     }
   }
 
@@ -324,15 +340,6 @@ export class FormSociosComponent implements OnInit, OnDestroy {
     }
   }
 
-  
-
-  /* asignarFechaAltaUsuario(fecha: string) {
-    this.form.controls['usuario'].patchValue({ fechaAlta: fecha });
-  }
-  asignarFechaBajaUsuario(fecha: string) {
-    this.form.controls['usuario'].patchValue({ fechaBaja: fecha });
-  }
- */
   guardar() {
 
     this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
@@ -378,7 +385,7 @@ export class FormSociosComponent implements OnInit, OnDestroy {
       },
     })
     
-    this.location.back();
+    this.volver();
   }
 
   volver() {

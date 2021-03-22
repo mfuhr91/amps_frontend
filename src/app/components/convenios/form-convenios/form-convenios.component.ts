@@ -38,9 +38,9 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
   rol!: Rol;
 
-  foto!: Foto;
+  foto!: Foto | null;
 
-  fotoAnterior!: Foto;
+  fotoAnterior!: Foto | null;
 
   convenio!: Convenio;
 
@@ -63,7 +63,9 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if(!this.guardado) {
-      this.borrarImagen(this.foto);
+      if(this.foto){
+        this.borrarImagen(this.foto);
+      }
     }   
   }
 
@@ -71,18 +73,34 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
   onReload() { //windows:beforeunload => antes de recargar
 
     if(!this.guardado) {
-      this.borrarImagen(this.foto);
+      if(this.foto){  
+        this.borrarImagen(this.foto);
+      }
     }
   }
 
   ngOnInit(): void {
 
+    const { id } = this.route.snapshot.params;
+
     this.crearForm();
 
     this.categoriasService.getCategorias().subscribe((res) => {
       
-      res.splice(0,1);
-      this.categorias = res;
+      if(id == 1){
+        this.categorias = [];
+        let cat: Categoria | undefined = res.find( cat => cat.id = 1);
+        if(cat != undefined){
+          this.categorias.push(cat);
+        }
+      } else {
+
+        res.splice(0,1);
+        this.categorias = res;
+
+      }
+        
+    
       this.categorias.unshift({
         id: 0,
         nombre: 'Seleccione la categoría',
@@ -102,7 +120,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     this.usuariosService.getRol(4).subscribe(res => this.rol = res);
 
 
-    const { id } = this.route.snapshot.params;
+    
     
     if (id) {
       
@@ -121,10 +139,20 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
           this.convenio.foto = foto;
           
         }
+
+        if(!this.convenio.usuario){
+          this.convenio.usuario = { id: 0,
+                                    nombreUsuario: '',
+                                    contrasena: '',
+                                    fechaAlta: '',
+                                    fechaBaja: '',
+                                    baja: false,
+                                    rol: { id: 0, nombreRol: ''},
+                                  }
+        }
         
         
         this.convenio.baja = res.baja.toString();
-        /* this.socio.extranjero = res.extranjero; */
         
         if(this.convenio.foto.id != 0) {
           this.foto = this.fotoAnterior = this.convenio.foto;
@@ -134,9 +162,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
         
             
       });
-    } else {
-      /* this.cargarDataAlFormulario(); */
-    }
+    } 
     
   }
 
@@ -189,14 +215,29 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     });
   }
 
+  
   // FIN INPUT FILE FOTO
-
+  
+  quitarFoto(){
+    
+    if(this.fotoAnterior){
+      if(this.foto){
+        this.borrarImagen(this.foto);
+      }
+    } else if ( this.foto) {
+      this.borrarImagen(this.foto);
+      
+    }
+  }
+  
   subirImagen(file: File){
     this.subiendo = true;
    
 
     if(!this.guardado){
-      this.borrarImagen(this.foto);
+      if(this.foto){
+        this.borrarImagen(this.foto);
+      }
     }
     
     const tipo = 'comercio';
@@ -204,8 +245,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
     this.fotosService.subirImagen(file, tipo).subscribe((res: any) => {
       
       this.foto = res;
-      console.log(this.foto);
-      
+
       this.guardado = false;
       this.form.controls['foto'].patchValue({id: '',publicId: res.publicId, url: res.url});
 
@@ -216,7 +256,11 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
   borrarImagen(img: Foto) {
     if(this.foto){
-      this.fotosService.borrarImagen(img.publicId).subscribe();
+      this.fotosService.borrarImagen('convenio', this.convenio.id.toString(), img.publicId).subscribe();
+      this.foto = null;
+      this.fotoAnterior = null;
+      this.form.controls['foto'].reset();
+
     }
   }
 
@@ -231,15 +275,6 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
       this.form.controls['usuario'].patchValue({contrasena: this.contrasena});
     }
   }
-
-  /* asignarFechaAltaUsuario(fecha: string) {
-    this.form.controls['usuario'].patchValue({ fechaAlta: fecha });
-  }
-  asignarFechaBajaUsuario(fecha: string) {
-    this.form.controls['usuario'].patchValue({ fechaBaja: fecha });
-  } */
-
-
 
   // VALIDACIONES
 
@@ -280,7 +315,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
 
   crearForm() {
     this.form = this.fb.group({
-      id: [''],
+      id: [],
       nombre: ['', [Validators.required]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')],],
       fechaAlta: [this.today , [Validators.required]],
@@ -321,7 +356,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-
+    
     this.form.controls['usuario'].patchValue({ fechaAlta: this.form.controls['fechaAlta'].value });
     this.form.controls['usuario'].patchValue({ fechaBaja:  this.form.controls['fechaBaja'].value });
     this.form.controls['usuario'].patchValue({ baja:  this.form.controls['baja'].value });
@@ -366,7 +401,7 @@ export class FormConveniosComponent implements OnInit, OnDestroy {
       },
     })
 
-    this.location.back();
+    this.volver();
   }
 
   volver() {
