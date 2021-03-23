@@ -22,8 +22,7 @@ export class InicioComponent implements OnInit {
   constructor(  private conveniosService: ConveniosService,
                 private sociosService: SociosService,
                 private descuentosService: DescuentosService,
-                private tokenService: TokenService,
-                private auth: AuthService) { }
+                private tokenService: TokenService) { }
 
   ngOnInit(): void {
 
